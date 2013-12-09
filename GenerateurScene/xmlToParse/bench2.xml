@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeu>
+	<titre-du-jeu>Jeu</titre-du-jeu>
+	<fenetre>
+		<useGL20>true</useGL20>
+		<largeur>800</largeur>
+		<hauteur>600</hauteur>
+		<redimensionnable>true</redimensionnable>
+	</fenetre>
+	<scene>
+		<fond image="assets/player.png"/>
+		<elements>
+			<objet id="1" x="" y ="" />
+			<objet id="1" x="" y ="" />
+			<objet id="2" x="0" y ="0" />
+			<objet id="2" x="100" y ="100" />
+			<objet id="2" x="200" y ="200" />
+			<objet id="2" x="250" y ="450" />
+			<objet id="3" x="" y ="" />
+		</elements>
+	</scene>
+	<artefacts>
+	    <artefact id="rambo" image="assets/monster.png" texte="" son="" />
+	    <artefact id="monstre" image="assets/monstre.png" texte="" son="" repet="6"/>
+	    <artefact id="explosion" image="assets/explode.png" texte="" son=""/>
+		<artefact id="bullet" image="assets/bullet.png" texte="" son=""/>
+	</artefacts>
+	<agents>
+		<agent id="bullet" script="bulletAI.java"/>
+		<agent id="monstre" script="monsterAI.java"/>
+		<agent id="rambo" script="playerAI.java"/>
+	</agents>
+	<mapping>
+		<objet id="1">
+			<artefact id="bullet" image="assets/bullet.png" texte="" son=""/>
+			<agent id="bullet" script="BulletAI"/>
+		</objet>
+		<objet id="2">
+			<artefact id="monstre" image="assets/monster.png" texte="" son=""/>
+			<agent id="monstre" script="MonsterAI"/>
+		</objet>
+		<objet id="3">
+			<artefact id="rambo" image="assets/player.png" texte="" son="" />
+			<agent id="rambo" script="PlayerAI"/>
+		</objet>
+	</mapping>
+</jeu>
