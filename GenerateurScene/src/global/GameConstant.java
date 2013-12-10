@@ -8,11 +8,11 @@ import org.jdom2.Element;
 
 public class GameConstant {
 
-	private static getXML.GetXML XML = new getXML.GetXML(StartGame.MAINXML); // lis le xML chargé dans le main
+	
 	public static final String FONT_STANDARD = "";
-	public static final String SCENE_TITLE = XML.getTitre();
+	public static final String SCENE_TITLE = StartGame.XML.getTitre();
 	public static final String SCENE_JEU = "Game";
-    public static final String TEXTURE_BG = XML.getImageFond();
+    public static final String TEXTURE_BG = StartGame.XML.getImageFond();
 	public static final String TEXTURE_RAMBO = recupSkinPlayer();
 	public static final String TEXTURE_MONSTRE = recupSkinMonster();
 	public static final String TEXTURE_EXPLOSION = recupSkinExplo();
@@ -23,7 +23,7 @@ public class GameConstant {
 	
 	public static String recupSkinPlayer(){
 		String ret="";
-		Iterator<Element> i = XML.getArtefacts().iterator();	
+		Iterator<Element> i = StartGame.XML.getArtefacts().iterator();	
     	while (i.hasNext()) {
     		Element courant = (Element)i.next();
     		if ( courant.getAttributeValue("id").equals("rambo")){
@@ -35,10 +35,10 @@ public class GameConstant {
 	
 	public static String recupSkinMonster(){
 		String ret="";
-		Iterator<Element> i = XML.getArtefacts().iterator();	
+		Iterator<Element> i = StartGame.XML.getArtefacts().iterator();	
     	while (i.hasNext()) {
     		Element courant = (Element)i.next();
-    		if ( courant.getAttributeValue("id").equals("monstre")){
+    		if ( courant.getAttributeValue("id").equals("monster")){
     			ret = courant.getAttributeValue("image");
     		}
     	}
@@ -47,7 +47,7 @@ public class GameConstant {
 	
 	public static String recupSkinExplo(){
 		String ret="";
-		Iterator<Element> i = XML.getArtefacts().iterator();	
+		Iterator<Element> i = StartGame.XML.getArtefacts().iterator();	
     	while (i.hasNext()) {
     		Element courant = (Element)i.next();
     		if ( courant.getAttributeValue("id").equals("explosion")){
@@ -59,7 +59,7 @@ public class GameConstant {
 	
 	public static String recupSkinBullet(){
 		String ret="";
-		Iterator<Element> i = XML.getArtefacts().iterator();	
+		Iterator<Element> i = StartGame.XML.getArtefacts().iterator();	
     	while (i.hasNext()) {
     		Element courant = (Element)i.next();
     		if ( courant.getAttributeValue("id").equals("bullet")){

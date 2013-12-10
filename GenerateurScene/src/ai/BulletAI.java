@@ -17,6 +17,13 @@ public class BulletAI extends ActorAI<Bullet>{
 		plan = a;
 		this.bulletid = id;
 	}
+	
+	public void createAI(int id , Bullet b, float x, float y){
+		super.createAI(b);
+		MoveToAction a = new MoveToAction(this.actor.getMyArtefact(), 100, x,y);
+		plan = a;
+		this.bulletid = id;
+	}
 
 	@Override
 	public void onUpdate(int delta) {

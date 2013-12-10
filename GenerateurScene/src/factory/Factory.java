@@ -3,16 +3,16 @@ package factory;
 public class Factory {
 
 	
-	public Object createAI(String type , String args){
-		Object ret;
+	public static Object createAI(String type){
+		Object ret = null;
 		getXML.GetXML XML = new getXML.GetXML(main.StartGame.MAINXML);
 		
 		if (type.equals(XML.getplayerAI()))
-				ret = new ai.PlayerAI();
+				ret = new ai.PlayerAI(null);
 		else if (type.equals(XML.getmonsterAI()))
-			ret = new ai.MonsterAI();
+			ret = new ai.MonsterAI(null, null, null, null);
 		else if (type.equals(XML.getbulletAI()))
-			ret = new ai.BulletAI();
+			ret = new ai.BulletAI(0, null, 0, 0);
 		
 		return ret;
 	}

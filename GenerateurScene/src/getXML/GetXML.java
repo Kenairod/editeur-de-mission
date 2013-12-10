@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
+
+import main.StartGame;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -21,7 +25,6 @@ public class GetXML {
 	private String imageFond;
 	private List<Element> elementsScene;
 	private List<Element> artefacts;
-	private List<Element> agents;
 	private List<Element> mapping;
 	
 	
@@ -64,8 +67,6 @@ public class GetXML {
             this.elementsScene = elements.getChildren();
             Element artefacts = noeudRacine.getChild("artefacts");
             this.artefacts = artefacts.getChildren();
-            Element agents = noeudRacine.getChild("agents");
-            this.agents = agents.getChildren();
             Element mapping = noeudRacine.getChild("mapping");
             this.mapping = mapping.getChildren();
     }
@@ -100,21 +101,13 @@ public class GetXML {
     		Element courant = (Element)i.next();
     		ret = ret + "id de l'Artefact : "+courant.getAttributeValue("id")+"\n";
     		System.out.println(courant.getAttributeValue("id")+"\n");
-    		if (courant.getAttributeValue("id").equals("monstre"))
+    		if (courant.getAttributeValue("id").equals("monster"))
     			ret = ret + "nombre de repetition de l'Artefact : "+courant.getAttributeValue("repet")+"\n";
     		ret = ret + "URL Image : "+courant.getAttributeValue("image")+"\n";
     		ret = ret + "Texte : "+courant.getAttributeValue("texte")+"\n";
     		ret = ret + "URL Son : "+courant.getAttributeValue("son")+"\n\n";
     	}
     	
-    	ret = ret + "========Agents enregistres========\n";
-    	i = this.agents.iterator();
-    	
-    	while (i.hasNext()) {
-    		Element courant = (Element)i.next();
-    		ret = ret + "id de l'Agent : "+courant.getAttributeValue("id")+"\n";
-    		ret = ret + "URL du script : "+courant.getAttributeValue("script")+"\n\n";
-	    }
     	
     	ret = ret + "========Mapping========\n";
     	i = this.mapping.iterator();
@@ -164,11 +157,8 @@ public class GetXML {
 		return artefacts;
 	}
 
-	public List<Element> getAgents() {
-		return agents;
-	}
 	
-	public String getmonsterAI() {
+	public String getmonsterAI() { // retourne un string contenant le nom de la classe possedant l'AI du monstre dans le mapping
 		String ret = "";
 		Iterator i = this.mapping.iterator();
     	
@@ -177,7 +167,7 @@ public class GetXML {
     		Iterator j = courant.getChildren().iterator();
     		Element Courant = (Element)j.next();
     		
-    		if (Courant.getAttributeValue("id").equals("monstre")){	
+    		if (Courant.getAttributeValue("id").equals("monster")){	
 	    		Courant = (Element)j.next();
 	    		ret = Courant.getAttributeValue("script")+"\n";
     		}
@@ -185,7 +175,7 @@ public class GetXML {
 		return ret;
 	}
 	
-	public String getbulletAI() {
+	public String getbulletAI() { // retourne un string contenant le nom de la classe possedant l'AI de la balle dans le mapping
 		String ret = "";
 		Iterator i = this.mapping.iterator();
     	
@@ -202,7 +192,7 @@ public class GetXML {
 		return ret;
 	}
 	
-	public String getplayerAI() {
+	public String getplayerAI() { // retourne un string contenant le nom de la classe possedant l'AI du joueur dans le mapping
 		String ret = "";
 		Iterator i = this.mapping.iterator();
     	
@@ -219,16 +209,119 @@ public class GetXML {
 		return ret;
 	}
 	
-	public int getNbMonsters() {
-		Iterator i = this.artefacts.iterator();
+	public String getMapID(String s) { // retourne un string contenant l'id du monstre dans le mapping
+		String ret = "";
+		Iterator i = this.mapping.iterator();
+    	
+    	while (i.hasNext()) {
+    		Element courant = (Element)i.next();
+    		Iterator j = courant.getChildren().iterator();
+    		Element Courant = (Element)j.next();
+    		
+    		if (Courant.getAttributeValue("id").equals(s)){	
+	    		Courant = (Element)j.next();
+	    		ret = courant.getAttributeValue("id");
+    		}
+	    }		
+		return ret;
+	}
+	
+	public String getplayerMapID() { // retourne un string contenant l'id du joueur dans le mapping
+		String ret = "";
+		Iterator i = this.mapping.iterator();
+    	
+    	while (i.hasNext()) {
+    		Element courant = (Element)i.next();
+    		Iterator j = courant.getChildren().iterator();
+    		Element Courant = (Element)j.next();
+    		
+    		if (Courant.getAttributeValue("id").equals("rambo")){	
+	    		Courant = (Element)j.next();
+	    		ret = courant.getAttributeValue("id");
+    		}
+	    }		
+		return ret;
+	}
+	
+	public int getNbIterations(String s) { // retourne un int du nombre de monstres instanciés dans les objets
+		Iterator i = this.elementsScene.iterator();
     	int ret = 0;
     	
     	while (i.hasNext()) {
     		Element courant = (Element)i.next();
-    		if (courant.getAttributeValue("id").equals("monstre"))
-    			ret = Integer.parseInt(courant.getAttributeValue("repet"));
+    		if (courant.getAttributeValue("id").equals(getMapID(s)))
+    			ret++;
     	}
     	return ret;
+    }
+	
+	public String getPos(String s) {  // retourne un string de la suite de la position des objets instanciés ayant le nom donné dans le string
+		String ret ="";
+		Iterator i = this.elementsScene.iterator();
+
+    	while (i.hasNext()) {
+    		Element courant = (Element)i.next();
+    		
+    		if (courant.getAttributeValue("id").equals(getMapID(s))){
+    			ret = ret + courant.getAttributeValue("x") + " ";
+    			ret = ret + courant.getAttributeValue("y") + " ";
+    		}
+    	}
+    	return ret;	
 	}
+	
+	public float getPlayerx() {  // retourne un string de la position du joueur instancié dans les objets
+		String temp ="";
+		float ret;
+		Iterator i = this.elementsScene.iterator();
+
+    	while (i.hasNext()) {
+    		Element courant = (Element)i.next();
+    		
+    		if (courant.getAttributeValue("id").equals(getplayerMapID())) {
+    			temp = temp + courant.getAttributeValue("x") + " ";
+    			temp = temp + courant.getAttributeValue("y") + " ";
+    		}
+    	}
+    	Scanner sc = new Scanner(temp); // Scanner sur le temp des pos de création du joueur
+		ret = (float) sc.nextInt();
+    	return ret;	
+	}
+	
+	public float getPlayery() {  // retourne un string de la position du joueur instancié dans les objets
+		String temp ="";
+		float ret;
+		Iterator i = this.elementsScene.iterator();
+
+    	while (i.hasNext()) {
+    		Element courant = (Element)i.next();
+    		
+    		if (courant.getAttributeValue("id").equals(getplayerMapID())) {
+    			temp = temp + courant.getAttributeValue("x") + " ";
+    			temp = temp + courant.getAttributeValue("y") + " ";
+    		}
+    	}
+    	Scanner sc = new Scanner(temp); // Scanner sur le temp des pos de création du joueur
+    	sc.nextInt();
+		ret = (float) sc.nextInt();
+    	return ret;	
+	}
+	
+	public String gettoLoad( String s ){
 		
+		String toLoad ="";
+		int nbMonsters = StartGame.XML.getNbIterations(s); // lis le fichier XML et recupere repet de l'artefact s
+		Scanner sc = new Scanner(StartGame.XML.getPos(s)); // Scanner sur le srting des pos de création de s
+		
+		for (int i = 0; i < nbMonsters ; i++ ){ // boucle pour generer le string de création
+			toLoad = toLoad + s + " ";
+			int x = sc.nextInt();
+			int y = sc.nextInt();
+			toLoad = toLoad + x + " " + y +" ;";
+		}
+		
+		return toLoad;
+	}
+	
+	
 }

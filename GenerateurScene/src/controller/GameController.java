@@ -86,6 +86,7 @@ public class GameController implements BenchGameController {
 			float x1, float y1,
 			float velocity
 	) 
+	
 	{
 		float heading = (float) Math.atan2(x1-x0,y1-y0);
 		int i= this.model.createBullet(x0,y0,heading);
