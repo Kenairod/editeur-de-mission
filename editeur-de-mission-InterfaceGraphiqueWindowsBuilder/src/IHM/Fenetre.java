@@ -248,4 +248,4 @@ public class Fenetre extends JFrame {
 		this.setJMenuBar(menuBar);
 		this.revalidate();
 	}
-}mabite
+}
