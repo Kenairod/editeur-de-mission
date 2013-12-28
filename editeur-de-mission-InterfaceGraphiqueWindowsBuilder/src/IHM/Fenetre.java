@@ -172,7 +172,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	/**
-	 * Permet de crÃ©er le split sÃ©parant la scÃ¨ne et le panneau latÃ©ral
+	 * Permet de créer le split séparant la scène et le panneau latéral
 	 */
 	public void initSplit() {
 		MainPanel principal = new MainPanel();
