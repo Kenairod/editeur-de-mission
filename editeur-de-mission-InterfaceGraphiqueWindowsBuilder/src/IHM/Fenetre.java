@@ -1,6 +1,8 @@
 package IHM;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
@@ -212,6 +214,12 @@ public class Fenetre extends JFrame {
 		this.fichier.addSeparator();//-------
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
 		this.fichier.add(quitter);
+		// Fermeture de la fenêtre en appuyant sur "Exit"
+		quitter.addActionListener(new ActionListener(){ 
+			public void actionPerformed(ActionEvent e) { 
+				 dispose(); 
+			}      
+		});   
 		//Menu edition
 		precedent.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
 		this.edition.add(precedent);
