@@ -214,7 +214,7 @@ public class Fenetre extends JFrame {
 		this.fichier.addSeparator();//-------
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
 		this.fichier.add(quitter);
-		// Fermeture de la fenêtre en appuyant sur "Exit"
+		// Fermeture de la fenêtre en appuyant sur 'Exit'
 		quitter.addActionListener(new ActionListener(){ 
 			public void actionPerformed(ActionEvent e) { 
 				 dispose(); 
