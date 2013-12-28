@@ -116,25 +116,25 @@ public class Fenetre extends JFrame {
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
 	
 	/**
-	 * La pane permettant de splitter la scène et le panneau latéral
+	 * La pane permettant de splitter la scÃ¨ne et le panneau latÃ©ral
 	 */
 	private JSplitPane split;
 	/**
-	 * La pane qui permet de scroller dans le panneau latéral
+	 * La pane qui permet de scroller dans le panneau latÃ©ral
 	 */
 	private JScrollPane scroll;
 	/**
-	 * La pane où se trouve les objets
+	 * La pane oÃ¹ se trouve les objets
 	 */
 	private JTree arbre;
 	
 	
 	/**
-	 * Constructeur par défaut
+	 * Constructeur par dÃ©faut
 	 * Create the frame.
 	 */
 	public Fenetre() {
-		setTitle("Bianji - Éditeur de jeu vidéo");
+		setTitle("Bianji - Ã‰diteur de jeu vidÃ©o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -150,12 +150,12 @@ public class Fenetre extends JFrame {
 	}
 
 	/**
-	 * Permet de créer l'arbre du paneau latéral
+	 * Permet de crÃ©er l'arbre du paneau latÃ©ral
 	 */
 	public void initTree() {
 		DefaultMutableTreeNode racine = new DefaultMutableTreeNode("Objets");
 		for(int j = 1; j < 5; j++){
-			DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode("Objet n°" + j);
+			DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode("Objet nÂ°" + j);
 			racine.add(rep2);
 		}
 		this.arbre = new JTree(racine);
@@ -164,7 +164,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	/**
-	 * Permet de créer le scroll du panneau latéral
+	 * Permet de crÃ©er le scroll du panneau latÃ©ral
 	 */
 	public void initScroll() {
 		this.scroll = new JScrollPane(this.arbre);
@@ -174,7 +174,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	/**
-	 * Permet de créer le split séparant la scène et le panneau latéral
+	 * Permet de crÃ©er le split sÃ©parant la scÃ¨ne et le panneau latÃ©ral
 	 */
 	public void initSplit() {
 		MainPanel principal = new MainPanel();
@@ -214,7 +214,7 @@ public class Fenetre extends JFrame {
 		this.fichier.addSeparator();//-------
 		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
 		this.fichier.add(quitter);
-		// Fermeture de la fenêtre en appuyant sur "Exit"
+		// Fermeture de la fenÃªtre en appuyant sur "Exit"
 		quitter.addActionListener(new ActionListener(){ 
 			public void actionPerformed(ActionEvent e) { 
 				 dispose(); 
