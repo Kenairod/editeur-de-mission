@@ -18,11 +18,11 @@ public class EditeurVue implements Observer {
 		this.fenetre.repaint();
 	}
 	
-	public void saveProject(){
+	public void saveProject() {
 		this.controler.saveProject();
 	}
 	
-	public void importProject(String path){
+	public void importProject(String path) {
 		this.controler.importProject(path);
 	}
 	

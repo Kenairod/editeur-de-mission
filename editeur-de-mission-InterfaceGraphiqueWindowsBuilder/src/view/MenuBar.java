@@ -272,12 +272,12 @@ public class MenuBar {
 			about.setVisible(true);
 	}
 	
-	public void saveProject(){
+	public void saveProject() {
 		this.fenetre.saveProject();
 		JOptionPane.showMessageDialog(null,"Projet Sauvegardé", "Save",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	public void newProject(){
+	public void newProject() {
 		String name = JOptionPane.showInputDialog(null, "Nom du Projet ?", "Nom du Projet", JOptionPane.QUESTION_MESSAGE);
 		if (name != null) {
 		    if(name.length()!=0) {

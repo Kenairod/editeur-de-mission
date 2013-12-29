@@ -96,11 +96,11 @@ public class Fenetre extends JFrame{
 			this.initSplit();
 		}
 		
-		public void saveProject(){
+		public void saveProject() {
 			this.vue.saveProject();
 		}
 		
-		public void importProject(String path){
+		public void importProject(String path) {
 			this.vue.importProject(path);
 		}
 		

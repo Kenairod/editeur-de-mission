@@ -13,11 +13,11 @@ public class EditeurControler {
 		this.modele.addObserver(this.vue);
 	}
 	
-	public void saveProject(){
+	public void saveProject() {
 		this.modele.createXML();
 	}
 	
-	public void importProject(String path){
+	public void importProject(String path) {
 		EditeurModele modele = new EditeurModele(path);
 		System.out.println(modele);
 	}
