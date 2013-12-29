@@ -1,6 +1,9 @@
-package IHM;
+package main;
 
 import java.awt.EventQueue;
+
+import view.Fenetre;
+
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package IHM;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -16,6 +16,7 @@ import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
+
 
 public class Fenetre extends JFrame {
 
@@ -111,7 +112,7 @@ public class Fenetre extends JFrame {
 	 */
 	private JMenuItem aideItem = new JMenuItem("Help");
 	/**
-	 * L'item exit
+	 * L'item à propos
 	 */
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
 	
@@ -174,7 +175,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	/**
-	 * Permet de créer le split séparant la scène et le panneau latéral
+	 * Permet de créer le split séparant la sène et le panneau latéral
 	 */
 	public void initSplit() {
 		MainPanel principal = new MainPanel();
