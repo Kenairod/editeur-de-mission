@@ -14,7 +14,7 @@ public class Main {
 		EditeurControler ctrl = new EditeurControler(modele);
 		EditeurModele bench = new EditeurModele("xml/bench.xml");
 		System.out.println(bench);
-		bench.createXML("xml/copieDeBench");
+		//bench.createXML("xml/copieDeBench");
 	}
 	
 }

@@ -51,7 +51,7 @@ public class MenuBar {
 	/**
 	 * L'item fermer
 	 */
-	private JMenuItem fermer = new JMenuItem("Close Document");
+	//private JMenuItem fermer = new JMenuItem("Close Document");
 	/**
 	 * L'item enregistrer
 	 */
@@ -59,7 +59,7 @@ public class MenuBar {
 	/**
 	 * L'item enregistrer sous
 	 */
-	private JMenuItem enregistrer_sous = new JMenuItem("Save As");
+	//private JMenuItem enregistrer_sous = new JMenuItem("Save As");
 	/**
 	 * L'item print
 	 */
@@ -112,7 +112,7 @@ public class MenuBar {
 	 */
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
 	
-	private String nomFichier;
+	//private String nomFichier;
 	
 	public MenuBar (Fenetre fenetre) {
 		this.fenetre = fenetre;
@@ -272,7 +272,7 @@ public class MenuBar {
 	}
 	
 	public void saveProject(){
-		this.fenetre.saveProject(this.nomFichier);
+		this.fenetre.saveProject(this.fenetre.getTitre());
 		JOptionPane.showMessageDialog(null,"Projet Sauvegardé", "Save",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
@@ -280,7 +280,7 @@ public class MenuBar {
 		String name = JOptionPane.showInputDialog(null, "Nom du Projet ?", "Nom du Projet", JOptionPane.QUESTION_MESSAGE);
 		if (name != null) {
 		    if(name.length()!=0) {
-		    	this.nomFichier = name;
+		    	this.fenetre.setTitre(name);
 				this.fenetre.newProject();
 				nouveau.setEnabled(false);
 				enregistrer.setEnabled(true);

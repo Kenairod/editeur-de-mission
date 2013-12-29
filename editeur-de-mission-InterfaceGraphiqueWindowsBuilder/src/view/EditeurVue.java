@@ -20,9 +20,13 @@ public class EditeurVue implements Observer {
 	
 	public void saveProject(String nomProjet){
 		this.controler.saveProject(nomProjet);
-		/*new CreateXML(fenetre.getProject().getProject());
-		JOptionPane.showMessageDialog(null,
-				"Projet Sauvegardé", "Save",
-				JOptionPane.INFORMATION_MESSAGE);*/
+	}
+	
+	public void setTitre(String name) {
+		this.controler.setTitre(name);
+	}
+	
+	public String getTitre() {
+		return this.controler.getTitre();
 	}
 }

@@ -16,4 +16,12 @@ public class EditeurControler {
 	public void saveProject(String nomProjet){
 		this.modele.createXML(nomProjet);
 	}
+	
+	public void setTitre(String name) {
+		this.modele.setTitre(name);
+	}
+	
+	public String getTitre() {
+		return this.modele.getTitre();
+	}
 }

@@ -102,6 +102,13 @@ public class Fenetre extends JFrame{
 			this.vue.saveProject(nomProjet);
 		}
 		
+		public void setTitre(String name) {
+			this.vue.setTitre(name);
+		}
+		
+		public String getTitre() {
+			return this.vue.getTitre();
+		}
 		/*public Project getProject() {
 			return this.project;
 		}
