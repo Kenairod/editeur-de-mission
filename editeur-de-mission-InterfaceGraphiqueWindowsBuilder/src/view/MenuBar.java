@@ -117,6 +117,11 @@ public class MenuBar {
 		
 		nouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
 		this.fichier.add(nouveau);
+		nouveau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				newProject();    
+			}
+	    });
 		
 		ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
 		this.fichier.add(ouvrir);
@@ -126,19 +131,24 @@ public class MenuBar {
 			}
 	    });
 		
-		fermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.CTRL_DOWN_MASK));
+		/*fermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.CTRL_DOWN_MASK));
 		this.fichier.add(fermer);
-		fermer.setEnabled(false);
+		fermer.setEnabled(false);*/
 		
 		this.fichier.addSeparator();//-------
 		
 		enregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
 		this.fichier.add(enregistrer);
-		enregistrer.setEnabled(false);
+		//enregistrer.setEnabled(false);
+		enregistrer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				saveProject(); 
+			}
+	    });	 
 		
-		enregistrer_sous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK + KeyEvent.SHIFT_DOWN_MASK));
+		/*enregistrer_sous.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK + KeyEvent.SHIFT_DOWN_MASK));
 		this.fichier.add(enregistrer_sous);
-		enregistrer_sous.setEnabled(false);
+		enregistrer_sous.setEnabled(false);*/
 		
 		/*this.fichier.addSeparator();//-------
 		 
@@ -245,6 +255,13 @@ public class MenuBar {
 			about.add(aboutLabel);
 			about.setLocationRelativeTo(null);
 			about.setVisible(true);
+	}
+	
+	public void saveProject(){
+		new XMLExport(editeur.getProject().getProject());
+		JOptionPane.showMessageDialog(null,
+				"Projet Sauvegardé", "Save",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }
