@@ -2,7 +2,7 @@ package main;
 
 import java.awt.EventQueue;
 
-import view.Fenetre;
+import view.Editeur;
 
 
 public class Main {
@@ -14,7 +14,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fenetre frame = new Fenetre();
+					Editeur frame = new Editeur();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
