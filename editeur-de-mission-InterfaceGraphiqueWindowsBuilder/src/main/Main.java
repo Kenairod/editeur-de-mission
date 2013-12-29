@@ -2,6 +2,7 @@ package main;
 
 import java.awt.EventQueue;
 
+import model.EditeurModele;
 import view.Editeur;
 
 
@@ -20,6 +21,9 @@ public class Main {
 				}
 			}
 		});
+		EditeurModele bench = new EditeurModele("xml/bench.xml");
+		System.out.println(bench);
+		bench.createXML("xml/copieDeBench.xml");
 	}
 	
 }
