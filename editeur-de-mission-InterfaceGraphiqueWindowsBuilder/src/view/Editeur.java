@@ -10,6 +10,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
+import controler.Project;
+
 
 public class Editeur extends JFrame {
 
@@ -29,12 +31,13 @@ public class Editeur extends JFrame {
 	private JList liste;
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
-	
+	private Project project;
 	/**
 	 * Constructeur par défaut
 	 * Create the frame.
 	 */
 	public Editeur() {
+		this.project = null;
 		setTitle("Bianji - Éditeur de jeu vidéo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
@@ -46,9 +49,9 @@ public class Editeur extends JFrame {
 		MenuBar menuBar = new MenuBar(this);
 	    this.setJMenuBar(menuBar.getMenuBar());
 		this.setVisible(true);
-		this.initTree();
+		/*this.initTree();
 		this.initScroll();
-		this.initSplit();
+		this.initSplit();*/
 	}
 
 	/**
@@ -88,6 +91,20 @@ public class Editeur extends JFrame {
 		this.split.setOneTouchExpandable(true);
 		this.split.setDividerLocation(200);
 		this.revalidate();
+	}
+	
+	public void newProject () {
+		this.initTree();
+		this.initScroll();
+		this.initSplit();
+	}
+	
+	public Project getProject() {
+		return this.project;
+	}
+	
+	public void setProject(Project project) {
+		this.project = project;
 	}
 	
 }

@@ -76,52 +76,6 @@ public class EditeurModele {
     	 this.mapping = new ArrayList<Element>();
      }
      
-     public EditeurModele(String fichier) {
- 		//La lecture se fait à l'aide d'une contructeur SAX
- 		SAXBuilder ConstructSAX = new SAXBuilder();
- 		//On récupère le fichier source
- 		File file = new File(fichier);
- 		        
- 		try {
- 			//On convertit le fichier en objet Document à l'aide du constructeur SAX
- 			Document document = ConstructSAX.build(file);
- 			//On récupère le noeud racine
- 			Element noeudRacine = document.getRootElement();
- 			
- 			//On récupère le texte contenu dans la balise passée en paramètre
- 			this.titre = noeudRacine.getChildText("titre-du-jeu");
- 			
- 			//On récupère le fils de noeudRacine qui s'appelle fenetre
- 			Element fenetre = noeudRacine.getChild("fenetre");
- 			//On récupère le texte contenu dans la balise useGL20 contenue dans fenêtre
- 			if (fenetre.getChildText("useGL20").equals("true")) {
- 				this.gl20 = true;
- 			}
- 			else this.gl20 = false;
- 			if (fenetre.getChildText("redimensionnable").equals("true")) {
- 				this.redimensionnable = true;
- 			}
- 			else this.redimensionnable = false;
- 			this.largeur = Integer.parseInt(fenetre.getChildText("largeur"));
- 			this.hauteur = Integer.parseInt(fenetre.getChildText("hauteur"));
- 			
- 			Element scene = noeudRacine.getChild("scene");
- 			Element fond = scene.getChild("fond");
- 			//On récupère la valeur de l'attribue image de la balise fond contenue dans la balise scene
- 			this.imageFond = fond.getAttributeValue("image");
- 			
- 			Element elements = scene.getChild("elements");
- 			this.elementsScene = elements.getChildren();
- 			Element artefacts = noeudRacine.getChild("artefacts");
- 			this.artefacts = artefacts.getChildren();
- 			Element mapping = noeudRacine.getChild("mapping");
- 			this.mapping = mapping.getChildren();
- 		}
- 		catch (JDOMException | IOException e) {
- 			e.printStackTrace();
- 		}
- 	}
-     
      
      /**
       * Constructeur initialisant tous les paramètres
@@ -220,6 +174,51 @@ public class EditeurModele {
 	        }
      }
      
+	public EditeurModele(String fichier) {
+		//La lecture se fait à l'aide d'une contructeur SAX
+		SAXBuilder ConstructSAX = new SAXBuilder();
+		//On récupère le fichier source
+		File file = new File(fichier);
+		        
+		try {
+			//On convertit le fichier en objet Document à l'aide du constructeur SAX
+			Document document = ConstructSAX.build(file);
+			//On récupère le noeud racine
+			Element noeudRacine = document.getRootElement();
+			
+			//On récupère le texte contenu dans la balise passée en paramètre
+			this.titre = noeudRacine.getChildText("titre-du-jeu");
+			
+			//On récupère le fils de noeudRacine qui s'appelle fenetre
+			Element fenetre = noeudRacine.getChild("fenetre");
+			//On récupère le texte contenu dans la balise useGL20 contenue dans fenêtre
+			if (fenetre.getChildText("useGL20").equals("true")) {
+				this.gl20 = true;
+			}
+			else this.gl20 = false;
+			if (fenetre.getChildText("redimensionnable").equals("true")) {
+				this.redimensionnable = true;
+			}
+			else this.redimensionnable = false;
+			this.largeur = Integer.parseInt(fenetre.getChildText("largeur"));
+			this.hauteur = Integer.parseInt(fenetre.getChildText("hauteur"));
+			
+			Element scene = noeudRacine.getChild("scene");
+			Element fond = scene.getChild("fond");
+			//On récupère la valeur de l'attribue image de la balise fond contenue dans la balise scene
+			this.imageFond = fond.getAttributeValue("image");
+			
+			Element elements = scene.getChild("elements");
+			this.elementsScene = elements.getChildren();
+			Element artefacts = noeudRacine.getChild("artefacts");
+			this.artefacts = artefacts.getChildren();
+			Element mapping = noeudRacine.getChild("mapping");
+			this.mapping = mapping.getChildren();
+		}
+		catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	 public String toString() {
          

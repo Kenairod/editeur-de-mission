@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import controler.Project;
+
 public class MenuBar {
 
 	private Editeur editeur;
@@ -220,6 +222,17 @@ public class MenuBar {
 		
 		this.editeur.setJMenuBar(menuBar);
 		this.editeur.revalidate();
+		
+		 if (editeur.getProject() == null) {
+		    	enregistrer.setEnabled(false);
+		    	coller.setEnabled(false);
+		    	copier.setEnabled(false);
+		    	couper.setEnabled(false);
+		    	suivant.setEnabled(false);
+		    	precedent.setEnabled(false);
+		    	zoom.setEnabled(false);
+		    	dezoom.setEnabled(false);
+		    }
 	}
 	
 	public JMenuBar getMenuBar() {
@@ -258,10 +271,33 @@ public class MenuBar {
 	}
 	
 	public void saveProject(){
-		new XMLExport(editeur.getProject().getProject());
+		/*new CreateXML(editeur.getProject().getProject());
 		JOptionPane.showMessageDialog(null,
 				"Projet Sauvegardé", "Save",
-				JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.INFORMATION_MESSAGE);*/
+	}
+	
+	public void newProject(){
+		String name = JOptionPane.showInputDialog(null, "Nom du Projet ?", "Nom du Projet", JOptionPane.QUESTION_MESSAGE);
+		
+	    if(name.length()!=0) {
+	    	this.editeur.setProject(new Project(name));
+			this.editeur.newProject();
+			nouveau.setEnabled(false);
+			enregistrer.setEnabled(true);
+	    	coller.setEnabled(true);
+	    	copier.setEnabled(true);
+	    	couper.setEnabled(true);
+	    	suivant.setEnabled(true);
+	    	precedent.setEnabled(true);
+	    	zoom.setEnabled(true);
+	    	dezoom.setEnabled(true);
+	    }
+		else {
+	    	JOptionPane.showMessageDialog(null,
+	    			"Nom Incorrect...", "Nom Incorrect", JOptionPane.ERROR_MESSAGE);
+	    	newProject();
+		}
 	}
 
 }

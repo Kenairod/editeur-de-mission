@@ -11,7 +11,7 @@ public class MainPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public MainPanel() {
-		this.setBackground(Color.BLUE);
+		this.setBackground(Color.white);
 	}
 	
 	public void paintComponent(Graphics g){
