@@ -4,19 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
@@ -132,7 +130,8 @@ public class Editeur extends JFrame {
 	/**
 	 * La pane où se trouve les objets
 	 */
-	private JTree arbre;
+	private JList liste;
+	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	
 	
 	/**
@@ -159,9 +158,12 @@ public class Editeur extends JFrame {
 	 * Permet de créer l'arbre du paneau latéral
 	 */
 	public void initTree() {
-		DefaultMutableTreeNode racine = new DefaultMutableTreeNode("Objets");
-		this.arbre = new JTree(racine);
-		this.getContentPane().add(this.arbre, BorderLayout.CENTER);
+		String[] objets = new String[3];
+		objets[0]  = "obj 1";
+		objets[1]  = "obj 2";
+		objets[2]  = "obj 3";
+		this.liste = new JList(objets);
+		this.getContentPane().add(this.tabbedPane, BorderLayout.CENTER);
 		this.revalidate();
 	}
 	
@@ -169,9 +171,13 @@ public class Editeur extends JFrame {
 	 * Permet de créer le scroll du panneau latéral
 	 */
 	public void initScroll() {
-		this.scroll = new JScrollPane(this.arbre);
+		this.scroll = new JScrollPane(this.tabbedPane);
 		//this.scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		this.getContentPane().add(this.scroll, BorderLayout.CENTER);
+		
+		scroll.setColumnHeaderView(tabbedPane);
+		
+		this.tabbedPane.addTab("Object", this.liste);
 		this.revalidate();
 	}
 	
