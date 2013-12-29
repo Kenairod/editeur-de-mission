@@ -15,10 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTree;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class Editeur extends JFrame {
@@ -289,9 +288,14 @@ public class Editeur extends JFrame {
 	
 	private class OpenListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			JFileChooser dialogue = new JFileChooser();	 // création de la boîte de dialogue
-            dialogue.showOpenDialog(null);	// affichage
-            //System.out.println("Fichier choisi : " + dialogue.getSelectedFile());	// récupération du fichier sélectionné
+			JFileChooser chooser = new JFileChooser();
+	        // create filter
+	        FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("XML Files (*.xml)", "xml");
+	        // add filter
+	        chooser.addChoosableFileFilter(xmlFilter);
+	        // set selected filter
+	        chooser.setFileFilter(xmlFilter);
+	        chooser.showOpenDialog(null);
 			}
 		}
 
