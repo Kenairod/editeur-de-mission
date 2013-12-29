@@ -14,11 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controler.Project;
-
 public class MenuBar {
 
-	private Editeur editeur;
+	private Fenetre fenetre;
 	
 	/**
 	 * La barre de menu principal
@@ -114,8 +112,10 @@ public class MenuBar {
 	 */
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
 	
-	public MenuBar (Editeur editeur) {
-		this.editeur = editeur;
+	private String nomFichier;
+	
+	public MenuBar (Fenetre fenetre) {
+		this.fenetre = fenetre;
 		
 		nouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
 		this.fichier.add(nouveau);
@@ -220,10 +220,10 @@ public class MenuBar {
 		aide.setMnemonic('H');
 		this.menuBar.add(aide);
 		
-		this.editeur.setJMenuBar(menuBar);
-		this.editeur.revalidate();
+		this.fenetre.setJMenuBar(menuBar);
+		this.fenetre.revalidate();
 		
-		 if (editeur.getProject() == null) {
+		/* if (fenetre.getProject() == null) {
 		    	enregistrer.setEnabled(false);
 		    	coller.setEnabled(false);
 		    	copier.setEnabled(false);
@@ -232,7 +232,7 @@ public class MenuBar {
 		    	precedent.setEnabled(false);
 		    	zoom.setEnabled(false);
 		    	dezoom.setEnabled(false);
-		    }
+		    }*/
 	}
 	
 	public JMenuBar getMenuBar() {
@@ -244,9 +244,9 @@ public class MenuBar {
 	}
 	
 	public void exitProject () {
-			int exit = JOptionPane.showConfirmDialog(this.editeur, "Voulez-vous vraiment quitter ?", "Exit", JOptionPane.OK_CANCEL_OPTION);
+			int exit = JOptionPane.showConfirmDialog(this.fenetre, "Voulez-vous vraiment quitter ?", "Exit", JOptionPane.OK_CANCEL_OPTION);
 			if(exit == 0) {
-				this.editeur.dispose();
+				this.fenetre.dispose();
 			}
 		}
 	
@@ -259,6 +259,7 @@ public class MenuBar {
 	        // set selected filter
 	        chooser.setFileFilter(xmlFilter);
 	        chooser.showOpenDialog(null);
+	        System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
 	}
 	
 	public void aboutProject () {
@@ -271,32 +272,31 @@ public class MenuBar {
 	}
 	
 	public void saveProject(){
-		/*new CreateXML(editeur.getProject().getProject());
-		JOptionPane.showMessageDialog(null,
-				"Projet Sauvegardé", "Save",
-				JOptionPane.INFORMATION_MESSAGE);*/
+		this.fenetre.saveProject(this.nomFichier);
+		JOptionPane.showMessageDialog(null,"Projet Sauvegardé", "Save",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void newProject(){
 		String name = JOptionPane.showInputDialog(null, "Nom du Projet ?", "Nom du Projet", JOptionPane.QUESTION_MESSAGE);
-		
-	    if(name.length()!=0) {
-	    	this.editeur.setProject(new Project(name));
-			this.editeur.newProject();
-			nouveau.setEnabled(false);
-			enregistrer.setEnabled(true);
-	    	coller.setEnabled(true);
-	    	copier.setEnabled(true);
-	    	couper.setEnabled(true);
-	    	suivant.setEnabled(true);
-	    	precedent.setEnabled(true);
-	    	zoom.setEnabled(true);
-	    	dezoom.setEnabled(true);
-	    }
-		else {
-	    	JOptionPane.showMessageDialog(null,
-	    			"Nom Incorrect...", "Nom Incorrect", JOptionPane.ERROR_MESSAGE);
-	    	newProject();
+		if (name != null) {
+		    if(name.length()!=0) {
+		    	this.nomFichier = name;
+				this.fenetre.newProject();
+				nouveau.setEnabled(false);
+				enregistrer.setEnabled(true);
+		    	coller.setEnabled(true);
+		    	copier.setEnabled(true);
+		    	couper.setEnabled(true);
+		    	suivant.setEnabled(true);
+		    	precedent.setEnabled(true);
+		    	zoom.setEnabled(true);
+		    	dezoom.setEnabled(true);
+		    }
+		    else {
+		    	JOptionPane.showMessageDialog(null,
+		    			"Nom Incorrect...", "Nom Incorrect", JOptionPane.ERROR_MESSAGE);
+		    	newProject();
+			}
 		}
 	}
 

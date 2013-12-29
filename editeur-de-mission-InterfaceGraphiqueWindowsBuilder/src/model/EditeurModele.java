@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -20,7 +21,8 @@ import org.jdom2.output.XMLOutputter;
  * @author Da Dream Team
  *
  */
-public class EditeurModele {
+public class EditeurModele extends Observable {
+	
 	/**
 	 * Le titre du jeu
 	 */
@@ -57,8 +59,6 @@ public class EditeurModele {
       * Les associations artefact/agent
       */
      private List<Element> mapping;
-     
-     
      
      
      /**
@@ -167,7 +167,7 @@ public class EditeurModele {
 	         
 	         //On génère
 	         xmlOutput.setFormat(Format.getPrettyFormat());  
-	         xmlOutput.output(document, new FileWriter(pathOut));  
+	         xmlOutput.output(document, new FileWriter("./"+pathOut+".xml"));  
 	        
 	     	} catch (IOException io) {  
 	        	System.out.println(io.getMessage());  
