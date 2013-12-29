@@ -160,10 +160,6 @@ public class Editeur extends JFrame {
 	 */
 	public void initTree() {
 		DefaultMutableTreeNode racine = new DefaultMutableTreeNode("Objets");
-		for(int j = 1; j < 5; j++){
-			DefaultMutableTreeNode rep2 = new DefaultMutableTreeNode("Objet n°" + j);
-			racine.add(rep2);
-		}
 		this.arbre = new JTree(racine);
 		this.getContentPane().add(this.arbre, BorderLayout.CENTER);
 		this.revalidate();
