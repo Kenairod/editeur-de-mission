@@ -223,7 +223,7 @@ public class MenuBar {
 		this.fenetre.setJMenuBar(menuBar);
 		this.fenetre.revalidate();
 		
-		/* if (fenetre.getProject() == null) {
+		if (fenetre.getNomProjet().length()==0) {
 		    	enregistrer.setEnabled(false);
 		    	coller.setEnabled(false);
 		    	copier.setEnabled(false);
@@ -232,7 +232,7 @@ public class MenuBar {
 		    	precedent.setEnabled(false);
 		    	zoom.setEnabled(false);
 		    	dezoom.setEnabled(false);
-		    }*/
+		    }
 	}
 	
 	public JMenuBar getMenuBar() {
