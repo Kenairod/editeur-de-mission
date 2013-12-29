@@ -23,6 +23,7 @@ import org.jdom2.output.XMLOutputter;
  */
 public class EditeurModele extends Observable {
 	
+	private String nomProjet;
 	/**
 	 * Le titre du jeu
 	 */
@@ -65,12 +66,13 @@ public class EditeurModele extends Observable {
       * Constructeur par défaut
       */
      public EditeurModele() {
-    	 this.titre = "";
+    	 this.nomProjet = new String();
+    	 this.titre = new String();
     	 this.gl20 = false;
     	 this.largeur = 0;
     	 this.hauteur = 0;
     	 this.redimensionnable = false;
-    	 this.imageFond = "";
+    	 this.imageFond = new String();
     	 this.elementsScene = new ArrayList<Element>();
     	 this.artefacts = new ArrayList<Element>();
     	 this.mapping = new ArrayList<Element>();
@@ -89,9 +91,10 @@ public class EditeurModele extends Observable {
       * @param artefacts Les artefacts de la scène
       * @param mapping Les associations artefact/agent
       */
-     public EditeurModele(String titre,boolean gl20,int largeur,int hauteur, boolean redimensionnable, String imageFond,
+     public EditeurModele(String nomProjet, String titre,boolean gl20,int largeur,int hauteur, boolean redimensionnable, String imageFond,
 			List<Element> elementsScene, List<Element> artefacts,List<Element> mapping) {
 		this();
+		this.nomProjet = nomProjet;
 		this.titre = titre;
 		this.gl20 = gl20;
 		this.largeur = largeur;
@@ -108,7 +111,7 @@ public class EditeurModele extends Observable {
       * Permet de générer un fichier XML à partir du modele
       */
 	//Pérequis : Les membres de : elementsScene, artefacts et mapping doivent être de type Element et avec tous les attributs déjà initialisés
-     public void createXML(String pathOut) {	              
+     public void createXML() {	              
 	     try {
 	         Element jeu = new Element("jeu");
 	         
@@ -167,8 +170,8 @@ public class EditeurModele extends Observable {
 	         
 	         //On génère
 	         xmlOutput.setFormat(Format.getPrettyFormat());  
-	         xmlOutput.output(document, new FileWriter("./"+pathOut+".xml"));  
-	        
+	         xmlOutput.output(document, new FileWriter("./"+this.getNomProjet()+".xml"));  
+
 	     	} catch (IOException io) {  
 	        	System.out.println(io.getMessage());  
 	        }
@@ -269,7 +272,15 @@ public class EditeurModele extends Observable {
      
             return ret;
  }
-	 
+	public String getNomProjet() {
+		return nomProjet;
+	}
+
+
+	public void setNomProjet(String nomProjet) {
+		this.nomProjet = nomProjet;
+	}
+		
 	public String getTitre() {
 		return titre;
 	}

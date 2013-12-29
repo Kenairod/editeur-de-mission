@@ -13,15 +13,15 @@ public class EditeurControler {
 		this.modele.addObserver(this.vue);
 	}
 	
-	public void saveProject(String nomProjet){
-		this.modele.createXML(nomProjet);
+	public void saveProject(){
+		this.modele.createXML();
 	}
 	
-	public void setTitre(String name) {
-		this.modele.setTitre(name);
+	public void setNomProjet(String name) {
+		this.modele.setNomProjet(name);
 	}
 	
-	public String getTitre() {
-		return this.modele.getTitre();
+	public String getNomProjet() {
+		return this.modele.getNomProjet();
 	}
 }

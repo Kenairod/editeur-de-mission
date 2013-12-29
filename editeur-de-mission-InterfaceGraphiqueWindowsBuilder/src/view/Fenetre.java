@@ -10,8 +10,6 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-import controler.EditeurControler;
-
 public class Fenetre extends JFrame{
 		private JPanel contentPane;
 		
@@ -98,16 +96,16 @@ public class Fenetre extends JFrame{
 			this.initSplit();
 		}
 		
-		public void saveProject(String nomProjet){
-			this.vue.saveProject(nomProjet);
+		public void saveProject(){
+			this.vue.saveProject();
 		}
 		
-		public void setTitre(String name) {
-			this.vue.setTitre(name);
+		public void setNomProjet(String name) {
+			this.vue.setNomProjet(name);
 		}
 		
-		public String getTitre() {
-			return this.vue.getTitre();
+		public String getNomProjet() {
+			return this.vue.getNomProjet();
 		}
 		/*public Project getProject() {
 			return this.project;

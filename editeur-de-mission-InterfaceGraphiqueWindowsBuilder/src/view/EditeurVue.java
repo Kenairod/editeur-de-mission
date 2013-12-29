@@ -18,15 +18,15 @@ public class EditeurVue implements Observer {
 		this.fenetre.repaint();
 	}
 	
-	public void saveProject(String nomProjet){
-		this.controler.saveProject(nomProjet);
+	public void saveProject(){
+		this.controler.saveProject();
 	}
 	
-	public void setTitre(String name) {
-		this.controler.setTitre(name);
+	public void setNomProjet(String name) {
+		this.controler.setNomProjet(name);
 	}
 	
-	public String getTitre() {
-		return this.controler.getTitre();
+	public String getNomProjet() {
+		return this.controler.getNomProjet();
 	}
 }
