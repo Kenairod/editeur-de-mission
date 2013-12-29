@@ -12,9 +12,9 @@ public class Main {
 	public static void main(String[] args) {
 		EditeurModele modele = new EditeurModele();
 		EditeurControler ctrl = new EditeurControler(modele);
-		EditeurModele bench = new EditeurModele("xml/bench.xml");
+		/*EditeurModele bench = new EditeurModele("xml/bench.xml");
 		System.out.println(bench);
-		//bench.createXML("xml/copieDeBench");
+		bench.createXML("xml/copieDeBench");*/
 	}
 	
 }

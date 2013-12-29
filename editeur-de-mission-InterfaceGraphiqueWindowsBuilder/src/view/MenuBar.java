@@ -259,7 +259,8 @@ public class MenuBar {
 	        // set selected filter
 	        chooser.setFileFilter(xmlFilter);
 	        chooser.showOpenDialog(null);
-	        System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
+	        //System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
+	        this.fenetre.importProject(chooser.getSelectedFile().toString());
 	}
 	
 	public void aboutProject () {
