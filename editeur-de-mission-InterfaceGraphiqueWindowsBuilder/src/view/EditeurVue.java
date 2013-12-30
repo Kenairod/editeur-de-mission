@@ -38,4 +38,8 @@ public class EditeurVue implements Observer {
 	public ArrayList<String> getListeNoms() {
 		return this.controler.getListeNoms();
 	}
+	
+	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String idAgent, String scriptAgent) {
+		this.controler.ajouterObjet(idArtefact, urlRelativeArtefact, idAgent, scriptAgent);
+	}
 }

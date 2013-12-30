@@ -503,4 +503,8 @@ public class EditeurModele extends Observable {
 		}		
 	}
 	
+	public void updateGrid(){
+		notifyObservers();
+	}
+	
 }

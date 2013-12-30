@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -113,15 +112,7 @@ public class Fenetre extends JFrame{
 		
 		public class InsertObjectListener implements ActionListener{
 		    public void actionPerformed(ActionEvent arg0) { 
-		      int option = JOptionPane.showConfirmDialog(null, 
-		        "Voulez-vous lancer l'animation ?", 
-		        "Lancement de l'animation", 
-		        JOptionPane.YES_NO_OPTION, 
-		        JOptionPane.QUESTION_MESSAGE);
-
-		      if(option == JOptionPane.OK_OPTION){
-		        
-		      }
+		    	ZDialog zd = new ZDialog(null, "Insert New Object", true);
 		    }    
 		  }
 		
@@ -154,6 +145,10 @@ public class Fenetre extends JFrame{
 		
 		public ArrayList<String> getListeNoms() {
 			return this.vue.getListeNoms();
+		}
+		
+		public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String idAgent, String scriptAgent) {
+			this.vue.ajouterObjet(idArtefact, urlRelativeArtefact, idAgent, scriptAgent);
 		}
 		
 		/*public Project getProject() {

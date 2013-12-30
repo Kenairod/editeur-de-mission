@@ -36,4 +36,8 @@ public class EditeurControler {
 	public String getNomProjet() {
 		return this.modele.getNomProjet();
 	}
+	
+	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String idAgent, String scriptAgent) {
+		this.modele.ajouterObjet(idArtefact, urlRelativeArtefact, idAgent, scriptAgent);
+	}
 }
