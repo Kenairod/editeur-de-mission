@@ -226,6 +226,7 @@ public class EditeurModele extends Observable {
 			this.artefacts = artefacts.getChildren();
 			Element mapping = noeudRacine.getChild("mapping");
 			this.mapping = mapping.getChildren();
+			this.setChanged();
 
 		}
 		catch (JDOMException | IOException e) {
