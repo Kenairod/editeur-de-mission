@@ -23,7 +23,7 @@
         <artefacts>
             <artefact id="rambo" image="assets/player.png"/>
             <artefact id="monster" image="assets/monster.png"/>
-            <artefact id="explosion" image="assets/explode.png" texte="" son=""/>
+            <artefact id="explosion" image="assets/explode.png"/>
                 <artefact id="bullet" image="assets/bullet.png"/>
         </artefacts>
        
