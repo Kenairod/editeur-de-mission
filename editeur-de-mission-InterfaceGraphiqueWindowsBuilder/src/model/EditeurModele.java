@@ -259,8 +259,8 @@ public class EditeurModele extends Observable {
 			Element courant = (Element)i.next();
 			ret = ret + "id de l'Artefact : "+courant.getAttributeValue("id")+"\n";
 			ret = ret + "URL Image : "+courant.getAttributeValue("image")+"\n";
-			ret = ret + "Texte : "+courant.getAttributeValue("texte")+"\n";
-			ret = ret + "URL Son : "+courant.getAttributeValue("son")+"\n\n";
+			/*ret = ret + "Texte : "+courant.getAttributeValue("texte")+"\n";
+			ret = ret + "URL Son : "+courant.getAttributeValue("son")+"\n\n";*/
 		}
 		
 		
