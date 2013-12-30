@@ -112,7 +112,7 @@ public class Fenetre extends JFrame{
 		
 		public class InsertObjectListener implements ActionListener{
 		    public void actionPerformed(ActionEvent arg0) { 
-		    	ZDialog zd = new ZDialog(null, "Insert New Object", true);
+		    	ZDialog zd = new ZDialog(null, "Insert New Artefact", true);
 		    }    
 		  }
 		
@@ -147,8 +147,8 @@ public class Fenetre extends JFrame{
 			return this.vue.getListeNoms();
 		}
 		
-		public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String idAgent, String scriptAgent) {
-			this.vue.ajouterObjet(idArtefact, urlRelativeArtefact, idAgent, scriptAgent);
+		public void ajouterObjet(String idArtefact, String urlRelativeArtefact) {
+			this.vue.ajouterObjet(idArtefact, urlRelativeArtefact);
 		}
 		
 		/*public Project getProject() {

@@ -13,7 +13,7 @@ public class Main {
 		EditeurModele modele = new EditeurModele();
 		EditeurControler ctrl = new EditeurControler(modele);
 		EditeurModele bench = new EditeurModele("xml/bench.xml");
-		bench.ajouterObjet("plante", "assets/plante.png", "plante1", "PlanteAI");
+		bench.ajouterObjet("plante", "assets/plante.png");
 		bench.placerObjetDansScene(4, 300, 300);
 		bench.supprimerObjet(2);
 		//System.out.println(bench);

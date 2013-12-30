@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,12 +16,12 @@ import javax.swing.JTextField;
 
 public class ZDialog extends JDialog {
 	  private JButton artefactButton, agentButton;
-	  private JTextField artefact, agent;
-	  private String nomArtefact, nomAgent;
+	  private JTextField artefact;
+	  private String nomArtefact;
 
   public ZDialog(JFrame parent, String title, boolean modal){
       super(parent, title, modal);
-      this.setSize(400, 220);
+      this.setSize(400, 150);
       this.setLocationRelativeTo(null);
       this.setResizable(false);
       this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -31,22 +30,6 @@ public class ZDialog extends JDialog {
   }
 
   private void initComponent(){
-
-    //L'agent
-	  JPanel panAgent = new JPanel();
-	  panAgent.setBackground(Color.white);
-	  panAgent.setPreferredSize(new Dimension(350, 60));
-	  agent = new JTextField();
-	  agent.setPreferredSize(new Dimension(200, 25));
-	  panAgent.setBorder(BorderFactory.createTitledBorder("Agent"));
-	  agentButton = new JButton("URL Agent");
-	  agentButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFileChooserAgent();    
-			}
-	    });
-	  panAgent.add(agentButton);
-	  panAgent.add(agent);
 
     //L'artefact
 	  JPanel panArtefact = new JPanel();
@@ -67,7 +50,6 @@ public class ZDialog extends JDialog {
       JPanel content = new JPanel();
       content.setBackground(Color.white);
       content.add(panArtefact);
-      content.add(panAgent);
 
       JPanel control = new JPanel();
       JButton okBouton = new JButton("OK");
@@ -92,15 +74,6 @@ public class ZDialog extends JDialog {
       this.getContentPane().add(content, BorderLayout.CENTER);
       this.getContentPane().add(control, BorderLayout.SOUTH);
     }  
-  
-  public void JFileChooserAgent() {
-	   JFileChooser chooser = new JFileChooser();
-		
-	   if (chooser.showOpenDialog(null) == 0) {
-		   agent.setText(chooser.getSelectedFile().toString());
-		   nomAgent = chooser.getName(chooser.getSelectedFile());
-	   }   
-  }
   
   public void JFileChooserArtefact() {
 		JFileChooser chooser = new JFileChooser();

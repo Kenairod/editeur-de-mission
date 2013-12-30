@@ -22,6 +22,7 @@ public class EditeurControler {
 	
 	public void importProject(String path) {
 		this.modele = new EditeurModele(path);
+		System.out.println(this.modele.toString());
 		this.nomArtefacts = this.modele.getNomArtefacts();
 	}
 	
@@ -37,7 +38,7 @@ public class EditeurControler {
 		return this.modele.getNomProjet();
 	}
 	
-	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String idAgent, String scriptAgent) {
-		this.modele.ajouterObjet(idArtefact, urlRelativeArtefact, idAgent, scriptAgent);
+	public void ajouterObjet(String idArtefact, String urlRelativeArtefact) {
+		this.modele.ajouterObjet(idArtefact, urlRelativeArtefact);
 	}
 }

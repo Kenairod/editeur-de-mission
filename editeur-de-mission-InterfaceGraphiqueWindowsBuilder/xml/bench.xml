@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jeu>
         <titre-du-jeu>Jeu</titre-du-jeu>
+       
         <fenetre>
                 <useGL20>true</useGL20>
                 <largeur>600</largeur>
                 <hauteur>800</hauteur>
                 <redimensionnable>true</redimensionnable>
         </fenetre>
+       
         <scene>
                 <fond image="assets/bg.png"/>
                 <elements>
@@ -17,24 +19,33 @@
                         <objet id="2" x="250" y ="450" />
                 </elements>
         </scene>
+       
         <artefacts>
             <artefact id="rambo" image="assets/player.png"/>
             <artefact id="monster" image="assets/monster.png"/>
-            <artefact id="explosion" image="assets/explode.png"/>
-            <artefact id="bullet" image="assets/bullet.png"/>
+            <artefact id="explosion" image="assets/explode.png" texte="" son=""/>
+                <artefact id="bullet" image="assets/bullet.png"/>
         </artefacts>
+       
         <mapping>
                 <objet id="1">
                         <artefact id="bullet" image="assets/bullet.png"/>
-                        <agent id="bullet" script="BulletAI"/>
+                        <agent script="BulletAI"/>
                 </objet>
                 <objet id="2">
                         <artefact id="monster" image="assets/monster.png"/>
-                        <agent id="monstre" script="MonsterAI"/>
+                        <agent script="MonsterAI"/>
                 </objet>
                 <objet id="3">
                         <artefact id="rambo" image="assets/player.png"/>
-                        <agent id="rambo" script="PlayerAI"/>
+                        <agent script="PlayerAI"/>
                 </objet>
         </mapping>
+       
+        <missions>
+                <mission id = "1" Start="T 0">
+                </mission>
+                <mission id="2" Start="T 0"></mission>
+        </missions>
+       
 </jeu>

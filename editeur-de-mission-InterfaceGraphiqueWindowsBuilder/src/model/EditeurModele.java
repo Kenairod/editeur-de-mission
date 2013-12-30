@@ -358,10 +358,8 @@ public class EditeurModele extends Observable {
 	 * Rajoute également en même temps automatiquement l'artefact à la liste des artefacts
 	 * @param idArtefact id (nom) de l'artefact
 	 * @param urlRelativeArtefact adresse relative menant au fichier de l'artefact (ex : fichier de texture)
-	 * @param idAgent id (nom) de l'agent
-	 * @param scriptAgent script : nom du fichier Java dans le code de l'utilisateur
 	 */
-	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String idAgent, String scriptAgent) {
+	public void ajouterObjet(String idArtefact, String urlRelativeArtefact) {
 		Element objet = new Element("objet");
 		objet.setAttribute(new Attribute("id",""+(this.getNbObjets()+1)));
 		
@@ -377,14 +375,14 @@ public class EditeurModele extends Observable {
 		this.ajouterArtefactDansSaListe(idArtefact, urlRelativeArtefact);
 		
 		//Création et ajout de la balise agent
-		Element agent = new Element("agent");
+		/*Element agent = new Element("agent");
 		id = new Attribute("id", idAgent);
 		Attribute script = new Attribute("script", scriptAgent);
 		a.clear();
 		a.add(id);
 		a.add(script);
 		agent.setAttributes(a);
-		objet.addContent(agent);
+		objet.addContent(agent);*/
 
 		this.ajouterObjetMapping(objet);
 	}
