@@ -223,7 +223,7 @@ public class MenuBar {
 		this.fenetre.setJMenuBar(menuBar);
 		this.fenetre.revalidate();
 		
-		if (fenetre.getNomProjet().length()==0) {
+		if (this.fenetre.getNomProjet().length()==0) {
 		    	enregistrer.setEnabled(false);
 		    	coller.setEnabled(false);
 		    	copier.setEnabled(false);
@@ -258,9 +258,10 @@ public class MenuBar {
 	        chooser.addChoosableFileFilter(xmlFilter);
 	        // set selected filter
 	        chooser.setFileFilter(xmlFilter);
-	        chooser.showOpenDialog(null);
 	        //System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
-	        this.fenetre.importProject(chooser.getSelectedFile().toString());
+	        if (chooser.showOpenDialog(null) == 0) {
+	        	this.fenetre.importProject(chooser.getSelectedFile().toString());
+	        }
 	}
 	
 	public void aboutProject () {
@@ -285,13 +286,13 @@ public class MenuBar {
 				this.fenetre.newProject();
 				nouveau.setEnabled(false);
 				enregistrer.setEnabled(true);
-		    	coller.setEnabled(true);
+		    	/*coller.setEnabled(true);
 		    	copier.setEnabled(true);
 		    	couper.setEnabled(true);
 		    	suivant.setEnabled(true);
 		    	precedent.setEnabled(true);
 		    	zoom.setEnabled(true);
-		    	dezoom.setEnabled(true);
+		    	dezoom.setEnabled(true);*/
 		    }
 		    else {
 		    	JOptionPane.showMessageDialog(null,

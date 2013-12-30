@@ -17,7 +17,7 @@ public class Main {
 		bench.placerObjetDansScene(4, 300, 300);
 		bench.supprimerObjet(2);
 		//System.out.println(bench);
-		bench.createXML();
+		//bench.createXML();
 	}
 	
 }

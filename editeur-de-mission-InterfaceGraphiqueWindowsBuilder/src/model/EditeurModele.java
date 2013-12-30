@@ -1,12 +1,14 @@
 package model;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
+
+import javax.swing.JFileChooser;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -113,65 +115,72 @@ public class EditeurModele extends Observable {
 	//Pérequis : Les membres de : elementsScene, artefacts et mapping doivent être de type Element et avec tous les attributs déjà initialisés
      public void createXML() {	              
 	     try {
-	         Element jeu = new Element("jeu");
-	         
-	         Document document = new Document(jeu);
-	         
-	         //Balise titre du jeu
-	         Element titre = new Element("titre-du-jeu");
-	         titre.setText(this.titre);
-	         
-	         //Balise fenetre et ses sous-balises
-	         Element fenetre = new Element("fenetre");
-	         fenetre.addContent(new Element("useGL20").setText(""+this.gl20));
-	         fenetre.addContent(new Element("largeur").setText(""+this.largeur));
-	         fenetre.addContent(new Element("hauteur").setText(""+this.hauteur));
-	         fenetre.addContent(new Element("redimensionnable").setText(""+this.redimensionnable));
-	         
-	         //Balise scene et ses sous-balises (autant de sous balises "elements" que contenu dans this.elementsScene
-	         Element scene = new Element("scene");
-	         scene.addContent(new Element("fond").setAttribute(new Attribute("image", this.imageFond)));
-	         Element elements = new Element("elements");
-	         for (int i = 0; i < this.elementsScene.size(); i++) {
-	        	 Element elem = this.elementsScene.get(i).clone();
-	        	 elements.addContent(elem);
-	         }
-	         scene.addContent(elements);
-	         
-	         //Comme pour elements mais pour artefacts
-	         Element artefacts = new Element("artefacts");
-	         for (int i = 0; i < this.artefacts.size(); i++) {
-	        	 Element artef = this.artefacts.get(i).clone();
-	        	 artefacts.addContent(artef);
-	         }
-	         
-	         //Idem
-	         Element mapping = new Element("mapping");
-	         for (int i = 0; i < this.mapping.size(); i++) {
-	        	 Element obj = this.mapping.get(i).clone();
-	        	 mapping.addContent(obj);
-	         }
-	         
-	         //On accroche toute les balises directements fille de la racine (à la balise jeu) à cette dernière
-	         document.getRootElement().addContent(titre);
-	         document.getRootElement().addContent(fenetre);
-	         document.getRootElement().addContent(scene);
-	         document.getRootElement().addContent(artefacts);
-	         document.getRootElement().addContent(mapping);
-	         
-	         //Objet permettant la sortie en XML
-	         XMLOutputter xmlOutput = new XMLOutputter();
-	         
-	         //System.out pour afficher en console
-	         //xmlOutput.output(document, System.out);
-	         
-	         //On génère
-	         xmlOutput.setFormat(Format.getPrettyFormat());  
-	         xmlOutput.output(document, new FileWriter("./"+this.getNomProjet()+".xml"));  
-
-	     	} catch (IOException io) {  
-	        	System.out.println(io.getMessage());  
-	        }
+	    	 JFileChooser chooser = new JFileChooser();
+	    	 chooser.setDialogTitle("Save as");
+	    	 File fichier = new File(this.getNomProjet() + ".xml");
+	    	 chooser.setSelectedFile(fichier);
+	    	 chooser.setApproveButtonText("Save");
+	    	 if (chooser.showOpenDialog(null) == 0) {
+	    	    	
+		         Element jeu = new Element("jeu");
+		         
+		         Document document = new Document(jeu);
+		         
+		         //Balise titre du jeu
+		         Element titre = new Element("titre-du-jeu");
+		         titre.setText(this.titre);
+		         
+		         //Balise fenetre et ses sous-balises
+		         Element fenetre = new Element("fenetre");
+		         fenetre.addContent(new Element("useGL20").setText(""+this.gl20));
+		         fenetre.addContent(new Element("largeur").setText(""+this.largeur));
+		         fenetre.addContent(new Element("hauteur").setText(""+this.hauteur));
+		         fenetre.addContent(new Element("redimensionnable").setText(""+this.redimensionnable));
+		         
+		         //Balise scene et ses sous-balises (autant de sous balises "elements" que contenu dans this.elementsScene
+		         Element scene = new Element("scene");
+		         scene.addContent(new Element("fond").setAttribute(new Attribute("image", this.imageFond)));
+		         Element elements = new Element("elements");
+		         for (int i = 0; i < this.elementsScene.size(); i++) {
+		        	 Element elem = this.elementsScene.get(i).clone();
+		        	 elements.addContent(elem);
+		         }
+		         scene.addContent(elements);
+		         
+		         //Comme pour elements mais pour artefacts
+		         Element artefacts = new Element("artefacts");
+		         for (int i = 0; i < this.artefacts.size(); i++) {
+		        	 Element artef = this.artefacts.get(i).clone();
+		        	 artefacts.addContent(artef);
+		         }
+		         
+		         //Idem
+		         Element mapping = new Element("mapping");
+		         for (int i = 0; i < this.mapping.size(); i++) {
+		        	 Element obj = this.mapping.get(i).clone();
+		        	 mapping.addContent(obj);
+		         }
+		         
+		         //On accroche toute les balises directements fille de la racine (à la balise jeu) à cette dernière
+		         document.getRootElement().addContent(titre);
+		         document.getRootElement().addContent(fenetre);
+		         document.getRootElement().addContent(scene);
+		         document.getRootElement().addContent(artefacts);
+		         document.getRootElement().addContent(mapping);
+		         
+		         //Objet permettant la sortie en XML
+		         XMLOutputter xmlOutput = new XMLOutputter();
+		         
+		         //System.out pour afficher en console
+		         //xmlOutput.output(document, System.out);
+		         
+		         //On génère
+		         xmlOutput.setFormat(Format.getPrettyFormat());  
+		         xmlOutput.output(document, new FileOutputStream(chooser.getSelectedFile().toString())); 
+	    	 }
+		     	} catch (IOException io) {  
+		        	System.out.println(io.getMessage());  
+		        }
      }
      
      /**
