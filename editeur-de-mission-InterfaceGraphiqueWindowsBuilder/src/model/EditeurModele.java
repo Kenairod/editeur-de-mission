@@ -134,7 +134,6 @@ public class EditeurModele extends Observable {
 	         Element elements = new Element("elements");
 	         for (int i = 0; i < this.elementsScene.size(); i++) {
 	        	 Element elem = this.elementsScene.get(i).clone();
-	        	 elem.detach();
 	        	 elements.addContent(elem);
 	         }
 	         scene.addContent(elements);
@@ -143,7 +142,6 @@ public class EditeurModele extends Observable {
 	         Element artefacts = new Element("artefacts");
 	         for (int i = 0; i < this.artefacts.size(); i++) {
 	        	 Element artef = this.artefacts.get(i).clone();
-	        	 artef.detach();
 	        	 artefacts.addContent(artef);
 	         }
 	         
@@ -151,7 +149,6 @@ public class EditeurModele extends Observable {
 	         Element mapping = new Element("mapping");
 	         for (int i = 0; i < this.mapping.size(); i++) {
 	        	 Element obj = this.mapping.get(i).clone();
-	        	 obj.detach();
 	        	 mapping.addContent(obj);
 	         }
 	         
@@ -177,6 +174,10 @@ public class EditeurModele extends Observable {
 	        }
      }
      
+     /**
+      * Permet d'importer un fichier XML dans afin de construire ce modèle
+      * @param fichier Le chemin vers le fichier source
+      */
 	public EditeurModele(String fichier) {
 		//La lecture se fait à l'aide d'une contructeur SAX
 		SAXBuilder ConstructSAX = new SAXBuilder();
@@ -223,167 +224,257 @@ public class EditeurModele extends Observable {
 		}
 	}
 
-	 public String toString() {
-         
-         String ret = "Nom du jeu : "+this.titre+"\n";
-     ret = ret +"========Propriétés de la fenêtre========\n";
-     ret = ret + "Utilise OpenGL 2.0 : "+this.gl20+"\n";
-     ret = ret + "Largeur : "+this.largeur+"\n";
-     ret = ret + "Hauteur : "+this.hauteur+"\n";
-     ret = ret + "Redimensionnable : "+this.redimensionnable+"\n";
-     ret = ret + "========Propriétés de la scène========\n";
-     ret = ret + "URL image de fond : "+this.imageFond+"\n";
-     Iterator i = this.elementsScene.iterator();
-     
-     while (i.hasNext()) {
-             Element courant = (Element)i.next();
-             ret = ret + "Objet de type : "+courant.getAttributeValue("id")+"\n";
-             ret = ret + "Coordonnée x : "+courant.getAttributeValue("x")+"\n";
-             ret = ret + "Coordonnée y : "+courant.getAttributeValue("y")+"\n\n";
-     }
-     
-     ret = ret + "========Artefacts enregistrés========\n";
-     i = this.artefacts.iterator();
-     
-     while (i.hasNext()) {
-             Element courant = (Element)i.next();
-             ret = ret + "id de l'Artefact : "+courant.getAttributeValue("id")+"\n";
-             System.out.println(courant.getAttributeValue("id")+"\n");
-             if (courant.getAttributeValue("id").equals("monster"))
-                     ret = ret + "nombre de repetition de l'Artefact : "+courant.getAttributeValue("repet")+"\n";
-             ret = ret + "URL Image : "+courant.getAttributeValue("image")+"\n";
-             ret = ret + "Texte : "+courant.getAttributeValue("texte")+"\n";
-             ret = ret + "URL Son : "+courant.getAttributeValue("son")+"\n\n";
-     }
-     
-     
-     ret = ret + "========Mapping========\n";
-     i = this.mapping.iterator();
-     
-     while (i.hasNext()) {
-             Element courant = (Element)i.next();
-             ret = ret + "id map : "+courant.getAttributeValue("id")+"\n";
-             Iterator j = courant.getChildren().iterator();
-             Element Courant = (Element)j.next();
-             ret = ret + " id child : "+Courant.getAttributeValue("id")+"\n";
-             Courant = (Element)j.next();
-             ret = ret + " script child : "+Courant.getAttributeValue("script")+"\n";
-     }
-     
-            return ret;
- }
-	public String getNomProjet() {
-		return nomProjet;
-	}
-
-
-	public void setNomProjet(String nomProjet) {
-		this.nomProjet = nomProjet;
-	}
+	public String toString() {   
+		String ret = "Nom du jeu : "+this.titre+"\n";
+		ret = ret +"========Propriétés de la fenêtre========\n";
+		ret = ret + "Utilise OpenGL 2.0 : "+this.gl20+"\n";
+		ret = ret + "Largeur : "+this.largeur+"\n";
+		ret = ret + "Hauteur : "+this.hauteur+"\n";
+		ret = ret + "Redimensionnable : "+this.redimensionnable+"\n";
+		ret = ret + "========Propriétés de la scène========\n";
+		ret = ret + "URL image de fond : "+this.imageFond+"\n";
+		Iterator i = this.elementsScene.iterator();
 		
-	public String getTitre() {
-		return titre;
+		while (i.hasNext()) {
+			Element courant = (Element)i.next();
+			ret = ret + "Objet de type : "+courant.getAttributeValue("id")+"\n";
+			ret = ret + "Coordonnée x : "+courant.getAttributeValue("x")+"\n";
+			ret = ret + "Coordonnée y : "+courant.getAttributeValue("y")+"\n\n";
+		}
+		
+		ret = ret + "========Artefacts enregistrés========\n";
+		i = this.artefacts.iterator();
+		
+		while (i.hasNext()) {
+			Element courant = (Element)i.next();
+			ret = ret + "id de l'Artefact : "+courant.getAttributeValue("id")+"\n";
+			ret = ret + "URL Image : "+courant.getAttributeValue("image")+"\n";
+			ret = ret + "Texte : "+courant.getAttributeValue("texte")+"\n";
+			ret = ret + "URL Son : "+courant.getAttributeValue("son")+"\n\n";
+		}
+		
+		
+		ret = ret + "========Mapping========\n";
+		i = this.mapping.iterator();
+		
+		while (i.hasNext()) {
+			Element courant = (Element)i.next();
+			ret = ret + "id map : "+courant.getAttributeValue("id")+"\n";
+			Iterator j = courant.getChildren().iterator();
+			Element Courant = (Element)j.next();
+			ret = ret + " id child : "+Courant.getAttributeValue("id")+"\n";
+			Courant = (Element)j.next();
+			ret = ret + " script child : "+Courant.getAttributeValue("script")+"\n";
+		}
+		    
+		return ret;
 	}
 
-
-
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public String getNomProjet() {
+		return this.nomProjet;
 	}
-
-
-
-	public boolean isGl20() {
-		return gl20;
+	
+	public void setNomProjet(String nom) {
+		this.nomProjet = nom;
 	}
-
-
-
-	public void setGl20(boolean gl20) {
-		this.gl20 = gl20;
+	
+	/**
+	 * Permet d'ajouter un artefact dans la liste des artefacts
+	 * @param idArtefact L'attribut id de l'artefact
+	 * @param urlRelativeArtefact L'attribut image de l'artefact
+	 */
+	public void ajouterArtefactDansSaListe(String idArtefact, String urlRelativeArtefact) {
+		Element artefact = new Element("artefact");
+		Attribute id = new Attribute("id", idArtefact);
+		Attribute image = new Attribute("image", urlRelativeArtefact);
+		ArrayList<Attribute> a = new ArrayList<Attribute>();
+		a.add(id);
+		a.add(image);
+		artefact.setAttributes(a);
+		this.artefacts.add(artefact);
+		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
 	}
-
-
-
-	public int getLargeur() {
-		return largeur;
+	
+	/**
+	 * Supprime l'artefact de la liste et supprime également toutes ses apparitions sur la scène
+	 * @param idArtefact id de l'artefact à supprimer
+	 */
+	public void supprimerArtefact(String idArtefact) {
+		String id = this.getMapID(idArtefact);
+		ArrayList<Element> temp = new ArrayList<Element>();
+		Iterator it = this.elementsScene.iterator();
+		while (it.hasNext()) {
+			Element courant = (Element)it.next();
+			if (!id.equals(courant.getAttributeValue("id"))) {
+				temp.add(courant);
+			}
+		}
+		this.elementsScene = temp;
+		int i = 0;
+		boolean supr = false;
+		while (i < this.artefacts.size() && !supr) {
+			if (this.artefacts.get(i).getAttributeValue("id").equals(idArtefact)) {
+				this.artefacts.remove(i);
+				this.elementsScene.get(i);
+				supr = true;
+			}
+			i++;
+		}
 	}
-
-
-
-	public void setLargeur(int largeur) {
-		this.largeur = largeur;
+	
+	/**
+	 * Rajoute un objet dans le mapping
+	 * @param objet L'objet à ajouter
+	 */
+	public void ajouterObjetMapping(Element objet) { //Ajoute objet au mapping
+		this.mapping.add(objet);
+		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
 	}
-
-
-
-	public int getHauteur() {
-		return hauteur;
+	
+	/**
+	 * 
+	 * @return Le nombre d'objets enregistrés dans le XML
+	 */
+	public int getNbObjets() {
+		return this.mapping.size();
 	}
+	
+	/**
+	 * Ajouter un objet au mapping en lui passant les attributs de l'artefact et de l'agent en valeurs <br />
+	 * Rajoute également en même temps automatiquement l'artefact à la liste des artefacts
+	 * @param idArtefact id (nom) de l'artefact
+	 * @param urlRelativeArtefact adresse relative menant au fichier de l'artefact (ex : fichier de texture)
+	 * @param idAgent id (nom) de l'agent
+	 * @param scriptAgent script : nom du fichier Java dans le code de l'utilisateur
+	 */
+	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String idAgent, String scriptAgent) {
+		Element objet = new Element("objet");
+		objet.setAttribute(new Attribute("id",""+(this.getNbObjets()+1)));
+		
+		//Création et ajout de la balise artefact
+		Element artefact = new Element("artefact");
+		Attribute id = new Attribute("id", idArtefact);
+		Attribute image = new Attribute("image", urlRelativeArtefact);
+		ArrayList<Attribute> a = new ArrayList<Attribute>();
+		a.add(id);
+		a.add(image);
+		artefact.setAttributes(a);
+		objet.addContent(artefact);
+		this.ajouterArtefactDansSaListe(idArtefact, urlRelativeArtefact);
+		
+		//Création et ajout de la balise agent
+		Element agent = new Element("agent");
+		id = new Attribute("id", idAgent);
+		Attribute script = new Attribute("script", scriptAgent);
+		a.clear();
+		a.add(id);
+		a.add(script);
+		agent.setAttributes(a);
+		objet.addContent(agent);
 
-
-
-	public void setHauteur(int hauteur) {
-		this.hauteur = hauteur;
+		this.ajouterObjetMapping(objet);
 	}
-
-
-
-	public boolean isRedimensionnable() {
-		return redimensionnable;
+	
+	/**
+	 * Supprime l'objet du projet
+	 * @param id id de l'objet à supprimer
+	 */
+	public void supprimerObjet(int id) {
+		int i = 0;
+		boolean supr = false;
+		while (i < this.mapping.size() && !supr) {
+			if (this.mapping.get(i).getAttributeValue("id").equals(""+id)) {
+				this.supprimerArtefact(this.mapping.get(i).getChild("artefact").getAttributeValue("id"));
+				this.mapping.remove(this.mapping.get(i));
+				supr = true;
+			}
+			i++;
+		}
 	}
+	
+	public String getMapID(String s) {
+		String ret = "";
+		Iterator i = this.mapping.iterator();
 
-
-
-	public void setRedimensionnable(boolean redimensionnable) {
-		this.redimensionnable = redimensionnable;
+		while (i.hasNext()) {
+			Element courant = (Element)i.next();
+			Iterator j = courant.getChildren().iterator();
+			Element Courant = (Element)j.next();
+			
+			if (Courant.getAttributeValue("id").equals(s)){        
+				Courant = (Element)j.next();
+				ret = courant.getAttributeValue("id");
+			}
+		}                
+		return ret;
 	}
-
-
-
-	public String getImageFond() {
-		return imageFond;
+	
+	/**
+	 * Permet à partir d'une balise objet de type scene de récupérer l'id de l'artefact qui lui correspond dans le mapping
+	 * @param objet L'Element objet contenu dans la balise scene
+	 * @return L'id de l'artefact correspondant à cet objet
+	 */
+	public String getIdArtefactFilsScene(Element objet) {
+		int id = Integer.parseInt(objet.getAttributeValue("id"));
+		for (Element objetMapped : this.mapping) {
+			int idMapped = Integer.parseInt(objetMapped.getAttributeValue("id"));
+			if (id == idMapped) {
+				return objetMapped.getChild("artefact").getAttributeValue("id");
+			}
+		}
+		return "Erreur !";
 	}
-
-
-
-	public void setImageFond(String imageFond) {
-		this.imageFond = imageFond;
+	
+	/**
+	 * Rajoute un objet dans la scene
+	 * @param objet L'objet à ajouter
+	 */
+	public void ajouterObjetScene(Element objet) {
+		this.elementsScene.add(objet);
+		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
 	}
-
-
-
-	public List<Element> getElementsScene() {
-		return elementsScene;
+	
+	/**
+	 * Retire un objet de la scene
+	 * @param objet L'objet à retirer
+	 */
+	public void retirerObjetScene(Element objet) {
+		this.elementsScene.remove(objet);
+		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
 	}
-
-
-
-	public void setElementsScene(List<Element> elementsScene) {
-		this.elementsScene = elementsScene;
+	
+	/**
+	 * Permet d'ajouter l'objet possédant l'id correspondant aux coordonnées x et y
+	 * @param id id du mapping de l'objet à placer sur la scène
+	 * @param x Coordonnée x sur la scene
+	 * @param y Coornonnée y sur la scène
+	 */
+	public void placerObjetDansScene(int id, int x, int y) {
+		Element objet = new Element ("objet");
+		Attribute attId = new Attribute("id", ""+id);
+		Attribute attX = new Attribute("x", ""+x);
+		Attribute attY = new Attribute("y", ""+y);
+		ArrayList<Attribute> a = new ArrayList<Attribute>();
+		a.add(attId);
+		a.add(attX);
+		a.add(attY);
+		objet.setAttributes(a);
+		
+		this.ajouterObjetScene(objet);
 	}
-
-
-
-	public List<Element> getArtefacts() {
-		return artefacts;
+	
+	/**
+	 * Retirer l'objet spécifier de la scène
+	 * @param id id du mapping de l'objet à retirer de la scène
+	 * @param x Coordonnée x sur la scene
+	 * @param y Coornonnée y sur la scène
+	 */
+	public void retirerObjetDeScene(int id, int x, int y) {
+		for (int i = 0; i < this.elementsScene.size(); i++) {
+			if (this.elementsScene.get(i).getAttributeValue("id").equals(""+id) && this.elementsScene.get(i).getAttributeValue("x").equals(""+x) && this.elementsScene.get(i).getAttributeValue("y").equals(""+y)) {
+				this.retirerObjetScene(this.elementsScene.get(i));
+			}
+		}		
 	}
-
-
-
-	public void setArtefacts(List<Element> artefacts) {
-		this.artefacts = artefacts;
-	}
-
-
-
-	public List<Element> getMapping() {
-		return mapping;
-	}
-
-
-
-	public void setMapping(List<Element> mapping) {
-		this.mapping = mapping;
-	}
+	
 }

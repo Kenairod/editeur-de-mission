@@ -18,7 +18,7 @@ public class EditeurControler {
 	}
 	
 	public void importProject(String path) {
-		EditeurModele modele = new EditeurModele(path);
+		this.modele = new EditeurModele(path);
 		System.out.println(modele);
 	}
 	
