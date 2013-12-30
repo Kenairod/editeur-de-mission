@@ -379,7 +379,7 @@ public class EditeurModele extends Observable {
 	 * Supprime l'objet du projet
 	 * @param id id de l'objet à supprimer
 	 */
-	public void supprimerObjet(int id) {
+	public void supprimerObjet(int id) {	// Supprime toute présence de l'objet
 		int i = 0;
 		boolean supr = false;
 		while (i < this.mapping.size() && !supr) {
