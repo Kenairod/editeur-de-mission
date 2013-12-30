@@ -1,16 +1,25 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 public class Fenetre extends JFrame{
+	
 		private JPanel contentPane;
 		
 		/**
@@ -28,6 +37,13 @@ public class Fenetre extends JFrame{
 		private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		
 		private EditeurVue vue;
+		
+		 private JPopupMenu jpm = new JPopupMenu();
+		  
+		 private JMenuItem insertion = new JMenuItem("Insert a new Object");
+		  
+		 private InsertObjectListener insertObject =new InsertObjectListener();
+		  
 		/**
 		 * Constructeur par défaut
 		 * Create the frame.
@@ -46,21 +62,16 @@ public class Fenetre extends JFrame{
 			MenuBar menuBar = new MenuBar(this);
 		    this.setJMenuBar(menuBar.getMenuBar());
 			this.setVisible(true);
-			/*this.initTree();
-			this.initScroll();
-			this.initSplit();*/
 		}
-
+		
 		/**
 		 * Permet de créer l'arbre du paneau latéral
 		 */
 		public void initTree() {
-			String[] objets = new String[3];
-			objets[0]  = "obj 1";
-			objets[1]  = "obj 2";
-			objets[2]  = "obj 3";
-			this.liste = new JList(objets);
+			ArrayList<String> artefacts = this.getListeNoms();
+			this.liste = new JList(artefacts.toArray());
 			this.getContentPane().add(this.tabbedPane, BorderLayout.CENTER);
+			
 			this.revalidate();
 		}
 		
@@ -69,6 +80,16 @@ public class Fenetre extends JFrame{
 		 */
 		public void initScroll() {
 			this.scroll = new JScrollPane(this.tabbedPane);
+			insertion.addActionListener(insertObject);	//On affecte l'écouteur
+			scroll.addMouseListener(new MouseAdapter() {
+				public void mouseReleased(MouseEvent event) {
+					 if(event.isPopupTrigger()){       
+				          jpm.add(insertion);
+				          jpm.show(contentPane, event.getX(), event.getY());	//La méthode qui va afficher le menu
+				          
+				     }
+				}
+			});
 			//this.scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			this.getContentPane().add(this.scroll, BorderLayout.CENTER);
 			
@@ -90,7 +111,26 @@ public class Fenetre extends JFrame{
 			this.revalidate();
 		}
 		
+		public class InsertObjectListener implements ActionListener{
+		    public void actionPerformed(ActionEvent arg0) { 
+		      int option = JOptionPane.showConfirmDialog(null, 
+		        "Voulez-vous lancer l'animation ?", 
+		        "Lancement de l'animation", 
+		        JOptionPane.YES_NO_OPTION, 
+		        JOptionPane.QUESTION_MESSAGE);
+
+		      if(option == JOptionPane.OK_OPTION){
+		        
+		      }
+		    }    
+		  }
+		
 		public void newProject () {
+			this.initScroll();
+			this.initSplit();
+		}
+		
+		public void oldProject () {
 			this.initTree();
 			this.initScroll();
 			this.initSplit();
@@ -111,6 +151,11 @@ public class Fenetre extends JFrame{
 		public String getNomProjet() {
 			return this.vue.getNomProjet();
 		}
+		
+		public ArrayList<String> getListeNoms() {
+			return this.vue.getListeNoms();
+		}
+		
 		/*public Project getProject() {
 			return this.project;
 		}

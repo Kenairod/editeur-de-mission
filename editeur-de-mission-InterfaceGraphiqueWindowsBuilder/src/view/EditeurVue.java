@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,5 +33,9 @@ public class EditeurVue implements Observer {
 	
 	public String getNomProjet() {
 		return this.controler.getNomProjet();
+	}
+	
+	public ArrayList<String> getListeNoms() {
+		return this.controler.getListeNoms();
 	}
 }

@@ -95,7 +95,6 @@ public class EditeurModele extends Observable {
       */
      public EditeurModele(String nomProjet, String titre,boolean gl20,int largeur,int hauteur, boolean redimensionnable, String imageFond,
 			List<Element> elementsScene, List<Element> artefacts,List<Element> mapping) {
-		this();
 		this.nomProjet = nomProjet;
 		this.titre = titre;
 		this.gl20 = gl20;
@@ -227,6 +226,7 @@ public class EditeurModele extends Observable {
 			this.artefacts = artefacts.getChildren();
 			Element mapping = noeudRacine.getChild("mapping");
 			this.mapping = mapping.getChildren();
+
 		}
 		catch (JDOMException | IOException e) {
 			e.printStackTrace();
@@ -279,6 +279,10 @@ public class EditeurModele extends Observable {
 		return ret;
 	}
 
+	public List<Element> getElements() {
+		return this.elementsScene;
+	}
+	
 	public String getNomProjet() {
 		return this.nomProjet;
 	}
@@ -416,6 +420,18 @@ public class EditeurModele extends Observable {
 			}
 		}                
 		return ret;
+	}
+	
+	/**
+	 * @return Le nom des artefacts de la scène
+	 */
+	public ArrayList<String> getNomArtefacts() {
+		//List<Element> elem = this.getElements();
+		ArrayList<String> str = new ArrayList<String>();
+		for (int i=0; i<this.mapping.size(); i++) {
+			str.add(this.mapping.get(i).getChild("artefact").getAttributeValue("id"));
+		}
+		return str;
 	}
 	
 	/**

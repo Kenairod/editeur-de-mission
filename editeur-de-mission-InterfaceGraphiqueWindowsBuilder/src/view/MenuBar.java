@@ -261,7 +261,8 @@ public class MenuBar {
 	        //System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
 	        if (chooser.showOpenDialog(null) == 0) {
 	        	this.fenetre.importProject(chooser.getSelectedFile().toString());
-	        }
+	        	this.fenetre.oldProject();
+	        }   
 	}
 	
 	public void aboutProject () {

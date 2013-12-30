@@ -1,11 +1,14 @@
 package controler;
 
+import java.util.ArrayList;
+
 import model.EditeurModele;
 import view.EditeurVue;
 
 public class EditeurControler {
 	private EditeurModele modele;
 	private EditeurVue vue;
+	private ArrayList<String> nomArtefacts;
 	
 	public EditeurControler(EditeurModele model) {
 		this.modele = model;
@@ -19,7 +22,11 @@ public class EditeurControler {
 	
 	public void importProject(String path) {
 		this.modele = new EditeurModele(path);
-		System.out.println(modele);
+		this.nomArtefacts = this.modele.getNomArtefacts();
+	}
+	
+	public ArrayList<String> getListeNoms() {
+		return this.nomArtefacts;
 	}
 	
 	public void setNomProjet(String name) {
