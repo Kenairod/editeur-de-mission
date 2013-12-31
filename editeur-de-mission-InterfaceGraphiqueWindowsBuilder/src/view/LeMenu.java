@@ -9,6 +9,10 @@ import javax.swing.KeyStroke;
 
 public class LeMenu extends JMenuBar{
 	
+	/**
+	 * Permet de savoir si quels item on doit griser (une Enum pourrait être envisageable)
+	 * Par exemple si on projet est ouvert ou fermer
+	 */
 	private int etat;
 	
 	/**
