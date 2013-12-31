@@ -3,12 +3,14 @@ package view;
 import javax.swing.JFrame;
 
 public class Fenetre extends JFrame {
+	private EditeurVue vue;
 	private LeMenu menu;
 	
 	public Fenetre(EditeurVue vue) {
 		super();
+		this.vue = vue;
 		this.menu = new LeMenu();
-		this.menu.setEtat();
+		this.menu.setEtat(0);
 		//this.vue = vue;
 		setTitle("Bianji - Éditeur de jeu vidéo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -21,5 +23,7 @@ public class Fenetre extends JFrame {
 		//MenuBar menuBar = new MenuBar(this);
 		//this.setJMenuBar(menuBar.getMenuBar());
 		this.setVisible(true);
+		
+		this.setJMenuBar(this.menu);
 	}
 }

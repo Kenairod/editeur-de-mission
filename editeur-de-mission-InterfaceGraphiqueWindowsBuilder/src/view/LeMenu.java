@@ -1,27 +1,16 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class LeMenu extends JMenu{
+public class LeMenu extends JMenuBar{
 	
 	private int etat;
 	
-	/**
-	* La barre de menu principal
-	*/
-	private JMenuBar menuBar = new JMenuBar();
 	/**
 	* Le menu File
 	*/
@@ -111,7 +100,10 @@ public class LeMenu extends JMenu{
 	* L'item à propos
 	*/
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
-      
+
+	public void setEtat(int etat) {
+		this.etat = etat;
+	}
 
 
 	public LeMenu () {
@@ -171,12 +163,12 @@ public class LeMenu extends JMenu{
               this.aide.add(a_propos);
               
               fichier.setMnemonic('F');
-              this.menuBar.add(fichier);
+              this.add(fichier);
               edition.setMnemonic('E');
-              this.menuBar.add(edition);
+              this.add(edition);
               vue.setMnemonic('V');
-              this.menuBar.add(vue);
+              this.add(vue);
               aide.setMnemonic('H');
-              this.menuBar.add(aide);
+              this.add(aide);
 	}
 }
