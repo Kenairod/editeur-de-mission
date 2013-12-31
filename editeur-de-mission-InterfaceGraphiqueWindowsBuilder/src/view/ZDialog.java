@@ -101,7 +101,7 @@ import javax.swing.JTextField;
 		} 
 	  
 		public void ajoutObjet() {
-			this.fenetre.ajouterObjet(nomArtefact.getText(), urlArtefact.getText());
+			this.fenetre.ajouterObjet(nomArtefact.getText(), urlArtefact.getText(),"");
 		}
 
 }
