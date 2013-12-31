@@ -262,6 +262,8 @@ public class MenuBar {
 	        if (chooser.showOpenDialog(null) == 0) {
 	        	this.fenetre.importProject(chooser.getSelectedFile().toString());
 	        	this.fenetre.oldProject();
+	        	this.nouveau.setEnabled(true);
+	            this.enregistrer.setEnabled(true);
 	        }   
 	}
 	
@@ -285,7 +287,7 @@ public class MenuBar {
 		    if(name.length()!=0) {
 		    	this.fenetre.setNomProjet(name);
 				this.fenetre.newProject();
-				nouveau.setEnabled(false);
+				nouveau.setEnabled(true);
 				enregistrer.setEnabled(true);
 		    	/*coller.setEnabled(true);
 		    	copier.setEnabled(true);

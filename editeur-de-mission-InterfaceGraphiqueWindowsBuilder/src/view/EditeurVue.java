@@ -17,6 +17,7 @@ public class EditeurVue implements Observer {
 	
 	public void update(Observable o, Object arg) {
 		this.fenetre.repaint();
+		this.fenetre.initList((ArrayList<String>) arg);
 	}
 	
 	public void saveProject() {

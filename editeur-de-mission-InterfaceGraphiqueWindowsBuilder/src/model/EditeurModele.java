@@ -446,12 +446,11 @@ public class EditeurModele extends Observable {
 	 * @return Le nom des artefacts de la scène
 	 */
 	public ArrayList<String> getNomArtefacts() {
-		//List<Element> elem = this.getElements();
-		ArrayList<String> str = new ArrayList<String>();
-		for (int i=0; i<this.mapping.size(); i++) {
-			str.add(this.mapping.get(i).getChild("artefact").getAttributeValue("id"));
+		ArrayList<String> ret = new ArrayList<String>();
+		for (Element obj : this.mapping) {
+			ret.add(obj.getChild("artefact").getAttributeValue("id"));
 		}
-		return str;
+		return ret;
 	}
 	
 	/**
@@ -522,8 +521,11 @@ public class EditeurModele extends Observable {
 		}		
 	}
 	
-	public void updateGrid(){
-		notifyObservers();
+	public void updateList(){
+		this.notifyObservers(this.getNomArtefacts());
 	}
 	
+	/*public void updateGrid(){
+		this.notifyObservers(new int[3]);
+	}*/
 }

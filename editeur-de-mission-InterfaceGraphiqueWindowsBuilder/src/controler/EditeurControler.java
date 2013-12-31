@@ -8,7 +8,6 @@ import view.EditeurVue;
 public class EditeurControler {
 	private EditeurModele modele;
 	private EditeurVue vue;
-	private ArrayList<String> nomArtefacts;
 	
 	public EditeurControler(EditeurModele model) {
 		this.modele = model;
@@ -23,11 +22,10 @@ public class EditeurControler {
 	public void importProject(String path) {
 		this.modele = new EditeurModele(path);
 		System.out.println(this.modele.toString());
-		this.nomArtefacts = this.modele.getNomArtefacts();
 	}
 	
 	public ArrayList<String> getListeNoms() {
-		return this.nomArtefacts;
+		return this.modele.getNomArtefacts();
 	}
 	
 	public void setNomProjet(String name) {
@@ -40,5 +38,6 @@ public class EditeurControler {
 	
 	public void ajouterObjet(String idArtefact, String urlRelativeArtefact) {
 		this.modele.ajouterObjet(idArtefact, urlRelativeArtefact);
+		this.modele.updateList();
 	}
 }

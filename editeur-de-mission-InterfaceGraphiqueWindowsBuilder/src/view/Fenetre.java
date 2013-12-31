@@ -64,8 +64,8 @@ public class Fenetre extends JFrame{
 		/**
 		 * Permet de créer l'arbre du paneau latéral
 		 */
-		public void initTree() {
-			ArrayList<String> artefacts = this.getListeNoms();
+		public void initList(ArrayList<String> artefacts) {
+			//ArrayList<String> artefacts = this.getListeNoms();
 			this.liste = new JList(artefacts.toArray());
 			this.getContentPane().add(this.tabbedPane, BorderLayout.CENTER);
 			
@@ -122,7 +122,7 @@ public class Fenetre extends JFrame{
 		}
 		
 		public void oldProject () {
-			this.initTree();
+			this.initList(this.vue.getListeNoms());
 			this.initScroll();
 			this.initSplit();
 		}
@@ -141,10 +141,6 @@ public class Fenetre extends JFrame{
 		
 		public String getNomProjet() {
 			return this.vue.getNomProjet();
-		}
-		
-		public ArrayList<String> getListeNoms() {
-			return this.vue.getListeNoms();
 		}
 		
 		public void ajouterObjet(String idArtefact, String urlRelativeArtefact) {
