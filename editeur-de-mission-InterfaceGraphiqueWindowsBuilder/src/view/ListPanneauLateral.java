@@ -11,6 +11,10 @@ public class ListPanneauLateral extends JList {
 	
 	private String [] listeObjets;
 	
+	public void setListeObjets(String [] listeObjets) {
+		this.listeObjets = listeObjets;
+	}
+	
 	public ListPanneauLateral(/*Il faudrait passer un tableau*/) {
 		super(/*Il faudrait passer un tableau Et ce dans toute la hiérarchie jusqu'à arriver içi je crois*/);
 	}
