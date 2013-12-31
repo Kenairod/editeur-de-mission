@@ -5,6 +5,11 @@ import java.util.Observer;
 
 import controler.EditeurControler;
 
+/**
+ * La vue
+ * @author Da Dream Team
+ *
+ */
 public class EditeurVue implements Observer {
 	private Fenetre fenetre;
 	private EditeurControler controler;

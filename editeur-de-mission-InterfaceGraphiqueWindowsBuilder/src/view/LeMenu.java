@@ -7,7 +7,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class LeMenu extends JMenuBar{
+/**
+ * La barre de menu
+ * @author Da Dream Team
+ *
+ */
+public class LeMenu extends JMenuBar {
 	
 	/**
 	 * Permet de savoir si quels item on doit griser (une Enum pourrait être envisageable)
