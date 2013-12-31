@@ -354,7 +354,7 @@ public class EditeurModele extends Observable {
 	}
 	
 	/**
-	 * Ajouter un objet au mapping en lui passant les attributs de l'artefact et de l'agent en valeurs <br />
+	 * Ajouter un objet n'ayant qu'un artefact et pas d'agent au mapping <br />
 	 * Rajoute également en même temps automatiquement l'artefact à la liste des artefacts
 	 * @param idArtefact id (nom) de l'artefact
 	 * @param urlRelativeArtefact adresse relative menant au fichier de l'artefact (ex : fichier de texture)
@@ -373,16 +373,37 @@ public class EditeurModele extends Observable {
 		artefact.setAttributes(a);
 		objet.addContent(artefact);
 		this.ajouterArtefactDansSaListe(idArtefact, urlRelativeArtefact);
+
+		this.ajouterObjetMapping(objet);
+	}
+	
+	/**
+	 * Ajouter un objet au mapping en lui passant les attributs de l'artefact et de l'agent en valeurs <br />
+	 * Rajoute également en même temps automatiquement l'artefact à la liste des artefacts
+	 * @param idArtefact id (nom) de l'artefact
+	 * @param urlRelativeArtefact adresse relative menant au fichier de l'artefact (ex : fichier de texture)
+	 * @param scriptAgent Script de l'agent
+	 */
+	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
+		Element objet = new Element("objet");
+		objet.setAttribute(new Attribute("id",""+(this.getNbObjets()+1)));
+		
+		//Création et ajout de la balise artefact
+		Element artefact = new Element("artefact");
+		Attribute id = new Attribute("id", idArtefact);
+		Attribute image = new Attribute("image", urlRelativeArtefact);
+		ArrayList<Attribute> a = new ArrayList<Attribute>();
+		a.add(id);
+		a.add(image);
+		artefact.setAttributes(a);
+		objet.addContent(artefact);
+		this.ajouterArtefactDansSaListe(idArtefact, urlRelativeArtefact);
 		
 		//Création et ajout de la balise agent
-		/*Element agent = new Element("agent");
-		id = new Attribute("id", idAgent);
+		Element agent = new Element("agent");
 		Attribute script = new Attribute("script", scriptAgent);
-		a.clear();
-		a.add(id);
-		a.add(script);
-		agent.setAttributes(a);
-		objet.addContent(agent);*/
+		agent.setAttribute(script);
+		objet.addContent(agent);
 
 		this.ajouterObjetMapping(objet);
 	}
