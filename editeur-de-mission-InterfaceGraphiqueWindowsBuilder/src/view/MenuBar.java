@@ -263,7 +263,8 @@ public class MenuBar {
 	        	String[] str = chooser.getSelectedFile().getName().split(".xml");
 	        	this.fenetre.importProject(chooser.getSelectedFile().toString(),str[0]);
 	        	this.fenetre.oldProject();
-	        	this.nouveau.setEnabled(true);
+	        	this.nouveau.setEnabled(false);
+	        	this.ouvrir.setEnabled(false);
 	            this.enregistrer.setEnabled(true);
 	        }   
 	}
@@ -287,7 +288,8 @@ public class MenuBar {
 		    if(name.length()!=0) {
 		    	this.fenetre.setNomProjet(name);
 				this.fenetre.newProject();
-				nouveau.setEnabled(true);
+				nouveau.setEnabled(false);
+				ouvrir.setEnabled(false);
 				enregistrer.setEnabled(true);
 		    	/*coller.setEnabled(true);
 		    	copier.setEnabled(true);
