@@ -24,8 +24,8 @@ public class EditeurVue implements Observer {
 		this.controler.saveProject();
 	}
 	
-	public void importProject(String path) {
-		this.controler.importProject(path);
+	public void importProject(String path, String nom) {
+		this.controler.importProject(path,nom);
 	}
 	
 	public void setNomProjet(String name) {

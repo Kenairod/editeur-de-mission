@@ -260,7 +260,8 @@ public class MenuBar {
 	        chooser.setFileFilter(xmlFilter);
 	        //System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
 	        if (chooser.showOpenDialog(null) == 0) {
-	        	this.fenetre.importProject(chooser.getSelectedFile().toString());
+	        	String[] str = chooser.getSelectedFile().getName().split(".xml");
+	        	this.fenetre.importProject(chooser.getSelectedFile().toString(),str[0]);
 	        	this.fenetre.oldProject();
 	        	this.nouveau.setEnabled(true);
 	            this.enregistrer.setEnabled(true);
@@ -278,7 +279,6 @@ public class MenuBar {
 	
 	public void saveProject() {
 		this.fenetre.saveProject();
-		JOptionPane.showMessageDialog(null,"Projet Sauvegardé", "Save",JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public void newProject() {

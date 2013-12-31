@@ -186,12 +186,14 @@ public class EditeurModele extends Observable {
       * Permet d'importer un fichier XML dans afin de construire ce modèle
       * @param fichier Le chemin vers le fichier source
       */
-	public EditeurModele(String fichier) {
+	public EditeurModele(String fichier, String nom) {
 		//La lecture se fait à l'aide d'une contructeur SAX
 		SAXBuilder ConstructSAX = new SAXBuilder();
 		//On récupère le fichier source
 		File file = new File(fichier);
 		        
+		this.nomProjet = nom;
+		
 		try {
 			//On convertit le fichier en objet Document à l'aide du constructeur SAX
 			Document document = ConstructSAX.build(file);

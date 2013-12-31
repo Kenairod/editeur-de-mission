@@ -19,8 +19,8 @@ public class EditeurControler {
 		this.modele.createXML();
 	}
 	
-	public void importProject(String path) {
-		this.modele = new EditeurModele(path);
+	public void importProject(String path, String nom) {
+		this.modele = new EditeurModele(path,nom);
 		System.out.println(this.modele.toString());
 	}
 	

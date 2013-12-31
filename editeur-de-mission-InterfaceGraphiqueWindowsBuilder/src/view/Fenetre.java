@@ -131,8 +131,8 @@ public class Fenetre extends JFrame{
 			this.vue.saveProject();
 		}
 		
-		public void importProject(String path) {
-			this.vue.importProject(path);
+		public void importProject(String path, String nom) {
+			this.vue.importProject(path,nom);
 		}
 		
 		public void setNomProjet(String name) {
