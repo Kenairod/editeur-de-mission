@@ -8,13 +8,13 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
 
 public class Fenetre extends JFrame{
@@ -32,14 +32,15 @@ public class Fenetre extends JFrame{
 		/**
 		 * La pane où se trouve les objets
 		 */
-		private JList liste;
+		private JTree arbre;
+		
 		private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		
 		private EditeurVue vue;
 		
-		 private JPopupMenu jpm = new JPopupMenu();
+		private JPopupMenu jpm = new JPopupMenu();
 		  
-		 private JMenuItem insertion = new JMenuItem("Insert a new Object");
+		private JMenuItem insertion = new JMenuItem("Insert a new Object");
 		  
 		/**
 		 * Constructeur par défaut
@@ -64,9 +65,10 @@ public class Fenetre extends JFrame{
 		/**
 		 * Permet de créer l'arbre du paneau latéral
 		 */
-		public void initList(ArrayList<String> artefacts) {
+		public void initArbre(ArrayList<String> artefacts) {
 			//ArrayList<String> artefacts = this.getListeNoms();
-			this.liste = new JList(artefacts.toArray());
+			this.arbre = new JTree(artefacts.toArray());
+			contentPane.add(this.arbre, BorderLayout.WEST);
 			this.getContentPane().add(this.tabbedPane, BorderLayout.CENTER);
 			
 			this.revalidate();
@@ -96,7 +98,7 @@ public class Fenetre extends JFrame{
 			
 			scroll.setColumnHeaderView(tabbedPane);
 			
-			this.tabbedPane.addTab("Object", this.liste);
+			this.tabbedPane.addTab("Object", this.arbre);
 			this.revalidate();
 		}
 		
@@ -122,7 +124,7 @@ public class Fenetre extends JFrame{
 		}
 		
 		public void oldProject () {
-			this.initList(this.vue.getListeNoms());
+			this.initArbre(this.vue.getListeNoms());
 			this.initScroll();
 			this.initSplit();
 		}
