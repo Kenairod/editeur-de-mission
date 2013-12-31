@@ -16,17 +16,13 @@ import javax.swing.JTextField;
 
 	public class ZDialog extends JDialog {
 		private Fenetre fenetre;
-		private JButton artefactButton, agentButton;
+		private JButton artefactButton;
 		private JTextField urlArtefact, nomArtefact;
-		private String title;
-		private boolean modal;
 		private JLabel nomLabel;	
 	
 	public ZDialog(Fenetre parent, String title, boolean modal){
-		super();
+		super(parent,title,modal);
 		this.fenetre = parent;
-		this.title = title;
-		this.modal = modal;
 		this.setSize(500, 210);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
