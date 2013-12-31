@@ -16,6 +16,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.border.EmptyBorder;
+import java.awt.GridLayout;
 
 public class Fenetre extends JFrame{
 	
@@ -108,6 +109,7 @@ public class Fenetre extends JFrame{
 		public void initSplit() {
 			MainPanel principal = new MainPanel();
 			this.split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.scroll, principal);
+			principal.setLayout(new GridLayout(1, 0, 0, 0));
 			this.getContentPane().add(this.split, BorderLayout.CENTER);
 			this.split.setOneTouchExpandable(true);
 			this.split.setDividerLocation(200);
