@@ -41,8 +41,6 @@ public class Fenetre extends JFrame{
 		  
 		 private JMenuItem insertion = new JMenuItem("Insert a new Object");
 		  
-		 private InsertObjectListener insertObject =new InsertObjectListener();
-		  
 		/**
 		 * Constructeur par défaut
 		 * Create the frame.
@@ -79,7 +77,11 @@ public class Fenetre extends JFrame{
 		 */
 		public void initScroll() {
 			this.scroll = new JScrollPane(this.tabbedPane);
-			insertion.addActionListener(insertObject);	//On affecte l'écouteur
+			insertion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					openZDialog();
+				}
+		    });
 			scroll.addMouseListener(new MouseAdapter() {
 				public void mouseReleased(MouseEvent event) {
 					 if(event.isPopupTrigger()){       
@@ -109,12 +111,10 @@ public class Fenetre extends JFrame{
 			this.split.setDividerLocation(200);
 			this.revalidate();
 		}
-		
-		public class InsertObjectListener implements ActionListener{
-		    public void actionPerformed(ActionEvent arg0) { 
-		    	ZDialog zd = new ZDialog(null, "Insert New Artefact", true);
-		    }    
-		  }
+	
+		public void openZDialog() {
+			ZDialog zd = new ZDialog(this, "Insert New Artefact", true);
+		}
 		
 		public void newProject () {
 			this.initScroll();

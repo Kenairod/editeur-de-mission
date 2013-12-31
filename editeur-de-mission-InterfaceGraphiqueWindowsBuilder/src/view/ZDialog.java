@@ -10,17 +10,22 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class ZDialog extends JDialog {
+	  private Fenetre fenetre;
 	  private JButton artefactButton, agentButton;
 	  private JTextField artefact;
 	  private String nomArtefact;
+	  private String title;
+	  private boolean modal;
 
-  public ZDialog(JFrame parent, String title, boolean modal){
-      super(parent, title, modal);
+  public ZDialog(Fenetre parent, String title, boolean modal){
+      super();
+      this.fenetre = parent;
+      this.title = title;
+      this.modal = modal;
       this.setSize(400, 150);
       this.setLocationRelativeTo(null);
       this.setResizable(false);
@@ -56,7 +61,7 @@ public class ZDialog extends JDialog {
     
       okBouton.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent arg0) {
-			  //ajoutObjet();
+			  ajoutObjet();
 			  setVisible(false);
 		  }
       }); 
@@ -82,6 +87,10 @@ public class ZDialog extends JDialog {
 			artefact.setText(chooser.getSelectedFile().toString());
 			nomArtefact = chooser.getName(chooser.getSelectedFile());
 		}   
+  }
+  
+  public void ajoutObjet() {
+	  this.fenetre.ajouterObjet(nomArtefact, artefact.getText());
   }
 
 }
