@@ -143,8 +143,8 @@ public class Fenetre extends JFrame{
 			return this.vue.getNomProjet();
 		}
 		
-		public void ajouterObjet(String idArtefact, String urlRelativeArtefact) {
-			this.vue.ajouterObjet(idArtefact, urlRelativeArtefact);
+		public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
+			this.vue.ajouterObjet(idArtefact, urlRelativeArtefact, scriptAgent);
 		}
 		
 		/*public Project getProject() {
