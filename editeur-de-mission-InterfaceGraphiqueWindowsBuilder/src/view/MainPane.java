@@ -7,10 +7,10 @@ import javax.swing.JSplitPane;
  * @author Da Dream Team
  *
  */
-public class mainPane extends JSplitPane {
+public class MainPane extends JSplitPane {
 	
-	public mainPane() {
-		super(JSplitPane.HORIZONTAL_SPLIT, new PanneauLateral(), new PanneauScene());
+	public MainPane() {
+		super(JSplitPane.HORIZONTAL_SPLIT, new ScrollPanneauLateral(), new PanneauScene());
 		this.setDividerLocation(200);
 	}
 }

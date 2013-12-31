@@ -10,14 +10,14 @@ import javax.swing.JFrame;
 public class Fenetre extends JFrame {
 	private EditeurVue vue;
 	private LeMenu menu;
-	private mainPane contenu;
+	private MainPane contenu;
 	
 	public Fenetre(EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu();
 		this.menu.setEtat(0);
-		this.contenu = new mainPane();
+		this.contenu = new MainPane();
 		//this.vue = vue;
 		setTitle("Bianji - Éditeur de jeu vidéo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
