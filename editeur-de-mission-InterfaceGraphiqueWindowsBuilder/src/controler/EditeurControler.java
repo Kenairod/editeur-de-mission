@@ -40,4 +40,8 @@ public class EditeurControler {
 		this.modele.ajouterObjet(idArtefact, urlRelativeArtefact, scriptAgent);
 		this.modele.updateList();
 	}
+	
+	public void restartProject() {
+		EditeurControler ctrl = new EditeurControler(new EditeurModele());
+	}
 }

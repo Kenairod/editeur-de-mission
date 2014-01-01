@@ -48,4 +48,8 @@ public class EditeurVue implements Observer {
 	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
 		this.controler.ajouterObjet(idArtefact, urlRelativeArtefact, scriptAgent);
 	}
+	
+	public void restartProject() {
+		this.controler.restartProject();
+	}
 }

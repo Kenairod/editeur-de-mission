@@ -9,10 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import model.EditeurModele;
-
-import controler.EditeurControler;
-
 /**
  * La fenêtre principale
  * @author Da Dream Team
@@ -96,6 +92,6 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void restartProject() {
-		EditeurControler ctrl = new EditeurControler(new EditeurModele());
+		this.vue.restartProject();
 	}
 }
