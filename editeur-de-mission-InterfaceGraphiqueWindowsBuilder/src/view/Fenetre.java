@@ -1,13 +1,6 @@
 package view;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
 import javax.swing.JFrame;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 
 /**
  * La fenêtre principale
@@ -18,15 +11,15 @@ public class Fenetre extends JFrame {
 	private EditeurVue vue;
 	private LeMenu menu;
 	private MainPane contenu;
-	private JPopupMenu jpm = new JPopupMenu();
-	private JMenuItem insertion = new JMenuItem("Insert a new Object");
+	/*private JPopupMenu jpm = new JPopupMenu();
+	private JMenuItem insertion = new JMenuItem("Insert a new Object");*/
 	
 	public Fenetre(EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.menu.setEtat(0);
-		this.contenu = new MainPane();
+		this.contenu = new MainPane(this);
 		
 		setTitle("Bianji - Éditeur de jeu vidéo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +32,7 @@ public class Fenetre extends JFrame {
 		this.setJMenuBar(this.menu);
 	}
 	
-	public void openZDialog() {
+	/*public void openZDialog() {
 		ZDialog zd = new ZDialog(this, "Insert New Artefact", true);
 	}
 	
@@ -59,16 +52,16 @@ public class Fenetre extends JFrame {
 			}
 		});
 		
-	}
+	}*/
 	
 	public void newProject () {
 		this.getContentPane().setVisible(true);
-		showMenu();
+		//showMenu();
 	}
 	
 	public void oldProject () {
 		this.getContentPane().setVisible(true);
-		showMenu();
+		//showMenu();
 	}
 	
 	public void saveProject() {

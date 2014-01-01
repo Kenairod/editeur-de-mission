@@ -9,8 +9,8 @@ import javax.swing.JSplitPane;
  */
 public class MainPane extends JSplitPane {
 	
-	public MainPane() {
-		super(JSplitPane.HORIZONTAL_SPLIT, new ScrollPanneauLateral(), new PanneauScene());
+	public MainPane(Fenetre fen) {
+		super(JSplitPane.HORIZONTAL_SPLIT, new ScrollPanneauLateral(fen), new PanneauScene());
 		this.setDividerLocation(200);
 	}
 }
