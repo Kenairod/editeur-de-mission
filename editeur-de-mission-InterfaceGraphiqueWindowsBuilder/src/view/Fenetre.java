@@ -9,6 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import model.EditeurModele;
+
+import controler.EditeurControler;
+
 /**
  * La fenêtre principale
  * @author Da Dream Team
@@ -89,5 +93,9 @@ public class Fenetre extends JFrame {
 	
 	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
 		this.vue.ajouterObjet(idArtefact, urlRelativeArtefact, scriptAgent);
+	}
+	
+	public void restartProject() {
+		EditeurControler ctrl = new EditeurControler(new EditeurModele());
 	}
 }

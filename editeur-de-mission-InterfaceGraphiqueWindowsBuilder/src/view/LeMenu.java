@@ -58,7 +58,7 @@ public class LeMenu extends JMenuBar {
 	/**
 	* L'item fermer
 	*/
-	//private JMenuItem fermer = new JMenuItem("Close Document");
+	private JMenuItem fermer = new JMenuItem("Close Document");
 	/**
 	* L'item enregistrer
 	*/
@@ -143,9 +143,13 @@ public class LeMenu extends JMenuBar {
 			}
 	    });
        
-		/*fermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.CTRL_DOWN_MASK));
+		fermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.CTRL_DOWN_MASK));
 	 	this.fichier.add(fermer);
-  	    fermer.setEnabled(false);*/
+  	    fermer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				restartProject();    
+			}
+	    });
               
 		this.fichier.addSeparator();//-------
               
@@ -217,15 +221,20 @@ public class LeMenu extends JMenuBar {
               this.add(aide);
               
               if (this.fenetre.getNomProjet().length()==0) {
-  		    	enregistrer.setEnabled(false);
-  		    	coller.setEnabled(false);
-  		    	copier.setEnabled(false);
-  		    	couper.setEnabled(false);
-  		    	suivant.setEnabled(false);
-  		    	precedent.setEnabled(false);
-  		    	zoom.setEnabled(false);
-  		    	dezoom.setEnabled(false);
+  		    	this.setAllFalse();
   		    }
+	}
+	
+	public void setAllFalse() {
+			enregistrer.setEnabled(false);
+	  	    fermer.setEnabled(false);
+	    	coller.setEnabled(false);
+	    	copier.setEnabled(false);
+	    	couper.setEnabled(false);
+	    	suivant.setEnabled(false);
+	    	precedent.setEnabled(false);
+	    	zoom.setEnabled(false);
+	    	dezoom.setEnabled(false);
 	}
 	
 	public void exitProject () {
@@ -237,21 +246,26 @@ public class LeMenu extends JMenuBar {
 
 	public void openProject() {
 		JFileChooser chooser = new JFileChooser();
-        // create filter
+        // création du filtre
         FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("XML Files (*.xml)", "xml");
-        // add filter
+        // ajout du filtre
         chooser.addChoosableFileFilter(xmlFilter);
-        // set selected filter
+        // set filtre selectionné
         chooser.setFileFilter(xmlFilter);
         //System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
         if (chooser.showOpenDialog(null) == 0) {
         	String[] str = chooser.getSelectedFile().getName().split(".xml");
         	this.fenetre.importProject(chooser.getSelectedFile().toString(),str[0]);
         	this.fenetre.oldProject();
-        	this.nouveau.setEnabled(false);
-        	this.ouvrir.setEnabled(false);
-            this.enregistrer.setEnabled(true);
+        	this.changeEnabled();
         }   
+	}
+	
+	public void changeEnabled() {
+  	    fermer.setEnabled(true);
+		nouveau.setEnabled(false);
+		ouvrir.setEnabled(false);
+		enregistrer.setEnabled(true);
 	}
 
 	public void aboutProject () {
@@ -273,16 +287,7 @@ public class LeMenu extends JMenuBar {
 		    if(name.length()!=0) {
 		    	this.fenetre.setNomProjet(name);
 				this.fenetre.newProject();
-				nouveau.setEnabled(false);
-				ouvrir.setEnabled(false);
-				enregistrer.setEnabled(true);
-		    	/*coller.setEnabled(true);
-		    	copier.setEnabled(true);
-		    	couper.setEnabled(true);
-		    	suivant.setEnabled(true);
-		    	precedent.setEnabled(true);
-		    	zoom.setEnabled(true);
-		    	dezoom.setEnabled(true);*/
+				this.changeEnabled();
 		    }
 		    else {
 		    	JOptionPane.showMessageDialog(null,
@@ -290,5 +295,11 @@ public class LeMenu extends JMenuBar {
 		    	newProject();
 			}
 		}
+	}
+	
+	public void restartProject() {
+		this.saveProject();
+		this.fenetre.dispose();
+		this.fenetre.restartProject();
 	}
 }
