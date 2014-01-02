@@ -30,7 +30,7 @@ public class Fenetre extends JFrame {
 		this.menu.setEtat(0);
 		this.scene = new JPanel();
 		this.scene.setBackground(Color.RED);
-		this.onglet = new TabPanneauLateral(listeArtefacts);
+		this.onglet = new TabPanneauLateral(listeArtefacts, this);
 		this.onglet.repaint();
 		this.scrollPane = new JScrollPane(this.onglet);
 		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.scrollPane, this.scene); //Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)

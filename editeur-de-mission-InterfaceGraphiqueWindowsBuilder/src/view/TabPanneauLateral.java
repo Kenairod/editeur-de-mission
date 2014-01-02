@@ -27,12 +27,11 @@ public class TabPanneauLateral extends JTabbedPane {
 			this.liste = new JList<String>(tab);
 		}
 		System.out.println("LALIIIISTE :"+list);
-		String [] tab = {"Obj 1", "objet 2"};
-		this.liste = new JList<String>(tab);
 	}
 	
-	public TabPanneauLateral(ArrayList<String> list) {
+	public TabPanneauLateral(ArrayList<String> list, Fenetre fenetre) {
 		super(JTabbedPane.TOP);
+		this.fenetre = fenetre;
 		this.setListe(list);
 		this.addTab("Objects", this.liste);
 		this.showMenu();
@@ -48,7 +47,7 @@ public class TabPanneauLateral extends JTabbedPane {
 				openZDialog();
 			}
 	    });
-		this.getComponent(0).addMouseListener(new MouseAdapter() {	// Sur le rouge et pas la liste (à régler)
+		this.getComponent(0).addMouseListener(new MouseAdapter() {
 		public void mouseReleased(MouseEvent event) {
 			 if(event.isPopupTrigger()){       
 		          jpm.add(insertion);
