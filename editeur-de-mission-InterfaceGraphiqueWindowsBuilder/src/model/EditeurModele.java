@@ -433,10 +433,14 @@ public class EditeurModele implements Observable {
 	/**
 	 * @return Le nom des artefacts de la scène
 	 */
-	public ArrayList<String> getNomArtefacts() {
-		ArrayList<String> ret = new ArrayList<String>();
+	public String [] getNomArtefacts() {
+		ArrayList<String> temp = new ArrayList<String>();
 		for (Element obj : this.mapping) {
-			ret.add(obj.getChild("artefact").getAttributeValue("id"));
+			temp.add(obj.getChild("artefact").getAttributeValue("id"));
+		}
+		String [] ret = new String [temp.size()];
+		for (int i = 0; i < temp.size(); i++) {
+			ret[i] = temp.get(i);
 		}
 		return ret;
 	}

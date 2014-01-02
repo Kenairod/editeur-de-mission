@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 
 /**
  * La fenêtre principale
@@ -21,20 +22,25 @@ public class Fenetre extends JFrame {
 	private LeMenu menu;
 	private JSplitPane contenu;
 	private JScrollPane scrollPane;
-	private TabPanneauLateral onglet;
+	//private TabPanneauLateral onglet;
+	private JTabbedPane onglets;
+	private ListPanneauLateral liste;
 	private JPanelImageBg scene;
 
 	
-	public Fenetre(ArrayList<String> listeArtefacts, EditeurVue vue) {
+	public Fenetre(String [] listeArtefacts, EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.menu.setEtat(0);
 		this.scene = new JPanelImageBg();
 		this.scene.setBackground(Color.RED);
-		this.onglet = new TabPanneauLateral(listeArtefacts, this);
-		this.onglet.repaint();
-		this.scrollPane = new JScrollPane(this.onglet);
+		this.liste = new ListPanneauLateral(listeArtefacts, this);
+		this.liste.setListe(listeArtefacts);
+		this.onglets = new JTabbedPane(JTabbedPane.TOP);
+		this.onglets.addTab("Objects", this.liste);
+		//this.onglet.repaint();
+		this.scrollPane = new JScrollPane(this.onglets);
 		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.scrollPane, this.scene); //Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
 		this.contenu.setDividerLocation(200);
 		
@@ -49,11 +55,10 @@ public class Fenetre extends JFrame {
 		this.setJMenuBar(this.menu);
 	}
 	
-	public void changeListeObjets(ArrayList<String> listeArtefacts) {
-		this.onglet.setListe(listeArtefacts);
-		this.onglet.repaint();
+	public void changeListeObjets(String [] listeArtefacts) {
+		this.liste.setListe(listeArtefacts);
+		this.liste.repaint();
 	}
-	
 	
 	public void newProject () {
 		this.getContentPane().setVisible(true);

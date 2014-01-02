@@ -15,7 +15,7 @@ public class EditeurVue implements Observateur {
 	private EditeurControler controler;
 
 	@Override
-	public void updateListe(ArrayList<String> liste) {
+	public void updateListe(String [] liste) {
 		this.fenetre.changeListeObjets(liste);
 		this.fenetre.repaint();
 	}

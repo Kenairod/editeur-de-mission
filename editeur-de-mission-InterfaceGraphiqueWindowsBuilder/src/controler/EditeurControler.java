@@ -24,7 +24,7 @@ public class EditeurControler {
 		System.out.println(this.modele.toString());
 	}
 	
-	public ArrayList<String> getListeNoms() {
+	public String [] getListeNoms() {
 		return this.modele.getNomArtefacts();
 	}
 	

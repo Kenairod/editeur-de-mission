@@ -1,4 +1,4 @@
-package view;
+/*package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,22 +17,9 @@ public class TabPanneauLateral extends JTabbedPane {
 	private JMenuItem object = new JMenuItem("Insert a new Object");
 	private JMenuItem bg = new JMenuItem("Define a new Background");
 	private Fenetre fenetre;
-	private JList<String> liste = new JList<String>();
+	//private JList<String> liste = new JList<String>();
 	
-	public void setListe(ArrayList<String> list) {
-		System.out.println("LALIIIISTE :"+list+" De taille : "+list.size());
-		//if (list != null) {
-			//String[] tab = new String[list.size()];
-			String [] tab = {"Obj 1","Obj 2"};
-			for (int i = 0; i < list.size(); i++) {
-				tab[i] = list.get(i);
-				System.out.println("Element : "+i+"Valeur : "+tab[i]);
-			}
-			this.liste = new JList<String>(tab);
-		//}
-		this.liste.repaint();
-		this.repaint();
-	}
+	
 	
 	public TabPanneauLateral(ArrayList<String> list, Fenetre fenetre) {
 		super(JTabbedPane.TOP);
@@ -74,4 +61,4 @@ public class TabPanneauLateral extends JTabbedPane {
 	
 	}
 	
-}
+}*/
