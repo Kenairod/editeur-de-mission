@@ -43,4 +43,8 @@ public class EditeurControler {
 	public void restartProject() {
 		EditeurControler ctrl = new EditeurControler(new EditeurModele());
 	}
+	
+	public void setFond(String urlBg) {
+		this.modele.setFond(urlBg);
+	}
 }

@@ -53,4 +53,8 @@ public class EditeurVue implements Observateur {
 	public void restartProject() {
 		this.controler.restartProject();
 	}
+	
+	public void setFond(String urlBg) {
+		this.controler.setFond(urlBg);
+	}
 }

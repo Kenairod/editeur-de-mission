@@ -87,6 +87,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void ajouterBg(String urlBg) {
+		this.vue.setFond(urlBg);
 		try {
 			BufferedImage image = ImageIO.read(new File(urlBg));
 			this.scene.setImage(image);
