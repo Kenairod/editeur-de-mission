@@ -2,8 +2,8 @@ package view;
 
 import java.util.ArrayList;
 
+import observation.Observateur;
 import controler.EditeurControler;
-import controler.Observateur;
 
 /**
  * La vue

@@ -28,6 +28,7 @@ public class TabPanneauLateral extends JTabbedPane {
 			this.liste = new JList<String>(tab);
 		}
 		System.out.println("LALIIIISTE :"+list);
+		this.repaint();
 	}
 	
 	public TabPanneauLateral(ArrayList<String> list, Fenetre fenetre) {

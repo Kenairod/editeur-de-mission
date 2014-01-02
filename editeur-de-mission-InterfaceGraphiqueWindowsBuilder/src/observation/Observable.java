@@ -1,4 +1,5 @@
-package controler;
+package observation;
+
 
 public interface Observable {
 	public void addObservateur(Observateur obs);

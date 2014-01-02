@@ -9,6 +9,9 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 
+import observation.Observable;
+import observation.Observateur;
+
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -16,9 +19,6 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
-
-import controler.Observable;
-import controler.Observateur;
 
 /**
  * Permet de modéliser les éléments nécessaires à la modélisation d'une scène
