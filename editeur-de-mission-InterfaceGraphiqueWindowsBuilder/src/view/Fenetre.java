@@ -17,11 +17,10 @@ public class Fenetre extends JFrame {
 	private EditeurVue vue;
 	private LeMenu menu;
 	private JSplitPane contenu;
-		private JScrollPane scrollPane;
-			private TabPanneauLateral onglet;
-		private JPanel scene;
-	/*private JPopupMenu jpm = new JPopupMenu();
-	private JMenuItem insertion = new JMenuItem("Insert a new Object");*/
+	private JScrollPane scrollPane;
+	private TabPanneauLateral onglet;
+	private JPanel scene;
+
 	
 	public Fenetre(ArrayList<String> listeArtefacts, EditeurVue vue) {
 		super();
@@ -51,36 +50,13 @@ public class Fenetre extends JFrame {
 		this.onglet.setListe(listeArtefacts);
 	}
 	
-	/*public void openZDialog() {
-		ZDialog zd = new ZDialog(this, "Insert New Artefact", true);
-	}
-	
-	public void showMenu() {
-		insertion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				openZDialog();
-			}
-	    });
-		contenu.addMouseListener(new MouseAdapter() {	// Sur le rouge et pas la liste (à régler)
-			public void mouseReleased(MouseEvent event) {
-				 if(event.isPopupTrigger()){       
-			          jpm.add(insertion);
-			          jpm.show(contenu, event.getX(), event.getY());	//La méthode qui va afficher le menu
-			          
-			     }
-			}
-		});
-		
-	}*/
 	
 	public void newProject () {
 		this.getContentPane().setVisible(true);
-		//showMenu();
 	}
 	
 	public void oldProject () {
 		this.getContentPane().setVisible(true);
-		//showMenu();
 	}
 	
 	public void saveProject() {

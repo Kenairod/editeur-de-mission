@@ -14,13 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-	public class ZDialog extends JDialog {
+	public class AddObjectDialog extends JDialog {
 		private Fenetre fenetre;
 		private JButton artefactButton;
 		private JTextField urlArtefact, nomArtefact;
 		private JLabel nomLabel;	
 	
-	public ZDialog(Fenetre parent, String title, boolean modal){
+	public AddObjectDialog(Fenetre parent, String title, boolean modal){
 		super(parent,title,modal);
 		this.fenetre = parent;
 		this.setSize(500, 210);
