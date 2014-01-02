@@ -82,6 +82,7 @@ public class EditeurModele implements Observable {
     	 this.elementsScene = new ArrayList<Element>();
     	 this.artefacts = new ArrayList<Element>();
     	 this.mapping = new ArrayList<Element>();
+    	 this.updateListeObervateur();
      }
      
      
@@ -109,6 +110,7 @@ public class EditeurModele implements Observable {
 		this.elementsScene = elementsScene;
 		this.artefacts = artefacts;
 		this.mapping = mapping;
+		this.updateListeObervateur();
 	}
 
 
@@ -232,6 +234,7 @@ public class EditeurModele implements Observable {
 			this.artefacts = artefacts.getChildren();
 			Element mapping = noeudRacine.getChild("mapping");
 			this.mapping = mapping.getChildren();
+			this.updateListeObervateur();
 		}
 		catch (JDOMException | IOException e) {
 			e.printStackTrace();

@@ -20,14 +20,17 @@ public class TabPanneauLateral extends JTabbedPane {
 	private JList<String> liste = new JList<String>();
 	
 	public void setListe(ArrayList<String> list) {
-		if (list != null) {
-			String[] tab = new String[list.size()];
+		System.out.println("LALIIIISTE :"+list+" De taille : "+list.size());
+		//if (list != null) {
+			//String[] tab = new String[list.size()];
+			String [] tab = {"Obj 1","Obj 2"};
 			for (int i = 0; i < list.size(); i++) {
 				tab[i] = list.get(i);
+				System.out.println("Element : "+i+"Valeur : "+tab[i]);
 			}
 			this.liste = new JList<String>(tab);
-		}
-		System.out.println("LALIIIISTE :"+list);
+		//}
+		this.liste.repaint();
 		this.repaint();
 	}
 	

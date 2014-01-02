@@ -51,6 +51,7 @@ public class Fenetre extends JFrame {
 	
 	public void changeListeObjets(ArrayList<String> listeArtefacts) {
 		this.onglet.setListe(listeArtefacts);
+		this.onglet.repaint();
 	}
 	
 	
