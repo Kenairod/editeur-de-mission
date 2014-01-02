@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
 
 import javax.swing.JFileChooser;
 
@@ -18,12 +17,15 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import controler.Observable;
+import controler.Observateur;
+
 /**
  * Permet de modéliser les éléments nécessaires à la modélisation d'une scène
  * @author Da Dream Team
  *
  */
-public class EditeurModele extends Observable {
+public class EditeurModele implements Observable {
 	
 	private String nomProjet;
 	/**
@@ -63,6 +65,8 @@ public class EditeurModele extends Observable {
       */
      private List<Element> mapping;
      
+	//Notre collection d'observateurs
+	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
      
      /**
       * Constructeur par défaut
@@ -78,8 +82,6 @@ public class EditeurModele extends Observable {
     	 this.elementsScene = new ArrayList<Element>();
     	 this.artefacts = new ArrayList<Element>();
     	 this.mapping = new ArrayList<Element>();
-    	 this.setChanged();
-    	 this.updateList();
      }
      
      
@@ -107,8 +109,6 @@ public class EditeurModele extends Observable {
 		this.elementsScene = elementsScene;
 		this.artefacts = artefacts;
 		this.mapping = mapping;
-		this.setChanged();
-		this.updateList();
 	}
 
 
@@ -232,8 +232,6 @@ public class EditeurModele extends Observable {
 			this.artefacts = artefacts.getChildren();
 			Element mapping = noeudRacine.getChild("mapping");
 			this.mapping = mapping.getChildren();
-			this.setChanged();
-			this.updateList();
 		}
 		catch (JDOMException | IOException e) {
 			e.printStackTrace();
@@ -312,8 +310,7 @@ public class EditeurModele extends Observable {
 		a.add(image);
 		artefact.setAttributes(a);
 		this.artefacts.add(artefact);
-		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
-		this.updateList();
+//On indique aux observeurs (la vue) que le modèle a changé
 	}
 	
 	/**
@@ -341,8 +338,6 @@ public class EditeurModele extends Observable {
 			}
 			i++;
 		}
-		this.setChanged();
-		this.updateList();
 	}
 	
 	/**
@@ -351,8 +346,7 @@ public class EditeurModele extends Observable {
 	 */
 	public void ajouterObjetMapping(Element objet) { //Ajoute objet au mapping
 		this.mapping.add(objet);
-		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
-		this.updateList();
+ //On indique aux observeurs (la vue) que le modèle a changé
 	}
 	
 	/**
@@ -392,8 +386,7 @@ public class EditeurModele extends Observable {
 		objet.addContent(agent);
 
 		this.ajouterObjetMapping(objet);
-		this.setChanged();
-		this.updateList();
+		this.updateListeObervateur();
 	}
 	
 	/**
@@ -411,7 +404,6 @@ public class EditeurModele extends Observable {
 			}
 			i++;
 		}
-		this.setChanged();
 	}
 	
 	public String getMapID(String s) {
@@ -428,7 +420,6 @@ public class EditeurModele extends Observable {
 				ret = courant.getAttributeValue("id");
 			}
 		}
-		this.setChanged();
 		return ret;
 	}
 	
@@ -440,7 +431,6 @@ public class EditeurModele extends Observable {
 		for (Element obj : this.mapping) {
 			ret.add(obj.getChild("artefact").getAttributeValue("id"));
 		}
-		this.setChanged();
 		return ret;
 	}
 	
@@ -454,11 +444,9 @@ public class EditeurModele extends Observable {
 		for (Element objetMapped : this.mapping) {
 			int idMapped = Integer.parseInt(objetMapped.getAttributeValue("id"));
 			if (id == idMapped) {
-				this.setChanged();
 				return objetMapped.getChild("artefact").getAttributeValue("id");
 			}
 		}
-		this.setChanged();
 		return "Erreur !";
 	}
 	
@@ -468,7 +456,7 @@ public class EditeurModele extends Observable {
 	 */
 	public void ajouterObjetScene(Element objet) {
 		this.elementsScene.add(objet);
-		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
+		//On indique aux observeurs (la vue) que le modèle a changé
 	}
 	
 	/**
@@ -477,7 +465,7 @@ public class EditeurModele extends Observable {
 	 */
 	public void retirerObjetScene(Element objet) {
 		this.elementsScene.remove(objet);
-		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
+ //On indique aux observeurs (la vue) que le modèle a changé
 	}
 	
 	/**
@@ -498,7 +486,6 @@ public class EditeurModele extends Observable {
 		objet.setAttributes(a);
 		
 		this.ajouterObjetScene(objet);
-		this.setChanged();
 	}
 	
 	/**
@@ -513,15 +500,34 @@ public class EditeurModele extends Observable {
 				this.retirerObjetScene(this.elementsScene.get(i));
 			}
 		}
-		this.setChanged();
+	}
+
+
+	@Override
+	//Ajoute un observateur à la liste
+	public void addObservateur(Observateur obs) {
+		this.listObservateur.add(obs);
+	}
+
+
+	@Override
+	//Avertit les observateurs que l'objet observable a changé 
+	//et invoque la méthode update() de chaque observateur
+	public void updateListeObervateur() {
+		for(Observateur obs : this.listObservateur )
+	    	obs.updateListe(this.getNomArtefacts());
+	}
+
+
+	@Override
+	//Retire tous les observateurs de la liste
+	public void delObservateur() {
+		this.listObservateur = new ArrayList<Observateur>();
 	}
 	
-	public void updateList(){
-		this.notifyObservers(this.getNomArtefacts());
-		System.out.println("UPDATTTTTEEEEEEEEEEEEEEEEE"+this.countObservers());
+	@Override
+	public void updateSceneObervateur(){
+		for(Observateur obs : this.listObservateur )
+	    	obs.updateScene();
 	}
-	
-	/*public void updateGrid(){
-		this.notifyObservers(new int[3]);
-	}*/
 }

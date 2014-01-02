@@ -1,28 +1,28 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 import controler.EditeurControler;
+import controler.Observateur;
 
 /**
  * La vue
  * @author Da Dream Team
  *
  */
-public class EditeurVue implements Observer {
+public class EditeurVue implements Observateur {
 	private Fenetre fenetre;
 	private EditeurControler controler;
 
 	@Override
-	public void update(Observable o, Object arg) {
-		System.out.println("MAJ");
-		if (arg.getClass().equals(new ArrayList<String>().getClass())) {
-			ArrayList<String> liste = ((ArrayList<String>) arg);
-			this.fenetre.changeListeObjets(liste);
-		}
+	public void updateListe(ArrayList<String> liste) {
+		this.fenetre.changeListeObjets(liste);
 		this.fenetre.repaint();
+	}
+	
+	@Override
+	public void updateScene() {
+		
 	}
 	
 	public EditeurVue(EditeurControler controler) {

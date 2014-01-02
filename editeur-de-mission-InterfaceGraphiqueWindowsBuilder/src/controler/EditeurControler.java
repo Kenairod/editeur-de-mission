@@ -12,7 +12,7 @@ public class EditeurControler {
 	public EditeurControler(EditeurModele model) {
 		this.modele = model;
 		this.vue = new EditeurVue(this);
-		this.modele.addObserver(this.vue);
+		this.modele.addObservateur(this.vue);
 	}
 	
 	public void saveProject() {
@@ -38,7 +38,6 @@ public class EditeurControler {
 	
 	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
 		this.modele.ajouterObjet(idArtefact, urlRelativeArtefact, scriptAgent);
-		this.modele.updateList();
 	}
 	
 	public void restartProject() {
