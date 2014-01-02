@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 /**
@@ -11,15 +13,17 @@ public class Fenetre extends JFrame {
 	private EditeurVue vue;
 	private LeMenu menu;
 	private MainPane contenu;
+	private ArrayList<String> liste;
 	/*private JPopupMenu jpm = new JPopupMenu();
 	private JMenuItem insertion = new JMenuItem("Insert a new Object");*/
 	
-	public Fenetre(EditeurVue vue) {
+	public Fenetre(ArrayList<String> listeArtefacts, EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.menu.setEtat(0);
 		this.contenu = new MainPane(this);
+		this.liste = listeArtefacts;
 		
 		setTitle("Bianji - Éditeur de jeu vidéo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +34,14 @@ public class Fenetre extends JFrame {
 		this.setContentPane(this.contenu);
 		this.getContentPane().setVisible(false);
 		this.setJMenuBar(this.menu);
+	}
+	
+	public void setListeObjets(ArrayList<String> listeArtefacts) {
+		this.liste = listeArtefacts;
+	}
+	
+	public ArrayList<String> getListeObjets() {
+		return this.liste;
 	}
 	
 	/*public void openZDialog() {

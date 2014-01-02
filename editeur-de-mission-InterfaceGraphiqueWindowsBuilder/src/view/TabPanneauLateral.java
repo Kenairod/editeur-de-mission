@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
+import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTabbedPane;
@@ -14,12 +16,24 @@ public class TabPanneauLateral extends JTabbedPane {
 	private JPopupMenu jpm = new JPopupMenu();
 	private JMenuItem insertion = new JMenuItem("Insert a new Object");
 	private Fenetre fenetre;
+	private JList<String> liste = new JList<String>();
+	
+	public void setListe(JList<String> list) {
+		this.liste = list;
+	}
 	
 	public TabPanneauLateral(Fenetre fen) {
 		super(JTabbedPane.TOP);
-		this.addTab("Objects", new ListPanneauLateral());
-		
 		this.fenetre = fen;
+		ArrayList<String> list = this.fenetre.getListeObjets();
+		if (list != null) {
+			String[] tab = new String[list.size()];
+			for (int i = 0; i < list.size(); i++) {
+				tab[i] = list.get(i);
+			}
+			this.liste = new JList<String>(tab);
+		}
+		this.addTab("Objects", this.liste);
 		this.showMenu();
 	}
 	

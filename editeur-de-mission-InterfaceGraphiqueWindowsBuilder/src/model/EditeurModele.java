@@ -78,6 +78,8 @@ public class EditeurModele extends Observable {
     	 this.elementsScene = new ArrayList<Element>();
     	 this.artefacts = new ArrayList<Element>();
     	 this.mapping = new ArrayList<Element>();
+    	 this.setChanged();
+    	 this.updateList();
      }
      
      
@@ -105,6 +107,8 @@ public class EditeurModele extends Observable {
 		this.elementsScene = elementsScene;
 		this.artefacts = artefacts;
 		this.mapping = mapping;
+		this.setChanged();
+		this.updateList();
 	}
 
 
@@ -229,7 +233,7 @@ public class EditeurModele extends Observable {
 			Element mapping = noeudRacine.getChild("mapping");
 			this.mapping = mapping.getChildren();
 			this.setChanged();
-
+			this.updateList();
 		}
 		catch (JDOMException | IOException e) {
 			e.printStackTrace();
@@ -278,7 +282,7 @@ public class EditeurModele extends Observable {
 			Courant = (Element)j.next();
 			ret = ret + " script child : "+Courant.getAttributeValue("script")+"\n";
 		}
-		    
+		
 		return ret;
 	}
 
@@ -309,6 +313,7 @@ public class EditeurModele extends Observable {
 		artefact.setAttributes(a);
 		this.artefacts.add(artefact);
 		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
+		this.updateList();
 	}
 	
 	/**
@@ -336,6 +341,8 @@ public class EditeurModele extends Observable {
 			}
 			i++;
 		}
+		this.setChanged();
+		this.updateList();
 	}
 	
 	/**
@@ -345,6 +352,7 @@ public class EditeurModele extends Observable {
 	public void ajouterObjetMapping(Element objet) { //Ajoute objet au mapping
 		this.mapping.add(objet);
 		this.setChanged(); //On indique aux observeurs (la vue) que le modèle a changé
+		this.updateList();
 	}
 	
 	/**
@@ -384,6 +392,8 @@ public class EditeurModele extends Observable {
 		objet.addContent(agent);
 
 		this.ajouterObjetMapping(objet);
+		this.setChanged();
+		this.updateList();
 	}
 	
 	/**
@@ -401,6 +411,7 @@ public class EditeurModele extends Observable {
 			}
 			i++;
 		}
+		this.setChanged();
 	}
 	
 	public String getMapID(String s) {
@@ -416,7 +427,8 @@ public class EditeurModele extends Observable {
 				Courant = (Element)j.next();
 				ret = courant.getAttributeValue("id");
 			}
-		}                
+		}
+		this.setChanged();
 		return ret;
 	}
 	
@@ -428,6 +440,7 @@ public class EditeurModele extends Observable {
 		for (Element obj : this.mapping) {
 			ret.add(obj.getChild("artefact").getAttributeValue("id"));
 		}
+		this.setChanged();
 		return ret;
 	}
 	
@@ -441,9 +454,11 @@ public class EditeurModele extends Observable {
 		for (Element objetMapped : this.mapping) {
 			int idMapped = Integer.parseInt(objetMapped.getAttributeValue("id"));
 			if (id == idMapped) {
+				this.setChanged();
 				return objetMapped.getChild("artefact").getAttributeValue("id");
 			}
 		}
+		this.setChanged();
 		return "Erreur !";
 	}
 	
@@ -483,6 +498,7 @@ public class EditeurModele extends Observable {
 		objet.setAttributes(a);
 		
 		this.ajouterObjetScene(objet);
+		this.setChanged();
 	}
 	
 	/**
@@ -496,11 +512,13 @@ public class EditeurModele extends Observable {
 			if (this.elementsScene.get(i).getAttributeValue("id").equals(""+id) && this.elementsScene.get(i).getAttributeValue("x").equals(""+x) && this.elementsScene.get(i).getAttributeValue("y").equals(""+y)) {
 				this.retirerObjetScene(this.elementsScene.get(i));
 			}
-		}		
+		}
+		this.setChanged();
 	}
 	
 	public void updateList(){
 		this.notifyObservers(this.getNomArtefacts());
+		System.out.println("UPDATTTTTEEEEEEEEEEEEEEEEE"+this.countObservers());
 	}
 	
 	/*public void updateGrid(){

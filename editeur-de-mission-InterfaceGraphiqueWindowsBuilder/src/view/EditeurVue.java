@@ -16,13 +16,18 @@ public class EditeurVue implements Observer {
 	private EditeurControler controler;
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void update(Observable o, Object arg) {
+		System.out.println("MAJ");
+		if (arg.getClass().equals(new ArrayList<String>().getClass())) {
+			ArrayList<String> liste = ((ArrayList<String>) arg);
+			this.fenetre.setListeObjets(liste);;
+		}
 		this.fenetre.repaint();
 	}
 	
 	public EditeurVue(EditeurControler controler) {
 		this.controler = controler;
-		this.fenetre = new Fenetre(this);
+		this.fenetre = new Fenetre(this.controler.getListeNoms(), this);
 	}
 	
 	public void saveProject() {
@@ -39,10 +44,6 @@ public class EditeurVue implements Observer {
 	
 	public String getNomProjet() {
 		return this.controler.getNomProjet();
-	}
-	
-	public ArrayList<String> getListeNoms() {
-		return this.controler.getListeNoms();
 	}
 	
 	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {

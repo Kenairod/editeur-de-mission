@@ -1,4 +1,4 @@
-package view;
+/*package view;
 
 import javax.swing.JList;
 
@@ -6,17 +6,18 @@ import javax.swing.JList;
  * Là où sont listés tous les objets du projet
  * @author Da Dream Team
  *
- */
+ *//*
 public class ListPanneauLateral extends JList {
 	
+	private Fenetre fenetre;
 	private String [] listeObjets;
 	
 	public void setListeObjets(String [] listeObjets) {
 		this.listeObjets = listeObjets;
 	}
 	
-	public ListPanneauLateral(/*Il faudrait passer un tableau*/) {
-		super(/*Il faudrait passer un tableau Et ce dans toute la hiérarchie jusqu'à arriver içi je crois*/);
+	public ListPanneauLateral(Fenetre fen) {
+		this();
 	}
 
-}
+}*/
