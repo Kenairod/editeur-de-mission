@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
@@ -19,7 +18,7 @@ public class Fenetre extends JFrame {
 	private JSplitPane contenu;
 	private JScrollPane scrollPane;
 	private TabPanneauLateral onglet;
-	private JPanel scene;
+	private JPanelImageBg scene;
 
 	
 	public Fenetre(ArrayList<String> listeArtefacts, EditeurVue vue) {
@@ -27,7 +26,7 @@ public class Fenetre extends JFrame {
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.menu.setEtat(0);
-		this.scene = new JPanel();
+		this.scene = new JPanelImageBg();
 		this.scene.setBackground(Color.RED);
 		this.onglet = new TabPanneauLateral(listeArtefacts, this);
 		this.onglet.repaint();
@@ -81,5 +80,9 @@ public class Fenetre extends JFrame {
 	
 	public void restartProject() {
 		this.vue.restartProject();
+	}
+	
+	public void ajouterBg(String urlBg) {
+		this.scene.setImage(image);
 	}
 }

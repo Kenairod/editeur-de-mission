@@ -88,7 +88,7 @@ import javax.swing.JTextField;
 		} 
 	  
 		public void ajoutBg() {
-			//this.fenetre.ajouterBg(urlBg.getText());
+			this.fenetre.ajouterBg(urlBg.getText());
 		}
 
 }
