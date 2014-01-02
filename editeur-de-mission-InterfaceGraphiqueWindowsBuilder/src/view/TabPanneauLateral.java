@@ -18,14 +18,7 @@ public class TabPanneauLateral extends JTabbedPane {
 	private Fenetre fenetre;
 	private JList<String> liste = new JList<String>();
 	
-	public void setListe(JList<String> list) {
-		this.liste = list;
-	}
-	
-	public TabPanneauLateral(Fenetre fen) {
-		super(JTabbedPane.TOP);
-		this.fenetre = fen;
-		ArrayList<String> list = this.fenetre.getListeObjets();
+	public void setListe(ArrayList<String> list) {
 		if (list != null) {
 			String[] tab = new String[list.size()];
 			for (int i = 0; i < list.size(); i++) {
@@ -33,6 +26,14 @@ public class TabPanneauLateral extends JTabbedPane {
 			}
 			this.liste = new JList<String>(tab);
 		}
+		System.out.println("LALIIIISTE :"+list);
+		String [] tab = {"Obj 1", "objet 2"};
+		this.liste = new JList<String>(tab);
+	}
+	
+	public TabPanneauLateral(ArrayList<String> list) {
+		super(JTabbedPane.TOP);
+		this.setListe(list);
 		this.addTab("Objects", this.liste);
 		this.showMenu();
 	}

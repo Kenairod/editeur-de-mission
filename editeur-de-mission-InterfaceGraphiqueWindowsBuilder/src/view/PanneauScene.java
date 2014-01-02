@@ -1,4 +1,4 @@
-package view;
+/*package view;
 
 import java.awt.Color;
 
@@ -9,4 +9,4 @@ public class PanneauScene extends JPanel {
 		this.setBackground(Color.RED);
 	}
 
-}
+}*/

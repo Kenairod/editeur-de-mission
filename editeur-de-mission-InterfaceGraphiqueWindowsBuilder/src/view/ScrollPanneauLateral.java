@@ -1,4 +1,4 @@
-package view;
+/*package view;
 
 import javax.swing.JScrollPane;
 
@@ -7,3 +7,4 @@ public class ScrollPanneauLateral extends JScrollPane {
 		super(new TabPanneauLateral(fen));
 	}
 }
+*/

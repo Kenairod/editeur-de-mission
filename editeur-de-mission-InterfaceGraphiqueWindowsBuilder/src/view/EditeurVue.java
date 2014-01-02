@@ -20,7 +20,7 @@ public class EditeurVue implements Observer {
 		System.out.println("MAJ");
 		if (arg.getClass().equals(new ArrayList<String>().getClass())) {
 			ArrayList<String> liste = ((ArrayList<String>) arg);
-			this.fenetre.setListeObjets(liste);;
+			this.fenetre.changeListeObjets(liste);
 		}
 		this.fenetre.repaint();
 	}
