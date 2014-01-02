@@ -393,7 +393,7 @@ public class EditeurModele implements Observable {
 		objet.addContent(agent);
 
 		this.ajouterObjetMapping(objet);
-		this.updateListeObervateur();
+		this.updateListeObervateur();		// Affiche erreur dans la console qd on appuie sur 'OK'
 	}
 	
 	/**

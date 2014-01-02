@@ -1,13 +1,18 @@
 package view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -26,6 +31,9 @@ public class Fenetre extends JFrame {
 	private JTabbedPane onglets;
 	private ListPanneauLateral liste;
 	private JPanelImageBg scene;
+	private JPopupMenu jpm = new JPopupMenu();
+	private JMenuItem object = new JMenuItem("Insert a new Object");
+	private JMenuItem bg = new JMenuItem("Define a new Background");
 
 	
 	public Fenetre(String [] listeArtefacts, EditeurVue vue) {
@@ -35,7 +43,7 @@ public class Fenetre extends JFrame {
 		this.menu.setEtat(0);
 		this.scene = new JPanelImageBg();
 		this.scene.setBackground(Color.RED);
-		this.liste = new ListPanneauLateral(listeArtefacts, this);
+		this.liste = new ListPanneauLateral(listeArtefacts);
 		this.liste.setListe(listeArtefacts);
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);
 		this.onglets.addTab("Objects", this.liste);
@@ -55,6 +63,37 @@ public class Fenetre extends JFrame {
 		this.setJMenuBar(this.menu);
 	}
 	
+	public void openObjectDialog() {
+		AddObjectDialog aod = new AddObjectDialog(this, "Insert New Artefact", true);
+	}
+	
+	public void openBgDialog() {
+		AddBackgroundDialog obd = new AddBackgroundDialog(this, "Define a New Background", true);
+	}
+	
+	public void showMenu() {
+		object.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				openObjectDialog();
+			}
+	    });
+		bg.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				openBgDialog();
+			}
+	    });
+		this.onglets.getComponent(0).addMouseListener(new MouseAdapter() {
+		public void mouseReleased(MouseEvent event) {
+			 if(event.isPopupTrigger()){       
+				 jpm.add(bg);
+				 jpm.add(object);
+		         jpm.show(contenu, event.getX(), event.getY());	//La méthode qui va afficher le menu
+		          
+		     }
+		}
+	});
+	}
+	
 	public void changeListeObjets(String [] listeArtefacts) {
 		this.liste.setListe(listeArtefacts);
 		this.liste.repaint();
@@ -62,10 +101,12 @@ public class Fenetre extends JFrame {
 	
 	public void newProject () {
 		this.getContentPane().setVisible(true);
+		showMenu();
 	}
 	
 	public void oldProject () {
 		this.getContentPane().setVisible(true);
+		showMenu();
 	}
 	
 	public void saveProject() {

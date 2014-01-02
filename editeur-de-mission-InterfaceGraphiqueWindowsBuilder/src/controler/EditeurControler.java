@@ -1,7 +1,5 @@
 package controler;
 
-import java.util.ArrayList;
-
 import model.EditeurModele;
 import view.EditeurVue;
 
