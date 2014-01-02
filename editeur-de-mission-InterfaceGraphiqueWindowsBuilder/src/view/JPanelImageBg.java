@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -25,8 +24,7 @@ public class JPanelImageBg extends JPanel
 	        super.paintComponent(g); //paint background
 	        if (image != null) { //there is a picture: draw it
 	            int height = this.getSize().height;
-	            int width = this.getSize().width;
-	            //g.drawImage(image, 0, 0, this); //use image size          
+	            int width = this.getSize().width;        
 	            g.drawImage(image,0,0, width, height, this);
 	        }
 	    }
