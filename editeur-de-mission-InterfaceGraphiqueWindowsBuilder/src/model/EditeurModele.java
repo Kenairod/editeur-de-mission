@@ -296,6 +296,10 @@ public class EditeurModele implements Observable {
 		this.nomProjet = nom;
 	}
 	
+	public void setFond(String urlFond) {
+		this.imageFond = urlFond;
+	}
+	
 	/**
 	 * Permet d'ajouter un artefact dans la liste des artefacts
 	 * @param idArtefact L'attribut id de l'artefact
