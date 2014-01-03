@@ -1,5 +1,7 @@
 package view;
 
+import java.util.Vector;
+
 import javax.swing.JList;
 
 /**
@@ -7,20 +9,27 @@ import javax.swing.JList;
  * @author Da Dream Team
  *
  */
-public class ListPanneauLateral extends JList {
+public class ListPanneauLateral extends JList<String> {
 
-	private String [] listeTab;
+	private Vector<String> listeVect;
 	
 	public void setListe(String[] list) {
-		this.listeTab = new String[list.length];
+		System.out.println("On est dans setListe");
+		this.listeVect = new Vector<String>();
 		for (int i = 0; i < list.length; i++) {
-			this.listeTab[i] = list[i];
+			this.listeVect.add(list[i]);
 		}
+		this.setListData(this.listeVect);
+		//this.validate();
 	}
 	
-	public ListPanneauLateral(String [] listeTab) {
-		super(listeTab);
-		this.listeTab = listeTab;
+	public ListPanneauLateral(String [] list) {
+		System.out.println("On est dans le constructeur de liste");
+		this.setListe(list);
+		for (int i = 0; i < list.length; i++) {
+			this.listeVect.add(list[i]);
+		}
+		this.validate();
 	}
 	
 }

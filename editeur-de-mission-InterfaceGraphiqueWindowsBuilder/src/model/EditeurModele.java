@@ -234,6 +234,7 @@ public class EditeurModele implements Observable {
 			this.artefacts = artefacts.getChildren();
 			Element mapping = noeudRacine.getChild("mapping");
 			this.mapping = mapping.getChildren();
+			
 			this.updateListeObervateur();
 		}
 		catch (JDOMException | IOException e) {
@@ -393,7 +394,7 @@ public class EditeurModele implements Observable {
 		objet.addContent(agent);
 
 		this.ajouterObjetMapping(objet);
-		this.updateListeObervateur();		// Affiche erreur dans la console qd on appuie sur 'OK'
+		this.updateListeObervateur();
 	}
 	
 	/**
@@ -519,12 +520,19 @@ public class EditeurModele implements Observable {
 	public void addObservateur(Observateur obs) {
 		this.listObservateur.add(obs);
 	}
+	
+	public void mesObservateurs() {
+		System.out.println("Je suis observé par : ");
+		for(Observateur obs : this.listObservateur )
+			System.out.println(obs);
+	}
 
 
 	@Override
 	//Avertit les observateurs que l'objet observable a changé 
 	//et invoque la méthode update() de chaque observateur
 	public void updateListeObervateur() {
+		System.out.println("on update la liste");
 		for(Observateur obs : this.listObservateur )
 	    	obs.updateListe(this.getNomArtefacts());
 	}

@@ -11,6 +11,7 @@ public class EditeurControler {
 		this.modele = model;
 		this.vue = new EditeurVue(this);
 		this.modele.addObservateur(this.vue);
+		//this.modele.mesObservateurs();
 	}
 	
 	public void saveProject() {
@@ -19,6 +20,9 @@ public class EditeurControler {
 	
 	public void importProject(String path, String nom) {
 		this.modele = new EditeurModele(path,nom);
+		this.modele.addObservateur(this.vue);
+		//this.modele.mesObservateurs();
+		this.modele.updateListeObervateur();
 		System.out.println(this.modele.toString());
 	}
 	

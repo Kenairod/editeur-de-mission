@@ -14,6 +14,7 @@ public class EditeurVue implements Observateur {
 
 	@Override
 	public void updateListe(String [] liste) {
+		System.out.println("on voit que la liste a été updaté");
 		this.fenetre.changeListeObjets(liste);
 		this.fenetre.repaint();
 	}

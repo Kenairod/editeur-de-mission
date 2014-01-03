@@ -95,7 +95,8 @@ public class Fenetre extends JFrame {
 	
 	public void changeListeObjets(String [] listeArtefacts) {
 		this.liste.setListe(listeArtefacts);
-		this.liste.repaint();
+		//this.onglets.validate();
+		//this.onglets.repaint();
 	}
 	
 	public void newProject () {
