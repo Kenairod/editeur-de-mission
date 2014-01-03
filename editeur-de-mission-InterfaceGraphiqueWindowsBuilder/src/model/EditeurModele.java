@@ -304,6 +304,10 @@ public class EditeurModele implements Observable {
 		this.imageFond = urlFond;
 	}
 	
+	public String getFond() {
+		return this.imageFond;
+	}
+	
 	/**
 	 * Permet d'ajouter un artefact dans la liste des artefacts
 	 * @param idArtefact L'attribut id de l'artefact
@@ -532,21 +536,24 @@ public class EditeurModele implements Observable {
 	//Avertit les observateurs que l'objet observable a changé 
 	//et invoque la méthode update() de chaque observateur
 	public void updateListeObervateur() {
-		System.out.println("on update la liste");
 		for(Observateur obs : this.listObservateur )
 	    	obs.updateListe(this.getNomArtefacts());
 	}
 
-
-	@Override
-	//Retire tous les observateurs de la liste
-	public void delObservateur() {
-		this.listObservateur = new ArrayList<Observateur>();
+	public void updateFondObervateur(){
+		for(Observateur obs : this.listObservateur )
+	    	obs.updateFond(this.getFond());
 	}
 	
 	@Override
 	public void updateSceneObervateur(){
 		for(Observateur obs : this.listObservateur )
 	    	obs.updateScene();
+	}
+	
+	@Override
+	//Retire tous les observateurs de la liste
+	public void delObservateur() {
+		this.listObservateur = new ArrayList<Observateur>();
 	}
 }

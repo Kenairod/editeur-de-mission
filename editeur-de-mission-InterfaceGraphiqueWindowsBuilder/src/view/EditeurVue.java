@@ -14,8 +14,13 @@ public class EditeurVue implements Observateur {
 
 	@Override
 	public void updateListe(String [] liste) {
-		System.out.println("on voit que la liste a été updaté");
 		this.fenetre.changeListeObjets(liste);
+		this.fenetre.repaint();
+	}
+	
+	@Override
+	public void updateFond(String url) {
+		this.fenetre.ajouterBg(url);
 		this.fenetre.repaint();
 	}
 	
@@ -26,7 +31,7 @@ public class EditeurVue implements Observateur {
 	
 	public EditeurVue(EditeurControler controler) {
 		this.controler = controler;
-		this.fenetre = new Fenetre(this.controler.getListeNoms(), this);
+		this.fenetre = new Fenetre(this.controler.getListeNoms(), this.controler.getImageFond(), this);
 	}
 	
 	public void saveProject() {

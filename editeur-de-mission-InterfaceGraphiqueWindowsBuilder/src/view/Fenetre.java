@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -32,12 +31,13 @@ public class Fenetre extends JFrame {
 	private JMenuItem bg = new JMenuItem("Define a new Background");
 
 	
-	public Fenetre(String [] listeArtefacts, EditeurVue vue) {
+	public Fenetre(String [] listeArtefacts, String urlBg, EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.menu.setEtat(0);
 		this.scene = new JPanelImageBg();
+		this.scene.setImage(urlBg);
 		this.liste = new ListPanneauLateral(listeArtefacts);
 		this.liste.setListe(listeArtefacts);
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);
@@ -91,8 +91,10 @@ public class Fenetre extends JFrame {
 	
 	public void changeListeObjets(String [] listeArtefacts) {
 		this.liste.setListe(listeArtefacts);
-		//this.onglets.validate();
-		//this.onglets.repaint();
+	}
+	
+	public void changeFond(String urlBg) {
+		this.scene.setImage(urlBg);
 	}
 	
 	public void newProject () {
@@ -131,7 +133,6 @@ public class Fenetre extends JFrame {
 	
 	public void ajouterBg(String urlBg) {
 		this.vue.setFond(urlBg);
-		this.scene.setImage(urlBg);
-		this.scene.repaint();
+		this.changeFond(urlBg);
 	}
 }

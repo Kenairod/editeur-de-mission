@@ -22,8 +22,11 @@ public class JPanelImageBg extends JPanel {
 	    }
 		
 		public void setImage (String fileName) {
-			this.bufferedImage = this.toBufferedImage(Toolkit.getDefaultToolkit().getImage(fileName));
-			this.texture = new TexturePaint(bufferedImage,new Rectangle(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight())); 
+			if (!fileName.equals("")) {
+				System.out.println("Il y a une URL");
+				this.bufferedImage = this.toBufferedImage(Toolkit.getDefaultToolkit().getImage(fileName));
+				this.texture = new TexturePaint(bufferedImage,new Rectangle(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight()));
+			}
 		} 
 
 		public void paintComponent(Graphics g) {

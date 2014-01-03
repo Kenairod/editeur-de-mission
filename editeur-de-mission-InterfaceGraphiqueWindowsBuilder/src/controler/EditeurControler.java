@@ -23,11 +23,16 @@ public class EditeurControler {
 		this.modele.addObservateur(this.vue);
 		//this.modele.mesObservateurs();
 		this.modele.updateListeObervateur();
+		this.modele.updateFondObervateur();
 		System.out.println(this.modele.toString());
 	}
 	
 	public String [] getListeNoms() {
 		return this.modele.getNomArtefacts();
+	}
+	
+	public String getImageFond() {
+		return this.modele.getFond();
 	}
 	
 	public void setNomProjet(String name) {
