@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	public AddBackgroundDialog(Fenetre parent, String title, boolean modal){
 		super(parent,title,modal);
 		this.fenetre = parent;
-		this.setSize(400, 150);
+		this.setSize(430, 150);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -34,11 +34,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	
 		JPanel panBg = new JPanel();
 		panBg.setBackground(Color.white);
-		panBg.setPreferredSize(new Dimension(350, 60));
+		panBg.setPreferredSize(new Dimension(390, 60));
 		urlBg = new JTextField();
 		urlBg.setPreferredSize(new Dimension(200, 25));
 		panBg.setBorder(BorderFactory.createTitledBorder("Background"));
-		bgButton = new JButton("URL Background");
+		bgButton = new JButton("URL Image Background");
 		bgButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			JFileChooserBg();    
