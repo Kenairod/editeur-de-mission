@@ -272,7 +272,7 @@ public class LeMenu extends JMenuBar {
 	}
 
 	public void newProject() {
-		String name = JOptionPane.showInputDialog(null, "Nom du Projet ?", "Nom du Projet", JOptionPane.QUESTION_MESSAGE);
+		String name = JOptionPane.showInputDialog(null, "Project Name ?", "Project Name", JOptionPane.QUESTION_MESSAGE);
 		if (name != null) {
 		    if(name.length()!=0) {
 		    	this.fenetre.setNomProjet(name);
