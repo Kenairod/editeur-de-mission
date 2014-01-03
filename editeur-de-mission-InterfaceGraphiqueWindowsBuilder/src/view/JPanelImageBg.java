@@ -6,10 +6,10 @@ import java.awt.Image;
 
 import javax.swing.JPanel;
 
-public class JPanelImageBg extends JPanel
-{
-
+public class JPanelImageBg extends JPanel {
+	
 	    Image image;
+	    
 	    public JPanelImageBg(Image image) {
 	        this.image = image;
 	    }
@@ -24,11 +24,11 @@ public class JPanelImageBg extends JPanel
 	        return image;
 	    }
 	    public void paintComponent(Graphics g) {
-	        super.paintComponent(g); //paint background
-	        if (image != null) { //there is a picture: draw it
+	        super.paintComponent(g);
+	        if (image != null) {
 	            int height = this.getSize().height;
 	            int width = this.getSize().width;        
 	            g.drawImage(image,0,0, width, height, this);
 	        }
 	    }
-	}
+}
