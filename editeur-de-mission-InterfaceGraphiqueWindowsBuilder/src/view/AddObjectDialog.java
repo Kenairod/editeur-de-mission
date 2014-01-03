@@ -40,8 +40,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		panArtefact.setPreferredSize(new Dimension(370, 60));
 		urlArtefact = new JTextField();
 		urlArtefact.setPreferredSize(new Dimension(200, 25));
-		panArtefact.setBorder(BorderFactory.createTitledBorder("Lien de l'Artefact"));
-		artefactButton = new JButton("URL Image Artefact");
+		panArtefact.setBorder(BorderFactory.createTitledBorder("Path to the Artefact"));
+		artefactButton = new JButton("URL Artefact Image");
 		artefactButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			JFileChooserArtefact();    
@@ -56,8 +56,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		panNomArtefact.setPreferredSize(new Dimension(370, 60));
 		nomArtefact = new JTextField();
 		nomArtefact.setPreferredSize(new Dimension(200, 25));
-		panNomArtefact.setBorder(BorderFactory.createTitledBorder("Nom de l'Artefact"));
-		artefactLabel = new JLabel("Saisir un nom d'Artefact :");
+		panNomArtefact.setBorder(BorderFactory.createTitledBorder("Artefact's Name"));
+		artefactLabel = new JLabel("Enter the Artefact's name :");
 		panNomArtefact.add(artefactLabel);
 		panNomArtefact.add(nomArtefact);
 		
@@ -67,8 +67,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		panNomAgent.setPreferredSize(new Dimension(370, 60));
 		nomScript = new JTextField();
 		nomScript.setPreferredSize(new Dimension(200, 25));
-		panNomAgent.setBorder(BorderFactory.createTitledBorder("Nom du Script (Optionnel)"));
-		scriptLabel = new JLabel("Saisir le nom du Script :");
+		panNomAgent.setBorder(BorderFactory.createTitledBorder("Script's name (Optionnal)"));
+		scriptLabel = new JLabel("Enter the Script's name :");
 		panNomAgent.add(scriptLabel);
 		panNomAgent.add(nomScript);
 		

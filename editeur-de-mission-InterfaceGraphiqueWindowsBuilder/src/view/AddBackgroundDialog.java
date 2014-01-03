@@ -38,7 +38,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		urlBg = new JTextField();
 		urlBg.setPreferredSize(new Dimension(200, 25));
 		panBg.setBorder(BorderFactory.createTitledBorder("Background"));
-		bgButton = new JButton("URL Image Background");
+		bgButton = new JButton("URL Background Image");
 		bgButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			JFileChooserBg();    
@@ -63,7 +63,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 			}
 			}); 
 	   
-		JButton cancelBouton = new JButton("Annuler");
+		JButton cancelBouton = new JButton("Cancel");
 		cancelBouton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
