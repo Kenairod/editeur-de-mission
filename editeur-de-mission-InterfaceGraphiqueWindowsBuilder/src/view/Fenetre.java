@@ -35,7 +35,6 @@ public class Fenetre extends JFrame {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
-		this.menu.setEtat(0);
 		this.scene = new JPanelImageBg();
 		this.scene.setImage(urlBg);
 		this.liste = new ListPanneauLateral(listeArtefacts);
@@ -98,12 +97,7 @@ public class Fenetre extends JFrame {
 		this.scene.repaint();
 	}
 	
-	public void newProject () {
-		this.getContentPane().setVisible(true);
-		showMenu();
-	}
-	
-	public void oldProject () {
+	public void enableContenu () {
 		this.getContentPane().setVisible(true);
 		showMenu();
 	}

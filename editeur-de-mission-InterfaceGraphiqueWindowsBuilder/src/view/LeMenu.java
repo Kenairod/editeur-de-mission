@@ -22,13 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class LeMenu extends JMenuBar {
 	
 	private Fenetre fenetre;
-	
-	/**
-	 * Permet de savoir si quels item on doit griser (une Enum pourrait être envisageable)
-	 * Par exemple si on projet est ouvert ou fermer
-	 */
-	private int etat;
-	
+		
 	/**
 	* Le menu File
 	*/
@@ -118,10 +112,6 @@ public class LeMenu extends JMenuBar {
 	* L'item à propos
 	*/
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
-
-	public void setEtat(int etat) {
-		this.etat = etat;
-	}
 
 
 	public LeMenu (Fenetre fenetre) {
@@ -256,7 +246,7 @@ public class LeMenu extends JMenuBar {
         if (chooser.showOpenDialog(null) == 0) {
         	String[] str = chooser.getSelectedFile().getName().split(".xml");
         	this.fenetre.importProject(chooser.getSelectedFile().toString(),str[0]);
-        	this.fenetre.oldProject();
+        	this.fenetre.enableContenu();
         	this.changeEnabled();
         }   
 	}
@@ -286,7 +276,7 @@ public class LeMenu extends JMenuBar {
 		if (name != null) {
 		    if(name.length()!=0) {
 		    	this.fenetre.setNomProjet(name);
-				this.fenetre.newProject();
+				this.fenetre.enableContenu();
 				this.changeEnabled();
 		    }
 		    else {
