@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 	public class AddBackgroundDialog extends JDialog {
 		private Fenetre fenetre;
@@ -80,7 +81,14 @@ import javax.swing.JTextField;
 		}  
 	  
 		public void JFileChooserBg() {
+			
+			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif", "jpg", "jpeg", "png");
+			
 			JFileChooser chooser = new JFileChooser();
+
+	        chooser.addChoosableFileFilter(imagesFilter);
+
+	        chooser.setFileFilter(imagesFilter);
 	
 			if (chooser.showOpenDialog(null) == 0) {
 				urlBg.setText(chooser.getSelectedFile().toString());

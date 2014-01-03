@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 	public class AddObjectDialog extends JDialog {
 		private Fenetre fenetre;
@@ -93,7 +94,14 @@ import javax.swing.JTextField;
 		}  
 	  
 		public void JFileChooserArtefact() {
+			
+			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif", "jpg", "jpeg", "png");
+			
 			JFileChooser chooser = new JFileChooser();
+
+	        chooser.addChoosableFileFilter(imagesFilter);
+
+	        chooser.setFileFilter(imagesFilter);
 	
 			if (chooser.showOpenDialog(null) == 0) {
 				urlArtefact.setText(chooser.getSelectedFile().toString());
