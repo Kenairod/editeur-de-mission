@@ -10,7 +10,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -19,7 +18,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		private Fenetre fenetre;
 		private JButton bgButton;
 		private JTextField urlBg;
-		private JLabel nomLabel;	
 	
 	public AddBackgroundDialog(Fenetre parent, String title, boolean modal){
 		super(parent,title,modal);
