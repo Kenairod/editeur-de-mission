@@ -440,8 +440,8 @@ public class EditeurModele implements Observable {
 	 */
 	public String [] getNomArtefacts() {
 		ArrayList<String> temp = new ArrayList<String>();
-		for (Element obj : this.mapping) {
-			temp.add(obj.getChild("artefact").getAttributeValue("id"));
+		for (Element obj : this.artefacts) {
+			temp.add(obj.getAttributeValue("id"));
 		}
 		String [] ret = new String [temp.size()];
 		for (int i = 0; i < temp.size(); i++) {
