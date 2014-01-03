@@ -61,7 +61,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		panNomArtefact.add(artefactLabel);
 		panNomArtefact.add(nomArtefact);
 		
-		//Le nom de l'artefact
+		//Le nom du script
 		JPanel panNomAgent = new JPanel();
 		panNomAgent.setBackground(Color.white);
 		panNomAgent.setPreferredSize(new Dimension(370, 60));
