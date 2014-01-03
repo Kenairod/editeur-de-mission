@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.TexturePaint;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -22,8 +23,8 @@ public class JPanelImageBg extends JPanel {
 	    }
 		
 		public void setImage (String fileName) {
-			if (!fileName.equals("")) {
-				System.out.println("Il y a une URL");
+			File f = new File(fileName);
+			if(f.exists()) {
 				this.bufferedImage = this.toBufferedImage(Toolkit.getDefaultToolkit().getImage(fileName));
 				this.texture = new TexturePaint(bufferedImage,new Rectangle(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight()));
 			}
