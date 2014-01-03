@@ -265,7 +265,7 @@ public class LeMenu extends JMenuBar {
 		about.add(aboutLabel);
 		about.setLocationRelativeTo(null);
 		about.setVisible(true);
-}
+	}
 
 	public void saveProject() {
 		this.fenetre.saveProject();

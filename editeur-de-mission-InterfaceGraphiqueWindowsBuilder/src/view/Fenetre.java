@@ -97,7 +97,7 @@ public class Fenetre extends JFrame {
 		this.scene.repaint();
 	}
 	
-	public void enableContenu () {
+	public void enableContenu() {
 		this.getContentPane().setVisible(true);
 		showMenu();
 	}
