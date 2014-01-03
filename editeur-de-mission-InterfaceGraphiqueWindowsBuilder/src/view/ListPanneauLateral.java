@@ -12,6 +12,7 @@ public class ListPanneauLateral extends JList {
 	private String [] listeTab;
 	
 	public void setListe(String[] list) {
+		this.listeTab = new String[list.length];
 		for (int i = 0; i < list.length; i++) {
 			this.listeTab[i] = list[i];
 		}
