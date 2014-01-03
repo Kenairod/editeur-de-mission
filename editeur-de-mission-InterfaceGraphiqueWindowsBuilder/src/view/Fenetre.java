@@ -95,6 +95,7 @@ public class Fenetre extends JFrame {
 	
 	public void changeFond(String urlBg) {
 		this.scene.setImage(urlBg);
+		this.scene.repaint();
 	}
 	
 	public void newProject () {
