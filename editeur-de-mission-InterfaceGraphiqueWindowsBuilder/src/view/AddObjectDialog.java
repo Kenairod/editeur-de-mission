@@ -18,13 +18,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	public class AddObjectDialog extends JDialog {
 		private Fenetre fenetre;
 		private JButton artefactButton;
-		private JTextField urlArtefact, nomArtefact;
-		private JLabel nomLabel;	
+		private JTextField urlArtefact, nomArtefact, nomScript;
+		private JLabel artefactLabel, scriptLabel;	
 	
 	public AddObjectDialog(Fenetre parent, String title, boolean modal){
 		super(parent,title,modal);
 		this.fenetre = parent;
-		this.setSize(500, 210);
+		this.setSize(500, 270);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -37,11 +37,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		//L'artefact
 		JPanel panArtefact = new JPanel();
 		panArtefact.setBackground(Color.white);
-		panArtefact.setPreferredSize(new Dimension(350, 60));
+		panArtefact.setPreferredSize(new Dimension(370, 60));
 		urlArtefact = new JTextField();
 		urlArtefact.setPreferredSize(new Dimension(200, 25));
-		panArtefact.setBorder(BorderFactory.createTitledBorder("Artefact"));
-		artefactButton = new JButton("URL Artefact");
+		panArtefact.setBorder(BorderFactory.createTitledBorder("Lien de l'Artefact"));
+		artefactButton = new JButton("URL Image Artefact");
 		artefactButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
 			JFileChooserArtefact();    
@@ -50,28 +50,41 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		panArtefact.add(artefactButton);
 		panArtefact.add(urlArtefact);
 	
-		//Le nom
-		JPanel panNom = new JPanel();
-		panNom.setBackground(Color.white);
-		panNom.setPreferredSize(new Dimension(350, 60));
+		//Le nom de l'artefact
+		JPanel panNomArtefact = new JPanel();
+		panNomArtefact.setBackground(Color.white);
+		panNomArtefact.setPreferredSize(new Dimension(370, 60));
 		nomArtefact = new JTextField();
 		nomArtefact.setPreferredSize(new Dimension(200, 25));
-		panNom.setBorder(BorderFactory.createTitledBorder("Nom Artefact"));
-		nomLabel = new JLabel("Saisir un nom :");
-		panNom.add(nomLabel);
-		panNom.add(nomArtefact);
+		panNomArtefact.setBorder(BorderFactory.createTitledBorder("Nom de l'Artefact"));
+		artefactLabel = new JLabel("Saisir un nom d'Artefact :");
+		panNomArtefact.add(artefactLabel);
+		panNomArtefact.add(nomArtefact);
+		
+		//Le nom de l'artefact
+		JPanel panNomAgent = new JPanel();
+		panNomAgent.setBackground(Color.white);
+		panNomAgent.setPreferredSize(new Dimension(370, 60));
+		nomScript = new JTextField();
+		nomScript.setPreferredSize(new Dimension(200, 25));
+		panNomAgent.setBorder(BorderFactory.createTitledBorder("Nom du Script (Optionnel)"));
+		scriptLabel = new JLabel("Saisir le nom du Script :");
+		panNomAgent.add(scriptLabel);
+		panNomAgent.add(nomScript);
 		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
 		content.add(panArtefact);
-		content.add(panNom);
+		content.add(panNomArtefact);
+		content.add(panNomAgent);
 		
 		JPanel control = new JPanel();
 		JButton okBouton = new JButton("OK");
 	
 		okBouton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			if (nomArtefact.getText().trim().length() != 0 && urlArtefact.getText().trim().length() != 0) {	// Si les deux champs sont remplis
+			if (nomArtefact.getText().trim().length() != 0 && urlArtefact.getText().trim().length() != 0) {	
+				// Si les deux champs sont remplis
 				ajoutObjet();
 				setVisible(false);
 			}  
@@ -109,7 +122,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		} 
 	  
 		public void ajoutObjet() {
-			this.fenetre.ajouterObjet(nomArtefact.getText(), urlArtefact.getText(),"");
+			this.fenetre.ajouterObjet(nomArtefact.getText(), urlArtefact.getText(), nomScript.getText());
 		}
 
 }
