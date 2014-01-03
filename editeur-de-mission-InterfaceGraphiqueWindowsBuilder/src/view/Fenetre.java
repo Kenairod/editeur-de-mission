@@ -42,7 +42,6 @@ public class Fenetre extends JFrame {
 		this.menu = new LeMenu(this);
 		this.menu.setEtat(0);
 		this.scene = new JPanelImageBg();
-		this.scene.setBackground(Color.RED);
 		this.liste = new ListPanneauLateral(listeArtefacts);
 		this.liste.setListe(listeArtefacts);
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);

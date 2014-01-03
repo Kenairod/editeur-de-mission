@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -8,11 +9,13 @@ import javax.swing.JPanel;
 public class JPanelImageBg extends JPanel
 {
 
-	    Image image = null;
+	    Image image;
 	    public JPanelImageBg(Image image) {
 	        this.image = image;
 	    }
 	    public JPanelImageBg() {
+	    	this.image = null;
+			this.setBackground(Color.RED);
 	    }
 	    public void setImage(Image image){
 	        this.image = image;
