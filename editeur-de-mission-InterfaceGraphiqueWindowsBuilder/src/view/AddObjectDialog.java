@@ -67,7 +67,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		panNomAgent.setPreferredSize(new Dimension(370, 60));
 		nomScript = new JTextField();
 		nomScript.setPreferredSize(new Dimension(200, 25));
-		panNomAgent.setBorder(BorderFactory.createTitledBorder("Script's name (Optionnal)"));
+		panNomAgent.setBorder(BorderFactory.createTitledBorder("Script's name (Optional)"));
 		scriptLabel = new JLabel("Enter the Script's name :");
 		panNomAgent.add(scriptLabel);
 		panNomAgent.add(nomScript);
