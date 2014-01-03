@@ -5,11 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -135,13 +131,7 @@ public class Fenetre extends JFrame {
 	
 	public void ajouterBg(String urlBg) {
 		this.vue.setFond(urlBg);
-		try {
-			BufferedImage image = ImageIO.read(new File(urlBg));
-			this.scene.setImage(image);
-			this.scene.repaint();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.scene.setImage(urlBg);
+		this.scene.repaint();
 	}
 }
