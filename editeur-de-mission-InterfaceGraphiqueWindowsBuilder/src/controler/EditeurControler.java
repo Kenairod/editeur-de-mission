@@ -27,8 +27,8 @@ public class EditeurControler {
 		System.out.println(this.modele.toString());
 	}
 	
-	public String [] getListeNoms() {
-		return this.modele.getNomArtefacts();
+	public String [] getListePaths() {
+		return this.modele.getArtefactsPath();
 	}
 	
 	public String getImageFond() {

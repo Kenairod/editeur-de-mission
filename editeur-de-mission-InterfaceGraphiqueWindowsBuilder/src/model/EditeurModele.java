@@ -403,13 +403,13 @@ public class EditeurModele implements Observable {
 	
 	/**
 	 * Supprime l'objet du projet
-	 * @param id id de l'objet à supprimer
+	 * @param chemin de l'objet à supprimer
 	 */
-	public void supprimerObjet(int id) {	// Supprime toute présence de l'objet
+	public void supprimerObjet(String id) {	// Supprime toute présence de l'objet
 		int i = 0;
 		boolean supr = false;
 		while (i < this.mapping.size() && !supr) {
-			if (this.mapping.get(i).getAttributeValue("id").equals(""+id)) {
+			if (this.mapping.get(i).getAttributeValue("id").equals(id)) {
 				this.supprimerArtefact(this.mapping.get(i).getChild("artefact").getAttributeValue("id"));
 				this.mapping.remove(this.mapping.get(i));
 				supr = true;
@@ -436,16 +436,33 @@ public class EditeurModele implements Observable {
 	}
 	
 	/**
-	 * @return Le nom des artefacts de la scène
+	 * @return Le chemin des artefacts
 	 */
-	public String [] getNomArtefacts() {
+	public String [] getArtefactsPath() {
 		ArrayList<String> temp = new ArrayList<String>();
 		for (Element obj : this.artefacts) {
-			temp.add(obj.getAttributeValue("id"));
+			temp.add(obj.getAttributeValue("image"));
 		}
 		String [] ret = new String [temp.size()];
 		for (int i = 0; i < temp.size(); i++) {
 			ret[i] = temp.get(i);
+		}
+		return ret;
+	}
+	
+	public String getIdArtefactByPath(String path) {
+		String ret = new String();
+		Iterator i = this.mapping.iterator();
+
+		while (i.hasNext()) {
+			Element courant = (Element)i.next();
+			Iterator j = courant.getChildren().iterator();
+			Element Courant = (Element)j.next();
+
+			if (Courant.getAttributeValue("image").equals(path)){        
+				Courant = (Element)j.next();
+				ret = courant.getAttributeValue("id");
+			}
 		}
 		return ret;
 	}
@@ -537,7 +554,7 @@ public class EditeurModele implements Observable {
 	//et invoque la méthode update() de chaque observateur
 	public void updateListeObervateur() {
 		for(Observateur obs : this.listObservateur )
-	    	obs.updateListe(this.getNomArtefacts());
+	    	obs.updateListe(this.getArtefactsPath());
 	}
 
 	public void updateFondObervateur(){

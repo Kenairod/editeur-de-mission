@@ -31,7 +31,7 @@ public class EditeurVue implements Observateur {
 	
 	public EditeurVue(EditeurControler controler) {
 		this.controler = controler;
-		this.fenetre = new Fenetre(this.controler.getListeNoms(), this.controler.getImageFond(), this);
+		this.fenetre = new Fenetre(this.controler.getListePaths(), this.controler.getImageFond(), this);
 	}
 	
 	public void saveProject() {

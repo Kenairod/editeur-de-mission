@@ -2,6 +2,7 @@ package view;
 
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 
 /**
@@ -9,14 +10,14 @@ import javax.swing.JList;
  * @author Da Dream Team
  *
  */
-public class ListPanneauLateral extends JList<String> {
+public class ListPanneauLateral extends JList {
 
-	private Vector<String> listeVect;
+	private Vector listeVect;
 	
 	public void setListe(String[] list) {
-		this.listeVect = new Vector<String>();
+		this.listeVect = new Vector();
 		for (int i = 0; i < list.length; i++) {
-			this.listeVect.add(list[i]);
+			this.listeVect.add(new ImageIcon(list[i]));
 		}
 		this.setListData(this.listeVect);
 	}
@@ -24,7 +25,7 @@ public class ListPanneauLateral extends JList<String> {
 	public ListPanneauLateral(String [] list) {
 		this.setListe(list);
 		for (int i = 0; i < list.length; i++) {
-			this.listeVect.add(list[i]);
+			this.listeVect.add(new ImageIcon(list[i]));
 		}
 	}
 	

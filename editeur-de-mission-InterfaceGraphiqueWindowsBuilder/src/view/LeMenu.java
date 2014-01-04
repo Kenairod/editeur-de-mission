@@ -201,18 +201,18 @@ public class LeMenu extends JMenuBar {
       			}
       	    });
               
-              fichier.setMnemonic('F');
-              this.add(fichier);
-              edition.setMnemonic('E');
-              this.add(edition);
-              vue.setMnemonic('V');
-              this.add(vue);
-              aide.setMnemonic('H');
-              this.add(aide);
-              
-              if (this.fenetre.getNomProjet().length()==0) {
-  		    	this.setAllFalse();
-  		    }
+			fichier.setMnemonic('F');
+			this.add(fichier);
+			edition.setMnemonic('E');
+			this.add(edition);
+			vue.setMnemonic('V');
+			this.add(vue);
+			aide.setMnemonic('H');
+			this.add(aide);
+			  
+			if (this.fenetre.getNomProjet().length()==0) {
+				this.setAllFalse();
+			} 
 	}
 	
 	public void setAllFalse() {
