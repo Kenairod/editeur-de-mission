@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,7 +34,7 @@ public class Fenetre extends JFrame {
 	private JButton supprButton = new JButton("Supprimer Artefact");
 
 	
-	public Fenetre(String [] listeArtefacts, String urlBg, EditeurVue vue) {
+	public Fenetre(ArrayList<String> listeArtefacts, String urlBg, EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
@@ -93,7 +94,7 @@ public class Fenetre extends JFrame {
 	});
 	}
 	
-	public void changeListeObjets(String [] listeArtefacts) {
+	public void changeListeObjets(ArrayList<String> listeArtefacts) {
 		this.liste.setListe(listeArtefacts);
 	}
 	
@@ -141,7 +142,6 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void supprObjet(String artefactPath) {
-		this.liste.repaint();
 		this.vue.supprObjet(artefactPath);
 	}
 }

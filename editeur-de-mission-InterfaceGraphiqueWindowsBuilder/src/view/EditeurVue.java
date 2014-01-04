@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+
 import observation.Observateur;
 import controler.EditeurControler;
 
@@ -13,7 +15,7 @@ public class EditeurVue implements Observateur {
 	private EditeurControler controler;
 
 	@Override
-	public void updateListe(String [] liste) {
+	public void updateListe(ArrayList<String> liste) {
 		this.fenetre.changeListeObjets(liste);
 		this.fenetre.repaint();
 	}

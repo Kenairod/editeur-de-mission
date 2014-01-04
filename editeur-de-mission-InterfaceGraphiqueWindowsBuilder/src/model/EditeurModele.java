@@ -345,12 +345,12 @@ public class EditeurModele implements Observable {
 		while (i < this.artefacts.size() && !supr) {
 			if (this.artefacts.get(i).getAttributeValue("id").equals(idArtefact)) {
 				this.artefacts.remove(i);
-				this.elementsScene.get(i);
 				supr = true;
 			}
 			i++;
 		}
 	}
+	
 	
 	/**
 	 * Rajoute un objet dans le mapping
@@ -406,12 +406,12 @@ public class EditeurModele implements Observable {
 	 * @param chemin de l'objet à supprimer
 	 */
 	public void supprimerObjet(String id) {	// Supprime toute présence de l'objet
-		int i = 1;
+		int i = 0;
 		boolean supr = false;
-		while (i <= this.mapping.size() && !supr) {
+		while (i < this.mapping.size() && !supr) {
 			if (this.mapping.get(i).getAttributeValue("id").equals(id)) {
 				this.supprimerArtefact(this.mapping.get(i).getChild("artefact").getAttributeValue("id"));
-				this.mapping.remove(this.mapping.get(i));
+				this.mapping.remove(i);
 				supr = true;
 			}
 			i++;
@@ -438,14 +438,14 @@ public class EditeurModele implements Observable {
 	/**
 	 * @return Le chemin des artefacts
 	 */
-	public String [] getArtefactsPath() {
+	public ArrayList<String> getArtefactsPath() {
 		ArrayList<String> temp = new ArrayList<String>();
 		for (Element obj : this.artefacts) {
 			temp.add(obj.getAttributeValue("image"));
 		}
-		String [] ret = new String [temp.size()];
+		ArrayList<String> ret = new ArrayList<String>();
 		for (int i = 0; i < temp.size(); i++) {
-			ret[i] = temp.get(i);
+			ret.add(temp.get(i));
 		}
 		return ret;
 	}

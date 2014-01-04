@@ -1,5 +1,7 @@
 package controler;
 
+import java.util.ArrayList;
+
 import model.EditeurModele;
 import view.EditeurVue;
 
@@ -27,7 +29,7 @@ public class EditeurControler {
 		System.out.println(this.modele.toString());
 	}
 	
-	public String [] getListePaths() {
+	public ArrayList<String> getListePaths() {
 		return this.modele.getArtefactsPath();
 	}
 	
@@ -56,6 +58,7 @@ public class EditeurControler {
 	}
 	
 	public void supprObjet(String artefactPath) {
+		//System.out.println(this.modele.getIdArtefactByPath(artefactPath));
 		this.modele.supprimerObjet(this.modele.getIdArtefactByPath(artefactPath));
 	}
 }
