@@ -419,7 +419,7 @@ public class EditeurModele implements Observable {
 	}
 	
 	public String getMapID(String s) {
-		String ret = "";
+		String ret = new String();
 		Iterator i = this.mapping.iterator();
 
 		while (i.hasNext()) {
