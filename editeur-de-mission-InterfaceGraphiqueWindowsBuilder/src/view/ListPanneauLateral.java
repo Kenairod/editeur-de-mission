@@ -36,10 +36,10 @@ public class ListPanneauLateral extends JList {
 			this.listeImages.add(new ImageIcon(list[i]));
 		}
 		
-		this.fenetre.getSupprButton().addActionListener(new FireListener());	
+		this.fenetre.getSupprButton().addActionListener(new DeleteListener());	
 	}
 	
-	class FireListener implements ActionListener {
+	class DeleteListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             int index = getSelectedIndex();
             if(index != -1) {
