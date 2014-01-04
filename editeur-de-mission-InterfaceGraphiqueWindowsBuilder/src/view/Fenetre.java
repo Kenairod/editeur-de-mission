@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -29,6 +30,7 @@ public class Fenetre extends JFrame {
 	private JPopupMenu jpm = new JPopupMenu();
 	private JMenuItem object = new JMenuItem("Insert a new Object");
 	private JMenuItem bg = new JMenuItem("Define a new Background");
+	private JButton supprButton = new JButton("Supprimer Artefact");
 
 	
 	public Fenetre(String [] listeArtefacts, String urlBg, EditeurVue vue) {
@@ -37,8 +39,11 @@ public class Fenetre extends JFrame {
 		this.menu = new LeMenu(this);
 		this.scene = new JPanelImageBg();
 		this.scene.setImage(urlBg);
-		this.liste = new ListPanneauLateral(listeArtefacts);
-		this.liste.setListe(listeArtefacts);
+		
+		this.scene.add(supprButton);	// à déplacer
+		
+		this.liste = new ListPanneauLateral(listeArtefacts,this);
+		//this.liste.setListe(listeArtefacts);
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);
 		this.onglets.addTab("Objects", this.liste);
 		//this.onglet.repaint();
@@ -129,5 +134,14 @@ public class Fenetre extends JFrame {
 	public void ajouterBg(String urlBg) {
 		this.vue.setFond(urlBg);
 		this.changeFond(urlBg);
+	}
+	
+	public JButton getSupprButton(){
+		return this.supprButton;
+	}
+	
+	public void supprObjet(String artefactPath) {
+		this.liste.repaint();
+		this.vue.supprObjet(artefactPath);
 	}
 }

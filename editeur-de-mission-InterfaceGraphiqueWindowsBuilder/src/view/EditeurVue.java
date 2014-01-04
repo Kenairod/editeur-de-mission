@@ -61,4 +61,8 @@ public class EditeurVue implements Observateur {
 	public void setFond(String urlBg) {
 		this.controler.setFond(urlBg);
 	}
+	
+	public void supprObjet(String artefactPath) {
+		this.controler.supprObjet(artefactPath);
+	}
 }

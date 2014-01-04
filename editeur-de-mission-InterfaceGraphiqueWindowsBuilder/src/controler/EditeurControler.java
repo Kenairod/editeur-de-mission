@@ -54,4 +54,8 @@ public class EditeurControler {
 	public void setFond(String urlBg) {
 		this.modele.setFond(urlBg);
 	}
+	
+	public void supprObjet(String artefactPath) {
+		this.modele.supprimerObjet(this.modele.getIdArtefactByPath(artefactPath));
+	}
 }

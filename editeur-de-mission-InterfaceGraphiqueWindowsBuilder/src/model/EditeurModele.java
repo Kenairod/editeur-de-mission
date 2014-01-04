@@ -406,9 +406,9 @@ public class EditeurModele implements Observable {
 	 * @param chemin de l'objet à supprimer
 	 */
 	public void supprimerObjet(String id) {	// Supprime toute présence de l'objet
-		int i = 0;
+		int i = 1;
 		boolean supr = false;
-		while (i < this.mapping.size() && !supr) {
+		while (i <= this.mapping.size() && !supr) {
 			if (this.mapping.get(i).getAttributeValue("id").equals(id)) {
 				this.supprimerArtefact(this.mapping.get(i).getChild("artefact").getAttributeValue("id"));
 				this.mapping.remove(this.mapping.get(i));
