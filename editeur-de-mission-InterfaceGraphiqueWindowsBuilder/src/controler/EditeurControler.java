@@ -58,7 +58,6 @@ public class EditeurControler {
 	}
 	
 	public void supprObjet(String artefactPath) {
-		//System.out.println(this.modele.getIdArtefactByPath(artefactPath));
 		this.modele.supprimerObjet(this.modele.getIdArtefactByPath(artefactPath));
 	}
 }

@@ -59,7 +59,6 @@ public class ListPanneauLateral extends JList {
 	            	int size = listePaths.size();
 	
 					if (index == listePaths.size()) {
-						//removed item in last position
 						index--;
 					}
 	                    
