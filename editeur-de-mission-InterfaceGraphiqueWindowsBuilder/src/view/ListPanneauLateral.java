@@ -36,7 +36,7 @@ public class ListPanneauLateral extends JList {
         } 
 	}
 	
-	public ListPanneauLateral(ArrayList<String> list,Fenetre fen) {
+	public ListPanneauLateral(ArrayList<String> list, Fenetre fen) {
 		this.setListe(list);
 		this.fenetre = fen;
 		for (int i = 0; i < list.size(); i++) {
