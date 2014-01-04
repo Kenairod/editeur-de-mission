@@ -41,6 +41,7 @@ public class Fenetre extends JFrame {
 		this.scene = new JPanelImageBg();
 		this.scene.setImage(urlBg);
 		
+		this.supprButton.setEnabled(false);
 		this.scene.add(supprButton);	// à déplacer
 		
 		this.liste = new ListPanneauLateral(listeArtefacts,this);

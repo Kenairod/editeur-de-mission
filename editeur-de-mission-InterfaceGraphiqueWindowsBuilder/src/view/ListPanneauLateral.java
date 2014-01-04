@@ -28,6 +28,12 @@ public class ListPanneauLateral extends JList {
 			this.listePaths.add(list.get(i));
 		}
 		this.setListData(this.listeImages);
+		
+		int size = listeImages.size();
+    	
+    	if (size != 0) {
+    		fenetre.getSupprButton().setEnabled(true);
+        } 
 	}
 	
 	public ListPanneauLateral(ArrayList<String> list,Fenetre fen) {
@@ -57,11 +63,15 @@ public class ListPanneauLateral extends JList {
 	        		repaint();
 	
 	            	int size = listePaths.size();
-	
-					if (index == listePaths.size()) {
-						index--;
-					}
-	                    
+	            	
+	            	if (size == 0) {
+	            		fenetre.getSupprButton().setEnabled(false);
+	                } 
+	            	else {
+						if (index == listePaths.size()) {
+							index--;
+						}
+	            	}
 		            setSelectedIndex(index);
 		            ensureIndexIsVisible(index);
         		}
