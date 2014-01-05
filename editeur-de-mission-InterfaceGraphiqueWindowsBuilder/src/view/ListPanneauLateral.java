@@ -53,7 +53,7 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 	
 	public ImageIcon redimensionner(String urlImage) {
 		ImageIcon icon = new ImageIcon(urlImage); 
-		if (icon.getIconHeight() > 30) {
+		if (icon.getIconHeight() > 64) {
 			Image img = icon.getImage(); 
 			BufferedImage bi = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB); 
 			Graphics g = bi.createGraphics(); 
