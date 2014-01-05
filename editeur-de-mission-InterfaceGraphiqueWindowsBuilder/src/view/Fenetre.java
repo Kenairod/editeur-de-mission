@@ -153,4 +153,8 @@ public class Fenetre extends JFrame {
 	public void supprObjet(String artefactPath) {
 		this.vue.supprObjet(artefactPath);
 	}
+	
+	public JPanelImageBg getScene() {
+		return this.scene;
+	}
 }

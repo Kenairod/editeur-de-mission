@@ -2,6 +2,9 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -9,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JList;
 
 
@@ -36,7 +40,7 @@ public class ListPanneauLateral extends JList<ImageIcon> {
     	
     	if (size != 0) {
     		fenetre.getSupprButton().setEnabled(true);
-        } 
+        }
 	}
 	
 	
@@ -49,6 +53,23 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 		}
 		
 		this.fenetre.getSupprButton().addActionListener(new DeleteListener());	
+    	
+    	/*this.setDragEnabled(true);
+		
+		this.fenetre.getScene().setDropTarget(new DropTarget()
+		{
+			public void drop(DropTargetDropEvent dtde) 
+			{
+				try{
+					int index = getSelectedIndex();
+					String artefactPath = listePaths.get(index).toString();
+					fenetre.getScene().add(new JLabel(new ImageIcon(artefactPath)));
+					fenetre.getScene().revalidate();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});*/
 	}
 	
 	public ImageIcon redimensionner(String urlImage) {
