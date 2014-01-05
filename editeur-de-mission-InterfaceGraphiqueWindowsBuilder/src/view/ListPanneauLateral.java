@@ -1,7 +1,10 @@
 package view;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -24,7 +27,7 @@ public class ListPanneauLateral extends JList {
 		this.listeImages = new Vector<ImageIcon>();
 		this.listePaths = new ArrayList<String>();
 		for (int i = 0; i < list.size(); i++) {
-			this.listeImages.add(new ImageIcon(list.get(i)));
+			this.listeImages.add(redimensionner(list.get(i)));
 			this.listePaths.add(list.get(i));
 		}
 		this.setListData(this.listeImages);
@@ -36,15 +39,25 @@ public class ListPanneauLateral extends JList {
         } 
 	}
 	
+	
 	public ListPanneauLateral(ArrayList<String> list, Fenetre fen) {
 		this.setListe(list);
 		this.fenetre = fen;
 		for (int i = 0; i < list.size(); i++) {
-			this.listeImages.add(new ImageIcon(list.get(i)));
+			this.listeImages.add(redimensionner(list.get(i)));
 			this.listePaths.add(list.get(i));
 		}
 		
 		this.fenetre.getSupprButton().addActionListener(new DeleteListener());	
+	}
+	
+	public ImageIcon redimensionner(String urlImage) {
+		ImageIcon icon = new ImageIcon(urlImage); 
+		Image img = icon.getImage(); 
+		BufferedImage bi = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB); 
+		Graphics g = bi.createGraphics(); 
+		g.drawImage(img, 0, 0, 64, 64, null); 
+		return new ImageIcon(bi); 
 	}
 	
 	class DeleteListener implements ActionListener {
