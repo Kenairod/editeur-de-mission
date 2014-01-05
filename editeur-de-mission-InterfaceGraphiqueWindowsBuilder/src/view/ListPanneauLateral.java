@@ -53,11 +53,14 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 	
 	public ImageIcon redimensionner(String urlImage) {
 		ImageIcon icon = new ImageIcon(urlImage); 
-		Image img = icon.getImage(); 
-		BufferedImage bi = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB); 
-		Graphics g = bi.createGraphics(); 
-		g.drawImage(img, 0, 0, 64, 64, null); 
-		return new ImageIcon(bi); 
+		if (icon.getIconHeight() > 30) {
+			Image img = icon.getImage(); 
+			BufferedImage bi = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB); 
+			Graphics g = bi.createGraphics(); 
+			g.drawImage(img, 0, 0, 64, 64, null); 
+			return new ImageIcon(bi); 
+		}
+		else return icon;
 	}
 	
 	class DeleteListener implements ActionListener {
