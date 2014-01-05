@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -22,16 +24,17 @@ import javax.swing.JTabbedPane;
 public class Fenetre extends JFrame {
 	private EditeurVue vue;
 	private LeMenu menu;
-	private JSplitPane contenu;
-	private JScrollPane scrollPane;
+	private JSplitPane contenu = new JSplitPane();
+	private JPanel lateral = new JPanel();
+	private JScrollPane scrollPane = new JScrollPane();
 	//private TabPanneauLateral onglet;
-	private JTabbedPane onglets;
+	private JTabbedPane onglets = new JTabbedPane();
 	private ListPanneauLateral liste;
 	private JPanelImageBg scene;
 	private JPopupMenu jpm = new JPopupMenu();
 	private JMenuItem object = new JMenuItem("Insert a new Object");
 	private JMenuItem bg = new JMenuItem("Define a new Background");
-	private JButton supprButton = new JButton("Supprimer Artefact");
+	private JButton supprButton = new JButton("Delete Object");
 
 	
 	public Fenetre(ArrayList<String> listeArtefacts, String urlBg, EditeurVue vue) {
@@ -42,15 +45,18 @@ public class Fenetre extends JFrame {
 		this.scene.setImage(urlBg);
 		
 		this.supprButton.setEnabled(false);
-		this.scene.add(supprButton);	// à déplacer
+
 		
 		this.liste = new ListPanneauLateral(listeArtefacts,this);
-		//this.liste.setListe(listeArtefacts);
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);
 		this.onglets.addTab("Objects", this.liste);
-		//this.onglet.repaint();
 		this.scrollPane = new JScrollPane(this.onglets);
-		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.scrollPane, this.scene); //Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
+		
+		this.lateral.setLayout(new BorderLayout());
+		this.lateral.add(this.scrollPane,BorderLayout.CENTER);
+		this.lateral.add(this.supprButton, BorderLayout.SOUTH);
+		
+		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.lateral, this.scene); //Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
 		this.contenu.setDividerLocation(200);
 		
 		setTitle("Bianji - Éditeur de jeu vidéo");
