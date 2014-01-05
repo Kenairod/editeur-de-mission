@@ -27,7 +27,6 @@ public class Fenetre extends JFrame {
 	private JSplitPane contenu = new JSplitPane();
 	private JPanel lateral = new JPanel();
 	private JScrollPane scrollPane = new JScrollPane();
-	//private TabPanneauLateral onglet;
 	private JTabbedPane onglets = new JTabbedPane();
 	private ListPanneauLateral liste;
 	private JPanelImageBg scene;
@@ -35,6 +34,8 @@ public class Fenetre extends JFrame {
 	private JMenuItem object = new JMenuItem("Insert a new Object");
 	private JMenuItem bg = new JMenuItem("Define a new Background");
 	private JButton supprButton = new JButton("Delete Object");
+	
+	//private TabPanneauLateral onglet;
 
 	
 	public Fenetre(ArrayList<String> listeArtefacts, String urlBg, EditeurVue vue) {
@@ -46,7 +47,6 @@ public class Fenetre extends JFrame {
 		
 		this.supprButton.setEnabled(false);
 
-		
 		this.liste = new ListPanneauLateral(listeArtefacts,this);
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);
 		this.onglets.addTab("Objects", this.liste);
@@ -56,7 +56,9 @@ public class Fenetre extends JFrame {
 		this.lateral.add(this.scrollPane,BorderLayout.CENTER);
 		this.lateral.add(this.supprButton, BorderLayout.SOUTH);
 		
-		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.lateral, this.scene); //Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
+		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.lateral, this.scene); 
+		//Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
+		
 		this.contenu.setDividerLocation(200);
 		
 		setTitle("Bianji - Éditeur de jeu vidéo");

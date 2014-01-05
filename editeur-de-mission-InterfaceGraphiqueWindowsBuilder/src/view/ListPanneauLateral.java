@@ -17,7 +17,7 @@ import javax.swing.JList;
  * @author Da Dream Team
  *
  */
-public class ListPanneauLateral extends JList { 
+public class ListPanneauLateral extends JList<ImageIcon> { 
 
 	private Vector<ImageIcon> listeImages;
 	private ArrayList<String> listePaths;
