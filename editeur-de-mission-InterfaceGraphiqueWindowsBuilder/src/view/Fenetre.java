@@ -63,6 +63,10 @@ public class Fenetre extends JFrame {
 		
 		setTitle("Bianji - Éditeur de jeu vidéo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setLayout(new BorderLayout());
+        pack();
+        
 		setBounds(100, 100, 800, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);

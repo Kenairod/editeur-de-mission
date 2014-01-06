@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
@@ -54,7 +53,7 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 		
 		this.fenetre.getSupprButton().addActionListener(new DeleteListener());	
     	
-    	/*this.setDragEnabled(true);
+    	this.setDragEnabled(true);
 		
 		this.fenetre.getScene().setDropTarget(new DropTarget()
 		{
@@ -69,7 +68,7 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 					e.printStackTrace();
 				}
 			}
-		});*/
+		});
 	}
 	
 	public ImageIcon redimensionner(String urlImage) {
