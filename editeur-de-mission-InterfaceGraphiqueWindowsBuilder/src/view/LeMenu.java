@@ -230,6 +230,9 @@ public class LeMenu extends JMenuBar {
 	public void exitProject () {
 		int exit = JOptionPane.showConfirmDialog(this.fenetre, "Do you really want to quit ?", "Exit", JOptionPane.OK_CANCEL_OPTION);
 		if(exit == 0) {
+			if(this.fenetre.getNomProjet().length() != 0) {
+				saveProject();
+			}
 			this.fenetre.dispose();
 		}
 	}

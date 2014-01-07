@@ -42,7 +42,7 @@ public class JPanelImageBg extends JPanel {
 		public void paintComponent(Graphics g) {
 			Graphics2D g2d = (Graphics2D)g; 
 			g2d.setPaint(texture);
-			g2d.fillRect(0, 0, getWidth(), getHeight());			
+			g2d.fillRect(0, 0, getWidth(), getHeight());
 		}
 
 
@@ -79,7 +79,7 @@ public class JPanelImageBg extends JPanel {
 
 	        public void mouseDragged(MouseEvent me) {
 	            if (draggy != null) {
-	                draggy.setLocation(me.getX() - xOffset, me.getY() - yOffset);
+	            	draggy.setLocation(me.getX() - xOffset, me.getY() - yOffset);
 	            }
 	        }
 	    }

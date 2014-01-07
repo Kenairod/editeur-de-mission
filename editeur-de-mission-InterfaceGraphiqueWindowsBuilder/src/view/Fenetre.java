@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -63,9 +65,11 @@ public class Fenetre extends JFrame {
 		
 		setTitle("Bianji - Éditeur de jeu vidéo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		/*setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(new AreYouSure());*/
 		
-		setLayout(new BorderLayout());
-        pack();
+		/*setLayout(new BorderLayout());
+        pack();*/
         
 		setBounds(100, 100, 800, 600);
 		this.setLocationRelativeTo(null);
@@ -160,5 +164,11 @@ public class Fenetre extends JFrame {
 	
 	public JPanelImageBg getScene() {
 		return this.scene;
+	}
+	
+	 private class AreYouSure extends WindowAdapter {  
+	        public void windowClosing( WindowEvent e ) { 
+	        	menu.exitProject();
+	        }
 	}
 }
