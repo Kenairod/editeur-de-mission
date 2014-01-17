@@ -27,7 +27,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.initComponent();
-		setVisible(true);
+		this.setVisible(true);
 	}
 	
 	private void initComponent(){
@@ -35,17 +35,17 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		JPanel panBg = new JPanel();
 		panBg.setBackground(Color.white);
 		panBg.setPreferredSize(new Dimension(390, 60));
-		urlBg = new JTextField();
-		urlBg.setPreferredSize(new Dimension(200, 25));
+		this.urlBg = new JTextField();
+		this.urlBg.setPreferredSize(new Dimension(200, 25));
 		panBg.setBorder(BorderFactory.createTitledBorder("Background"));
-		bgButton = new JButton("URL Background Image");
-		bgButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			JFileChooserBg();    
-		}
+		this.bgButton = new JButton("URL Background Image");
+		this.bgButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooserBg();    
+			}
 		});
-		panBg.add(bgButton);
-		panBg.add(urlBg);
+		panBg.add(this.bgButton);
+		panBg.add(this.urlBg);
 		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
@@ -55,13 +55,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		JButton okBouton = new JButton("OK");
 	
 		okBouton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			if (urlBg.getText().trim().length() != 0) {
-				ajoutBg();
-				setVisible(false);
-			}  
+			public void actionPerformed(ActionEvent arg0) {
+				if (urlBg.getText().trim().length() != 0) {
+					ajoutBg();
+					setVisible(false);
+				}  
 			}
-			}); 
+		}); 
 	   
 		JButton cancelBouton = new JButton("Cancel");
 		cancelBouton.addActionListener(new ActionListener(){
@@ -89,7 +89,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	        chooser.setFileFilter(imagesFilter);
 	
 			if (chooser.showOpenDialog(null) == 0) {
-				urlBg.setText(chooser.getSelectedFile().toString());
+				this.urlBg.setText(chooser.getSelectedFile().toString());
 			}   
 		} 
 	  

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 import observation.Observable;
@@ -20,6 +21,9 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
+import data.Objet;
+import view.LabelArtefact;
+
 /**
  * Permet de modéliser les éléments nécessaires à la modélisation d'une scène
  * @author Da Dream Team
@@ -28,44 +32,55 @@ import org.jdom2.output.XMLOutputter;
 public class EditeurModele implements Observable {
 	
 	private String nomProjet;
+	
 	/**
 	 * Le titre du jeu
 	 */
 	 private String titre;
+	 
 	 /**
 	  * Utilisation de GL2 (doit être passé à true pour que game fonctionne)
 	  */
      private boolean gl20;
+     
      /**
       * Largeur de la scène de jeu
       */
      private int largeur;
+     
      /**
       * Hauteur de la scène de jeu
       */
      private int hauteur;
+     
      /**
-      * redimensionnable vrai (true) si la fenêtre du jeu pourra être redimensionnable
+      * Indique si la fenêtre est redimensionnable ou pas
       */
      private boolean redimensionnable;
+     
      /**
       * Chemin vers le fichiers image du background de la scène
       */
      private String imageFond;
+     
      /**
       * Les éléments (objets) de la scène
       */
      private List<Element> elementsScene;
+     
      /**
       * Les artefacts de la scène
       */
      private List<Element> artefacts;
+     
      /**
       * Les associations artefact/agent
       */
-     private List<Element> mapping;
+     private List<Objet> mapping;
      
-	//Notre collection d'observateurs
+     /**
+      * Notre collection d'observateurs
+      */
 	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
      
      /**
@@ -75,16 +90,15 @@ public class EditeurModele implements Observable {
     	 this.nomProjet = new String();
     	 this.titre = new String();
     	 this.gl20 = false;
-    	 this.largeur = 0;
-    	 this.hauteur = 0;
+    	 this.largeur = 800;
+    	 this.hauteur = 600;
     	 this.redimensionnable = false;
     	 this.imageFond = new String();
     	 this.elementsScene = new ArrayList<Element>();
     	 this.artefacts = new ArrayList<Element>();
-    	 this.mapping = new ArrayList<Element>();
+    	 this.mapping = new ArrayList<Objet>();
     	 this.updateListeObervateur();
      }
-     
      
      /**
       * Constructeur initialisant tous les paramètres
@@ -98,8 +112,8 @@ public class EditeurModele implements Observable {
       * @param artefacts Les artefacts de la scène
       * @param mapping Les associations artefact/agent
       */
-     public EditeurModele(String nomProjet, String titre,boolean gl20,int largeur,int hauteur, boolean redimensionnable, String imageFond,
-			List<Element> elementsScene, List<Element> artefacts,List<Element> mapping) {
+     public EditeurModele(String nomProjet, String titre, boolean gl20, int largeur, int hauteur, boolean redimensionnable, String imageFond,
+			List<Element> elementsScene, List<Element> artefacts, List<Objet> mapping) {
 		this.nomProjet = nomProjet;
 		this.titre = titre;
 		this.gl20 = gl20;
@@ -113,11 +127,11 @@ public class EditeurModele implements Observable {
 		this.updateListeObervateur();
 	}
 
-
      /**
       * Permet de générer un fichier XML à partir du modele
+      * Pré-requis : Les membres de : elementsScene, artefacts et mapping doivent être de type Element 
+      * 				et avec tous les attributs déjà initialisés
       */
-	//Pérequis : Les membres de : elementsScene, artefacts et mapping doivent être de type Element et avec tous les attributs déjà initialisés
      public void createXML() {	              
 	     try {
 	    	 JFileChooser chooser = new JFileChooser();
@@ -131,18 +145,19 @@ public class EditeurModele implements Observable {
 		         
 		         Document document = new Document(jeu);
 		         
-		         //Balise titre du jeu
+		         // Balise titre du jeu
 		         Element titre = new Element("titre-du-jeu");
 		         titre.setText(this.titre);
 		         
-		         //Balise fenetre et ses sous-balises
+		         // Balise fenetre et ses sous-balises
 		         Element fenetre = new Element("fenetre");
 		         fenetre.addContent(new Element("useGL20").setText(""+this.gl20));
 		         fenetre.addContent(new Element("largeur").setText(""+this.largeur));
 		         fenetre.addContent(new Element("hauteur").setText(""+this.hauteur));
 		         fenetre.addContent(new Element("redimensionnable").setText(""+this.redimensionnable));
 		         
-		         //Balise scene et ses sous-balises (autant de sous balises "elements" que contenu dans this.elementsScene
+		         /*Balise scene et ses sous-balises (autant de sous balises "elements" 
+		         que contenu dans this.elementsScene*/
 		         Element scene = new Element("scene");
 		         scene.addContent(new Element("fond").setAttribute(new Attribute("image", this.imageFond)));
 		         Element elements = new Element("elements");
@@ -152,34 +167,44 @@ public class EditeurModele implements Observable {
 		         }
 		         scene.addContent(elements);
 		         
-		         //Comme pour elements mais pour artefacts
+		         // Comme pour elements mais pour artefacts
 		         Element artefacts = new Element("artefacts");
 		         for (int i = 0; i < this.artefacts.size(); i++) {
 		        	 Element artef = this.artefacts.get(i).clone();
 		        	 artefacts.addContent(artef);
 		         }
 		         
-		         //Idem
+		         // Idem
 		         Element mapping = new Element("mapping");
 		         for (int i = 0; i < this.mapping.size(); i++) {
-		        	 Element obj = this.mapping.get(i).clone();
+		        	 Element obj = new Element("objet");
+		        	 obj.setAttribute("id", ""+this.mapping.get(i).getIdObjet());
+		        	 Element artefact = new Element("artefact");
+		        	 artefact.setAttribute("id", this.mapping.get(i).getIdArtefact());
+		        	 artefact.setAttribute("image", this.mapping.get(i).getImage());
+		        	 Element agent = new Element("agent");
+		        	 agent.setAttribute("script", this.mapping.get(i).getScript());
+		        	 
+		        	 obj.addContent(artefact);
+		        	 obj.addContent(agent);
+		        			 
 		        	 mapping.addContent(obj);
 		         }
 		         
-		         //On accroche toute les balises directements fille de la racine (à la balise jeu) à cette dernière
+		         // On accroche toute les balises directements fille de la racine (à la balise jeu) à cette dernière
 		         document.getRootElement().addContent(titre);
 		         document.getRootElement().addContent(fenetre);
 		         document.getRootElement().addContent(scene);
 		         document.getRootElement().addContent(artefacts);
 		         document.getRootElement().addContent(mapping);
 		         
-		         //Objet permettant la sortie en XML
+		         // Objet permettant la sortie en XML
 		         XMLOutputter xmlOutput = new XMLOutputter();
 		         
-		         //System.out pour afficher en console
-		         //xmlOutput.output(document, System.out);
+		         /*System.out pour afficher en console
+		         xmlOutput.output(document, System.out);*/
 		         
-		         //On génère
+		         // On génère
 		         xmlOutput.setFormat(Format.getPrettyFormat());  
 		         xmlOutput.output(document, new FileOutputStream(chooser.getSelectedFile().toString())); 
 	    	 }
@@ -193,25 +218,25 @@ public class EditeurModele implements Observable {
       * @param fichier Le chemin vers le fichier source
       */
 	public EditeurModele(String fichier, String nom) {
-		//La lecture se fait à l'aide d'une contructeur SAX
+		// La lecture se fait à l'aide d'une contructeur SAX
 		SAXBuilder ConstructSAX = new SAXBuilder();
-		//On récupère le fichier source
+		// On récupère le fichier source
 		File file = new File(fichier);
 		        
 		this.nomProjet = nom;
 		
 		try {
-			//On convertit le fichier en objet Document à l'aide du constructeur SAX
+			// On convertit le fichier en objet Document à l'aide du constructeur SAX
 			Document document = ConstructSAX.build(file);
-			//On récupère le noeud racine
+			// On récupère le noeud racine
 			Element noeudRacine = document.getRootElement();
 			
-			//On récupère le texte contenu dans la balise passée en paramètre
+			// On récupère le texte contenu dans la balise passée en paramètre
 			this.titre = noeudRacine.getChildText("titre-du-jeu");
 			
-			//On récupère le fils de noeudRacine qui s'appelle fenetre
+			// On récupère le fils de noeudRacine qui s'appelle fenetre
 			Element fenetre = noeudRacine.getChild("fenetre");
-			//On récupère le texte contenu dans la balise useGL20 contenue dans fenêtre
+			// On récupère le texte contenu dans la balise useGL20 contenue dans fenêtre
 			if (fenetre.getChildText("useGL20").equals("true")) {
 				this.gl20 = true;
 			}
@@ -225,7 +250,7 @@ public class EditeurModele implements Observable {
 			
 			Element scene = noeudRacine.getChild("scene");
 			Element fond = scene.getChild("fond");
-			//On récupère la valeur de l'attribue image de la balise fond contenue dans la balise scene
+			// On récupère la valeur de l'attribue image de la balise fond contenue dans la balise scene
 			this.imageFond = fond.getAttributeValue("image");
 			
 			Element elements = scene.getChild("elements");
@@ -233,7 +258,23 @@ public class EditeurModele implements Observable {
 			Element artefacts = noeudRacine.getChild("artefacts");
 			this.artefacts = artefacts.getChildren();
 			Element mapping = noeudRacine.getChild("mapping");
-			this.mapping = mapping.getChildren();
+			
+			List<Element> listeObjets = mapping.getChildren();
+			
+			Iterator i = listeObjets.iterator();
+			this.mapping = new ArrayList<Objet>();
+			while (i.hasNext()) {
+				Element courant = (Element)i.next();
+				int idObj = Integer.parseInt(courant.getAttributeValue("id"));
+				Iterator j = courant.getChildren().iterator();
+				Element Courant = (Element)j.next();
+				String idArtef = Courant.getAttributeValue("id");
+				String imageArtef = Courant.getAttributeValue("image");
+				Courant = (Element)j.next();
+				String scriptAgent = Courant.getAttributeValue("script");
+				Objet obj = new Objet(idObj, idArtef, imageArtef, scriptAgent);
+				this.mapping.add(obj);
+			}
 			
 			this.updateListeObervateur();
 		}
@@ -267,8 +308,6 @@ public class EditeurModele implements Observable {
 			Element courant = (Element)i.next();
 			ret = ret + "id de l'Artefact : "+courant.getAttributeValue("id")+"\n";
 			ret = ret + "URL Image : "+courant.getAttributeValue("image")+"\n";
-			/*ret = ret + "Texte : "+courant.getAttributeValue("texte")+"\n";
-			ret = ret + "URL Son : "+courant.getAttributeValue("son")+"\n\n";*/
 		}
 		
 		
@@ -292,6 +331,10 @@ public class EditeurModele implements Observable {
 		return this.elementsScene;
 	}
 	
+	public List<Objet> getObjets() {
+		return this.mapping;
+	}
+	
 	public String getNomProjet() {
 		return this.nomProjet;
 	}
@@ -308,6 +351,34 @@ public class EditeurModele implements Observable {
 		return this.imageFond;
 	}
 	
+	public boolean getRedimensionnable() {
+		return this.redimensionnable;
+	}
+	
+	/**
+	 * 
+	 * @return Le nombre d'objets enregistrés dans le XML
+	 */
+	public int getNbObjets() {
+		return this.mapping.size();
+	}
+	
+	public int getLargeur() {
+		return this.largeur;
+	}
+	
+	public int getHauteur() {
+		return this.hauteur;
+	}
+	
+	public void setLargeur(int x) {
+		this.largeur = x;
+	}
+	
+	public void setHauteur(int x) {
+		this.hauteur = x;
+	}
+	
 	/**
 	 * Permet d'ajouter un artefact dans la liste des artefacts
 	 * @param idArtefact L'attribut id de l'artefact
@@ -322,14 +393,13 @@ public class EditeurModele implements Observable {
 		a.add(image);
 		artefact.setAttributes(a);
 		this.artefacts.add(artefact);
-//On indique aux observeurs (la vue) que le modèle a changé
 	}
 	
 	/**
 	 * Supprime l'artefact de la liste et supprime également toutes ses apparitions sur la scène
 	 * @param idArtefact id de l'artefact à supprimer
 	 */
-	public void supprimerArtefact(String idArtefact) {
+	/*public void supprimerArtefact(String idArtefact) {
 		String id = this.getMapID(idArtefact);
 		ArrayList<Element> temp = new ArrayList<Element>();
 		Iterator it = this.elementsScene.iterator();
@@ -349,24 +419,14 @@ public class EditeurModele implements Observable {
 			}
 			i++;
 		}
-	}
-	
+	}*/
 	
 	/**
 	 * Rajoute un objet dans le mapping
 	 * @param objet L'objet à ajouter
 	 */
-	public void ajouterObjetMapping(Element objet) { //Ajoute objet au mapping
+	public void ajouterObjetMapping(Objet objet) { // Ajoute objet au mapping
 		this.mapping.add(objet);
- //On indique aux observeurs (la vue) que le modèle a changé
-	}
-	
-	/**
-	 * 
-	 * @return Le nombre d'objets enregistrés dans le XML
-	 */
-	public int getNbObjets() {
-		return this.mapping.size();
 	}
 	
 	/**
@@ -376,28 +436,9 @@ public class EditeurModele implements Observable {
 	 * @param urlRelativeArtefact adresse relative menant au fichier de l'artefact (ex : fichier de texture)
 	 * @param scriptAgent Script de l'agent
 	 */
-	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
-		Element objet = new Element("objet");
-		objet.setAttribute(new Attribute("id",""+(this.getNbObjets()+1)));
-		
-		//Création et ajout de la balise artefact
-		Element artefact = new Element("artefact");
-		Attribute id = new Attribute("id", idArtefact);
-		Attribute image = new Attribute("image", urlRelativeArtefact);
-		ArrayList<Attribute> a = new ArrayList<Attribute>();
-		a.add(id);
-		a.add(image);
-		artefact.setAttributes(a);
-		objet.addContent(artefact);
-		this.ajouterArtefactDansSaListe(idArtefact, urlRelativeArtefact);
-		
-		//Création et ajout de la balise agent
-		Element agent = new Element("agent");
-		Attribute script = new Attribute("script", scriptAgent);
-		agent.setAttribute(script);
-		objet.addContent(agent);
-
-		this.ajouterObjetMapping(objet);
+	public void ajouterObjet(Objet obj) {
+		this.ajouterObjetMapping(obj);
+		this.ajouterArtefactDansSaListe(obj.getIdArtefact(), obj.getImage());
 		this.updateListeObervateur();
 	}
 	
@@ -408,9 +449,11 @@ public class EditeurModele implements Observable {
 	public void supprimerObjet(String id) {	// Supprime toute présence de l'objet
 		int i = 0;
 		boolean supr = false;
+		this.supprimerApparitionsScene(id);
 		while (i < this.mapping.size() && !supr) {
-			if (this.mapping.get(i).getAttributeValue("id").equals(id)) {
-				this.supprimerArtefact(this.mapping.get(i).getChild("artefact").getAttributeValue("id"));
+			String idObj = ""+this.mapping.get(i).getIdObjet();
+			if (idObj.equals(id)) {
+				//this.supprimerArtefact(this.mapping.get(i).getIdArtefact());
 				this.mapping.remove(i);
 				supr = true;
 			}
@@ -418,70 +461,68 @@ public class EditeurModele implements Observable {
 		}
 	}
 	
-	public String getMapID(String s) {
+	public void supprimerApparitionsScene(String id) {
+		ArrayList<Element> temp = new ArrayList<Element>();
+		Iterator it = this.elementsScene.iterator();
+		while (it.hasNext()) {
+			Element courant = (Element)it.next();
+			if (!id.equals(courant.getAttributeValue("id"))) {
+				temp.add(courant);
+			}
+		}
+		this.elementsScene = temp;
+	}
+	
+	public Objet getObjetByIdObjet(String idObjet) {
+		Objet o = new Objet();
+		int i = 0;
+		boolean trouve = false;
+		while(i < this.mapping.size() && !trouve) {
+			String idObjetMapping = "" + this.mapping.get(i).getIdObjet();
+			if(idObjetMapping.equals(idObjet)) {
+				o = this.mapping.get(i);
+				trouve = true;
+			}
+			i++;
+		}
+		return o;
+	}
+	
+	public ArrayList<LabelArtefact> chargementElementsScene() {
+		ArrayList<LabelArtefact> elem = new ArrayList<LabelArtefact>();
+		Iterator i = this.elementsScene.iterator();
+		String id = new String();
+		
+		while (i.hasNext()) {
+			Element courant = (Element)i.next();
+			id = courant.getAttributeValue("id");
+			int x = Integer.parseInt(courant.getAttributeValue("x"));
+			int y = Integer.parseInt(courant.getAttributeValue("y"));
+			Objet o = this.getObjetByIdObjet(id);
+			LabelArtefact la = new LabelArtefact(new ImageIcon(o.getImage()), o);
+			la.setPosition(x, y);
+			elem.add(la);
+		}
+		return elem;
+	}
+	
+	/*public String getMapID(String s) {
 		String ret = new String();
 		Iterator i = this.mapping.iterator();
 
 		while (i.hasNext()) {
-			Element courant = (Element)i.next();
-			Iterator j = courant.getChildren().iterator();
-			Element Courant = (Element)j.next();
+			Objet objCourant = (Objet)i.next();
+			//Element courant = new Element(objCourant.getIdArtefact());
+			/*Iterator j = courant.getChildren().iterator();
+			Element Courant = (Element)j.next();*//*
 			
-			if (Courant.getAttributeValue("id").equals(s)){        
-				Courant = (Element)j.next();
-				ret = courant.getAttributeValue("id");
+			if (objCourant.getIdArtefact().equals(s)){        
+				//courant = (Element)j.next();
+				ret = ""+objCourant.getIdObjet();
 			}
 		}
 		return ret;
-	}
-	
-	/**
-	 * @return Le chemin des artefacts
-	 */
-	public ArrayList<String> getArtefactsPath() {
-		ArrayList<String> temp = new ArrayList<String>();
-		for (Element obj : this.artefacts) {
-			temp.add(obj.getAttributeValue("image"));
-		}
-		ArrayList<String> ret = new ArrayList<String>();
-		for (int i = 0; i < temp.size(); i++) {
-			ret.add(temp.get(i));
-		}
-		return ret;
-	}
-	
-	public String getIdArtefactByPath(String path) {
-		String ret = new String();
-		Iterator i = this.mapping.iterator();
-
-		while (i.hasNext()) {
-			Element courant = (Element)i.next();
-			Iterator j = courant.getChildren().iterator();
-			Element Courant = (Element)j.next();
-
-			if (Courant.getAttributeValue("image").equals(path)){        
-				Courant = (Element)j.next();
-				ret = courant.getAttributeValue("id");
-			}
-		}
-		return ret;
-	}
-	
-	/**
-	 * Permet à partir d'une balise objet de type scene de récupérer l'id de l'artefact qui lui correspond dans le mapping
-	 * @param objet L'Element objet contenu dans la balise scene
-	 * @return L'id de l'artefact correspondant à cet objet
-	 */
-	public String getIdArtefactFilsScene(Element objet) {
-		int id = Integer.parseInt(objet.getAttributeValue("id"));
-		for (Element objetMapped : this.mapping) {
-			int idMapped = Integer.parseInt(objetMapped.getAttributeValue("id"));
-			if (id == idMapped) {
-				return objetMapped.getChild("artefact").getAttributeValue("id");
-			}
-		}
-		return "Erreur !";
-	}
+	}*/
 	
 	/**
 	 * Rajoute un objet dans la scene
@@ -489,7 +530,10 @@ public class EditeurModele implements Observable {
 	 */
 	public void ajouterObjetScene(Element objet) {
 		this.elementsScene.add(objet);
-		//On indique aux observeurs (la vue) que le modèle a changé
+	}
+	
+	public void viderScene() {
+		this.elementsScene.clear();
 	}
 	
 	/**
@@ -498,7 +542,6 @@ public class EditeurModele implements Observable {
 	 */
 	public void retirerObjetScene(Element objet) {
 		this.elementsScene.remove(objet);
- //On indique aux observeurs (la vue) que le modèle a changé
 	}
 	
 	/**
@@ -520,24 +563,9 @@ public class EditeurModele implements Observable {
 		
 		this.ajouterObjetScene(objet);
 	}
-	
-	/**
-	 * Retirer l'objet spécifier de la scène
-	 * @param id id du mapping de l'objet à retirer de la scène
-	 * @param x Coordonnée x sur la scene
-	 * @param y Coornonnée y sur la scène
-	 */
-	public void retirerObjetDeScene(int id, int x, int y) {
-		for (int i = 0; i < this.elementsScene.size(); i++) {
-			if (this.elementsScene.get(i).getAttributeValue("id").equals(""+id) && this.elementsScene.get(i).getAttributeValue("x").equals(""+x) && this.elementsScene.get(i).getAttributeValue("y").equals(""+y)) {
-				this.retirerObjetScene(this.elementsScene.get(i));
-			}
-		}
-	}
-
 
 	@Override
-	//Ajoute un observateur à la liste
+	// Ajoute un observateur à la liste
 	public void addObservateur(Observateur obs) {
 		this.listObservateur.add(obs);
 	}
@@ -550,11 +578,11 @@ public class EditeurModele implements Observable {
 
 
 	@Override
-	//Avertit les observateurs que l'objet observable a changé 
-	//et invoque la méthode update() de chaque observateur
+	/* Avertit les observateurs que l'objet observable a changé 
+	et invoque la méthode update() de chaque observateur*/
 	public void updateListeObervateur() {
 		for(Observateur obs : this.listObservateur )
-	    	obs.updateListe(this.getArtefactsPath());
+	    	obs.updateListe(this.getObjets());
 	}
 
 	public void updateFondObervateur(){
@@ -569,8 +597,9 @@ public class EditeurModele implements Observable {
 	}
 	
 	@Override
-	//Retire tous les observateurs de la liste
+	// Retire tous les observateurs de la liste
 	public void delObservateur() {
 		this.listObservateur = new ArrayList<Observateur>();
 	}
+	
 }

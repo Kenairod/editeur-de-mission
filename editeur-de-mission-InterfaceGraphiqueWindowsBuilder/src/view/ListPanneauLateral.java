@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.dnd.DropTarget;
@@ -8,11 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JList;
+
+import data.Objet;
 
 
 /**
@@ -23,57 +26,58 @@ import javax.swing.JList;
 public class ListPanneauLateral extends JList<ImageIcon> { 
 
 	private Vector<ImageIcon> listeImages;
-	private ArrayList<String> listePaths;
+	private List<Objet> listeObjets;
 	private Fenetre fenetre;
+	private ArrayList<LabelArtefact> listeDraggys;
 	
-	public void setListe(ArrayList<String> list) {
+	public void setListe(List<Objet> list) {
 		this.listeImages = new Vector<ImageIcon>();
-		this.listePaths = new ArrayList<String>();
+		this.listeObjets = new ArrayList<Objet>();
 		for (int i = 0; i < list.size(); i++) {
-			this.listeImages.add(redimensionner(list.get(i)));
-			this.listePaths.add(list.get(i));
+			this.listeImages.add(redimensionner(list.get(i).getImage()));
+			this.listeObjets.add(list.get(i));
 		}
 		this.setListData(this.listeImages);
 		
 		int size = listeImages.size();
     	
     	if (size != 0) {
-    		fenetre.getSupprButton().setEnabled(true);
+    		this.fenetre.getSupprButton().setEnabled(true);
         }
 	}
 	
+	public ArrayList<LabelArtefact> getDraggysScene() {
+		return this.listeDraggys;
+	}
 	
-	public ListPanneauLateral(ArrayList<String> list, Fenetre fen) {
+	public ListPanneauLateral(List<Objet> list, Fenetre fen) {
 		this.setListe(list);
 		this.fenetre = fen;
+		this.listeDraggys = new ArrayList<LabelArtefact>();
 		for (int i = 0; i < list.size(); i++) {
-			this.listeImages.add(redimensionner(list.get(i)));
-			this.listePaths.add(list.get(i));
+			this.listeImages.add(redimensionner(list.get(i).getImage()));
+			this.listeObjets.add(list.get(i));
 		}
 		
-		this.fenetre.getSupprButton().addActionListener(new DeleteListener());	
+		this.fenetre.getSupprButton().addActionListener(new DeleteListener());
     	
     	this.setDragEnabled(true);
 		
-		this.fenetre.getScene().setDropTarget(new DropTarget()
-		{
-			public void drop(DropTargetDropEvent dtde) 
-			{
-				try{
-					int index = getSelectedIndex();
-					String artefactPath = listePaths.get(index).toString();
-					fenetre.getScene().add(new JLabel(new ImageIcon(artefactPath)));
-					fenetre.getScene().revalidate();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		this.fenetre.getScene().setDropTarget(new DropTarget() {
+			public void drop(DropTargetDropEvent dtde) {
+				int index = getSelectedIndex();
+				String artefactPath = listeObjets.get(index).getImage();
+				LabelArtefact draggy = new LabelArtefact(new ImageIcon(artefactPath), listeObjets.get(index));
+				fenetre.getScene().add(draggy);
+				listeDraggys.add(draggy);
+				fenetre.getScene().validate();
 			}
 		});
 	}
 	
 	public ImageIcon redimensionner(String urlImage) {
 		ImageIcon icon = new ImageIcon(urlImage); 
-		if (icon.getIconHeight() > 64) {
+		if (icon.getIconHeight() > 64 || icon.getIconWidth() > 64 ) {
 			Image img = icon.getImage(); 
 			BufferedImage bi = new BufferedImage(64, 64, BufferedImage.TYPE_INT_ARGB); 
 			Graphics g = bi.createGraphics(); 
@@ -83,35 +87,52 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 		else return icon;
 	}
 	
-	class DeleteListener implements ActionListener {
+	private class DeleteListener implements ActionListener {
+		
         public void actionPerformed(ActionEvent e) {
         	
         		if(!isSelectionEmpty()) {
             	
 	            	int index = getSelectedIndex();
-	            	String artefactPath = listePaths.get(index).toString();
+	            	String idObjet = "" + listeObjets.get(index).getIdObjet();
+	
+	            	fenetre.supprObjet(idObjet);
 	            	
-	            	fenetre.supprObjet(artefactPath);
+	            	ArrayList<LabelArtefact> copie = new ArrayList<LabelArtefact>();
+	            	for (int i=0; i < listeDraggys.size(); i++) {
+	            		String s = "" + listeDraggys.get(i).getObjet().getIdObjet();
+	            		if(s.equals(idObjet)) {
+		            		Container parent = listeDraggys.get(i).getParent();
+							parent.remove(listeDraggys.get(i));
+							parent.validate();
+							parent.repaint();
+							copie.add(listeDraggys.get(i));
+	            		}
+	            	}
 	            	
+	            	for (int i=0; i < copie.size(); i++) {
+	            		getDraggysScene().remove(copie.get(i));
+	            	}           	
+	            		            	
 	            	listeImages.remove(index);
-	            	listePaths.remove(index);
-	            	
+	            	listeObjets.remove(index);
+	            		                     	
 	        		repaint();
 	
-	            	int size = listePaths.size();
+	            	int size = listeObjets.size();
 	            	
 	            	if (size == 0) {
 	            		fenetre.getSupprButton().setEnabled(false);
 	                } 
 	            	else {
-						if (index == listePaths.size()) {
+						if (index == listeObjets.size()) {
 							index--;
 						}
 	            	}
 		            setSelectedIndex(index);
 		            ensureIndexIsVisible(index);
         		}
-         }
+        }
 	}
 	
 }

@@ -1,9 +1,11 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import observation.Observateur;
 import controler.EditeurControler;
+import data.Objet;
 
 /**
  * La vue
@@ -15,7 +17,7 @@ public class EditeurVue implements Observateur {
 	private EditeurControler controler;
 
 	@Override
-	public void updateListe(ArrayList<String> liste) {
+	public void updateListe(List<Objet> liste) {
 		this.fenetre.changeListeObjets(liste);
 		this.fenetre.repaint();
 	}
@@ -31,13 +33,17 @@ public class EditeurVue implements Observateur {
 		
 	}
 	
-	public EditeurVue(EditeurControler controler) {
-		this.controler = controler;
-		this.fenetre = new Fenetre(this.controler.getListePaths(), this.controler.getImageFond(), this);
+	public int getNbObjets() {
+		return this.controler.getNbObjets();
 	}
 	
-	public void saveProject() {
-		this.controler.saveProject();
+	public EditeurVue(EditeurControler controler) {
+		this.controler = controler;
+		this.fenetre = new Fenetre(this.controler.getObjets(), this.controler.getImageFond(), this);
+	}
+	
+	public void saveProject(ArrayList<LabelArtefact> listeDraggys) {
+		this.controler.saveProject(listeDraggys);
 	}
 	
 	public void importProject(String path, String nom) {
@@ -52,8 +58,8 @@ public class EditeurVue implements Observateur {
 		return this.controler.getNomProjet();
 	}
 	
-	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
-		this.controler.ajouterObjet(idArtefact, urlRelativeArtefact, scriptAgent);
+	public void ajouterObjet(Objet o) {
+		this.controler.ajouterObjet(o);
 	}
 	
 	public void restartProject() {
@@ -64,7 +70,32 @@ public class EditeurVue implements Observateur {
 		this.controler.setFond(urlBg);
 	}
 	
-	public void supprObjet(String artefactPath) {
-		this.controler.supprObjet(artefactPath);
+	public void supprObjet(String idObjet) {
+		this.controler.supprObjet(idObjet);
 	}
+	
+	public int getLargeur() {
+		return this.controler.getLargeur();
+	}
+	
+	public int getHauteur() {
+		return this.controler.getHauteur();
+	}
+	
+	public void setLargeur(int x) {
+		this.controler.setLargeur(x);
+	}
+	
+	public void setHauteur(int x) {
+		this.controler.setHauteur(x);
+	}
+	
+	public boolean getRedimensionnable() {
+		return this.controler.getRedimensionnable();
+	}
+	
+	public ArrayList<LabelArtefact> chargementElementsScene() {
+		return this.controler.chargementElementsScene();
+	}
+	
 }

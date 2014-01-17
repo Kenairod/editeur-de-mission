@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+
+import data.Objet;
 
 /**
  * La fenêtre principale
@@ -37,14 +40,12 @@ public class Fenetre extends JFrame {
 	private JMenuItem bg = new JMenuItem("Define a new Background");
 	private JButton supprButton = new JButton("Delete Object");
 	
-	//private TabPanneauLateral onglet;
-
 	
-	public Fenetre(ArrayList<String> listeArtefacts, String urlBg, EditeurVue vue) {
+	public Fenetre(List<Objet> listeArtefacts, String urlBg, EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
-		this.scene = new JPanelImageBg();
+		this.scene = new JPanelImageBg(this);
 		this.scene.setImage(urlBg);
 		
 		this.supprButton.setEnabled(false);
@@ -57,23 +58,21 @@ public class Fenetre extends JFrame {
 		this.lateral.setLayout(new BorderLayout());
 		this.lateral.add(this.scrollPane,BorderLayout.CENTER);
 		this.lateral.add(this.supprButton, BorderLayout.SOUTH);
-		
-		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.lateral, this.scene); 
+		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.lateral, this.scene);
 		//Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
 		
 		this.contenu.setDividerLocation(200);
+		this.contenu.setEnabled(false);
 		
-		setTitle("Bianji - Éditeur de jeu vidéo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		/*setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		addWindowListener(new AreYouSure());*/
+		this.setTitle("Bianji - Éditeur de jeu vidéo");
+
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new AreYouSure());
 		
-		/*setLayout(new BorderLayout());
-        pack();*/
-        
-		setBounds(100, 100, 800, 600);
+		this.setBounds(0, 0, this.vue.getLargeur(), this.vue.getHauteur());
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+		this.setResizable(this.vue.getRedimensionnable());
 		
 		this.setContentPane(this.contenu);
 		this.getContentPane().setVisible(false);
@@ -89,29 +88,28 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void showMenu() {
-		object.addActionListener(new ActionListener() {
+		this.object.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				openObjectDialog();
 			}
 	    });
-		bg.addActionListener(new ActionListener() {
+		this.bg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				openBgDialog();
 			}
 	    });
 		this.onglets.getComponent(0).addMouseListener(new MouseAdapter() {
-		public void mouseReleased(MouseEvent event) {
-			 if(event.isPopupTrigger()){       
-				 jpm.add(bg);
-				 jpm.add(object);
-		         jpm.show(contenu, event.getX(), event.getY());	//La méthode qui va afficher le menu
-		          
-		     }
-		}
-	});
+			public void mouseReleased(MouseEvent event) {
+				if(event.isPopupTrigger()){       
+					jpm.add(bg);
+					jpm.add(object);
+					jpm.show(contenu, event.getX(), event.getY());
+				}
+			}
+		});
 	}
 	
-	public void changeListeObjets(ArrayList<String> listeArtefacts) {
+	public void changeListeObjets(List<Objet> listeArtefacts) {
 		this.liste.setListe(listeArtefacts);
 	}
 	
@@ -120,13 +118,17 @@ public class Fenetre extends JFrame {
 		this.scene.repaint();
 	}
 	
+	public int getNbObjets() {
+		return this.vue.getNbObjets();
+	}
+	
 	public void enableContenu() {
 		this.getContentPane().setVisible(true);
-		showMenu();
+		this.showMenu();
 	}
 	
 	public void saveProject() {
-		this.vue.saveProject();
+		this.vue.saveProject(this.liste.getDraggysScene());
 	}
 	
 	public void importProject(String path, String nom) {
@@ -141,8 +143,8 @@ public class Fenetre extends JFrame {
 		return this.vue.getNomProjet();
 	}
 	
-	public void ajouterObjet(String idArtefact, String urlRelativeArtefact, String scriptAgent) {
-		this.vue.ajouterObjet(idArtefact, urlRelativeArtefact, scriptAgent);
+	public void ajouterObjet(Objet o) {
+		this.vue.ajouterObjet(o);
 	}
 	
 	public void restartProject() {
@@ -158,17 +160,49 @@ public class Fenetre extends JFrame {
 		return this.supprButton;
 	}
 	
-	public void supprObjet(String artefactPath) {
-		this.vue.supprObjet(artefactPath);
+	public void supprObjet(String idObjet) {
+		this.vue.supprObjet(idObjet);
 	}
 	
 	public JPanelImageBg getScene() {
 		return this.scene;
 	}
 	
-	 private class AreYouSure extends WindowAdapter {  
-	        public void windowClosing( WindowEvent e ) { 
-	        	menu.exitProject();
-	        }
+	private class AreYouSure extends WindowAdapter {  
+		public void windowClosing(WindowEvent e) { 
+			menu.exitProject();
+		}
 	}
+	 
+	 public int getLargeur() {
+		return this.vue.getLargeur();
+	 }
+		
+	public int getHauteur() {
+		return this.vue.getHauteur();
+	}
+		
+	public void setLargeur(int x) {
+		this.vue.setLargeur(x);
+	}
+		
+	public void setHauteur(int x) {
+		this.vue.setHauteur(x);
+	}
+	
+	public void resizeScene(int x, int y) {
+		int hauteur = this.getHeight() - this.scene.getHeight();
+		int largeur = this.getWidth() - this.scene.getWidth();
+		this.setSize(largeur + x, hauteur + y);
+		this.setLocationRelativeTo(null);
+	}
+	
+	public ArrayList<LabelArtefact> getDraggysScene() {
+		return this.liste.getDraggysScene();
+	}
+	
+	public ArrayList<LabelArtefact> chargementElementsScene() {
+		return this.vue.chargementElementsScene();
+	}
+	
 }

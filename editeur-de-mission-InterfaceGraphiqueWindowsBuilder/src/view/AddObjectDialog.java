@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import data.Objet;
+
 	public class AddObjectDialog extends JDialog {
 		private Fenetre fenetre;
 		private JButton artefactButton;
@@ -29,7 +31,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		this.initComponent();
-		setVisible(true);
+		this.setVisible(true);
 	}
 	
 	private void initComponent(){
@@ -38,39 +40,39 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		JPanel panArtefact = new JPanel();
 		panArtefact.setBackground(Color.white);
 		panArtefact.setPreferredSize(new Dimension(380, 60));
-		urlArtefact = new JTextField();
-		urlArtefact.setPreferredSize(new Dimension(200, 25));
+		this.urlArtefact = new JTextField();
+		this.urlArtefact.setPreferredSize(new Dimension(200, 25));
 		panArtefact.setBorder(BorderFactory.createTitledBorder("Path to the Artefact"));
-		artefactButton = new JButton("URL Artefact Image");
-		artefactButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			JFileChooserArtefact();    
-		}
+		this.artefactButton = new JButton("URL Artefact Image");
+		this.artefactButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooserArtefact();    
+			}
 		});
-		panArtefact.add(artefactButton);
-		panArtefact.add(urlArtefact);
+		panArtefact.add(this.artefactButton);
+		panArtefact.add(this.urlArtefact);
 	
 		//Le nom de l'artefact
 		JPanel panNomArtefact = new JPanel();
 		panNomArtefact.setBackground(Color.white);
 		panNomArtefact.setPreferredSize(new Dimension(380, 60));
-		nomArtefact = new JTextField();
-		nomArtefact.setPreferredSize(new Dimension(200, 25));
+		this.nomArtefact = new JTextField();
+		this.nomArtefact.setPreferredSize(new Dimension(200, 25));
 		panNomArtefact.setBorder(BorderFactory.createTitledBorder("Artefact's Name"));
-		artefactLabel = new JLabel("Enter the Artefact's name :");
-		panNomArtefact.add(artefactLabel);
-		panNomArtefact.add(nomArtefact);
+		this.artefactLabel = new JLabel("Enter the Artefact's name :");
+		panNomArtefact.add(this.artefactLabel);
+		panNomArtefact.add(this.nomArtefact);
 		
 		//Le nom du script
 		JPanel panNomAgent = new JPanel();
 		panNomAgent.setBackground(Color.white);
 		panNomAgent.setPreferredSize(new Dimension(380, 60));
-		nomScript = new JTextField();
-		nomScript.setPreferredSize(new Dimension(200, 25));
+		this.nomScript = new JTextField();
+		this.nomScript.setPreferredSize(new Dimension(200, 25));
 		panNomAgent.setBorder(BorderFactory.createTitledBorder("Script's name (Optional)"));
-		scriptLabel = new JLabel("Enter the Script's name :");
-		panNomAgent.add(scriptLabel);
-		panNomAgent.add(nomScript);
+		this.scriptLabel = new JLabel("Enter the Script's name :");
+		panNomAgent.add(this.scriptLabel);
+		panNomAgent.add(this.nomScript);
 		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
@@ -82,14 +84,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		JButton okBouton = new JButton("OK");
 	
 		okBouton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-			if (nomArtefact.getText().trim().length() != 0 && urlArtefact.getText().trim().length() != 0) {	
-				// Si les deux champs sont remplis
-				ajoutObjet();
-				setVisible(false);
-			}  
+			public void actionPerformed(ActionEvent arg0) {
+				if (nomArtefact.getText().trim().length() != 0 && urlArtefact.getText().trim().length() != 0) {	
+					ajoutObjet();
+					setVisible(false);
+				}  
 			}
-			}); 
+		}); 
 	   
 		JButton cancelBouton = new JButton("Annuler");
 		cancelBouton.addActionListener(new ActionListener(){
@@ -117,12 +118,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	        chooser.setFileFilter(imagesFilter);
 	
 			if (chooser.showOpenDialog(null) == 0) {
-				urlArtefact.setText(chooser.getSelectedFile().toString());
+				this.urlArtefact.setText(chooser.getSelectedFile().toString());
 			}   
 		} 
 	  
 		public void ajoutObjet() {
-			this.fenetre.ajouterObjet(nomArtefact.getText(), urlArtefact.getText(), nomScript.getText());
+			Objet o = new Objet(this.fenetre, nomArtefact.getText(), urlArtefact.getText(), nomScript.getText());
+			this.fenetre.ajouterObjet(o);
 		}
 
 }

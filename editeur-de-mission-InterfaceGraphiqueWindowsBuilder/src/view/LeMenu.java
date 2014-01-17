@@ -3,6 +3,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -58,22 +59,11 @@ public class LeMenu extends JMenuBar {
 	*/
 	private JMenuItem enregistrer = new JMenuItem("Save");
 	/**
-	* L'item enregistrer sous
-	*/
-	//private JMenuItem enregistrer_sous = new JMenuItem("Save As");
-	/**
-	* L'item print
-	*/
-	//private JMenuItem imprimer = new JMenuItem("Print");
-	/**
-	* L'item preview
-	*/
-	//private JMenuItem apercu = new JMenuItem("Print Preview");
-	/**
 	* L'item exit
 	*/
 	private JMenuItem quitter = new JMenuItem("Exit");
-	//Les items de edition
+	
+	//Les items d'édition
 	/**
 	* L'item undo
 	*/
@@ -94,7 +84,8 @@ public class LeMenu extends JMenuBar {
 	* L'item paste
 	*/
 	private JMenuItem coller = new JMenuItem("Paste");
-	//Les items de edition
+	
+	//Les items de zoom
 	/**
 	* L'item zoom +
 	*/
@@ -103,7 +94,8 @@ public class LeMenu extends JMenuBar {
 	* L'item zoom -
 	*/
 	private JMenuItem dezoom = new JMenuItem("Zoom -");
-	//Les items de aide
+	
+	//Les items d'aide
 	/**
 	* L'item Help
 	*/
@@ -113,29 +105,29 @@ public class LeMenu extends JMenuBar {
 	*/
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
 
-
+	
 	public LeMenu (Fenetre fenetre) {
 		this.fenetre = fenetre;
 		
-		nouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
-		this.fichier.add(nouveau);
-		nouveau.addActionListener(new ActionListener() {
+		this.nouveau.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK));
+		this.fichier.add(this.nouveau);
+		this.nouveau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				newProject();    
 			}
 	    });
               
-		ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
-		this.fichier.add(ouvrir);
-		ouvrir.addActionListener(new ActionListener() {
+		this.ouvrir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, KeyEvent.CTRL_DOWN_MASK));
+		this.fichier.add(this.ouvrir);
+		this.ouvrir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				openProject();    
 			}
 	    });
        
-		fermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.CTRL_DOWN_MASK));
-	 	this.fichier.add(fermer);
-  	    fermer.addActionListener(new ActionListener() {
+		this.fermer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.CTRL_DOWN_MASK));
+	 	this.fichier.add(this.fermer);
+	 	this.fermer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				restartProject();    
 			}
@@ -143,9 +135,9 @@ public class LeMenu extends JMenuBar {
               
 		this.fichier.addSeparator();//-------
               
-		enregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
-		this.fichier.add(enregistrer);
-		enregistrer.addActionListener(new ActionListener() {
+		this.enregistrer.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK));
+		this.fichier.add(this.enregistrer);
+		this.enregistrer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				saveProject(); 
 			}
@@ -153,85 +145,85 @@ public class LeMenu extends JMenuBar {
               
 		this.fichier.addSeparator();//-------
               
-		quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
-		this.fichier.add(quitter);
-		quitter.addActionListener(new ActionListener() {
+		this.quitter.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK));
+		this.fichier.add(this.quitter);
+		this.quitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				exitProject();    
 			}
 	    });
               
 		//Menu edition
-		precedent.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
-		this.edition.add(precedent);
+		this.precedent.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK));
+		this.edition.add(this.precedent);
               
-		suivant.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
-		this.edition.add(suivant);
+		this.suivant.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, KeyEvent.CTRL_DOWN_MASK));
+		this.edition.add(this.suivant);
               
 		this.edition.addSeparator();//-------
               
-		couper.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
-		this.edition.add(couper);
+		this.couper.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+		this.edition.add(this.couper);
               
-		copier.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
-		this.edition.add(copier);
+		this.copier.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
+		this.edition.add(this.copier);
               
-		coller.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK));
-              this.edition.add(coller);
+		this.coller.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK));
+        this.edition.add(this.coller);
               
-              //Menu vue
-              zoom.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK));
-              this.vue.add(zoom);
-              
-              dezoom.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK));
-              this.vue.add(dezoom);
-              
-              //Menu help
-              aideItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.CTRL_DOWN_MASK));
-              this.aide.add(aideItem);
-              aideItem.setEnabled(false);
-              
-              this.aide.addSeparator();//-------
-              
-              //a_propos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK));
-              this.aide.add(a_propos);
-              a_propos.addActionListener(new ActionListener() {
-      			public void actionPerformed(ActionEvent arg0) {
-      				aboutProject();    
-      			}
-      	    });
-              
-			fichier.setMnemonic('F');
-			this.add(fichier);
-			edition.setMnemonic('E');
-			this.add(edition);
-			vue.setMnemonic('V');
-			this.add(vue);
-			aide.setMnemonic('H');
-			this.add(aide);
+		//Menu vue
+        this.zoom.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK));
+		this.vue.add(this.zoom);
 			  
-			if (this.fenetre.getNomProjet().length()==0) {
-				this.setAllFalse();
-			} 
+		this.dezoom.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK));
+		this.vue.add(this.dezoom);
+			  
+		//Menu help
+		this.aideItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, KeyEvent.CTRL_DOWN_MASK));
+		this.aide.add(this.aideItem);
+			  
+		this.aide.addSeparator(); //-------
+			  
+		//this.a_propos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK));
+		this.aide.add(this.a_propos);
+		this.a_propos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				aboutProject();    
+			}
+		});
+			  
+		this.fichier.setMnemonic('F');
+		this.add(this.fichier);
+		this.edition.setMnemonic('E');
+		this.add(this.edition);
+		this.vue.setMnemonic('V');
+		this.add(this.vue);
+		this.aide.setMnemonic('H');
+		this.add(this.aide);
+			  
+		if (this.fenetre.getNomProjet().length()==0) {
+			this.setAllFalse();
+		} 
 	}
 	
 	public void setAllFalse() {
-			enregistrer.setEnabled(false);
-	  	    fermer.setEnabled(false);
-	    	coller.setEnabled(false);
-	    	copier.setEnabled(false);
-	    	couper.setEnabled(false);
-	    	suivant.setEnabled(false);
-	    	precedent.setEnabled(false);
-	    	zoom.setEnabled(false);
-	    	dezoom.setEnabled(false);
+		this.enregistrer.setEnabled(false);
+		this.fermer.setEnabled(false);
+		this.coller.setEnabled(false);
+		this.copier.setEnabled(false);
+		this.couper.setEnabled(false);
+		this.suivant.setEnabled(false);
+		this.precedent.setEnabled(false);
+		this.zoom.setEnabled(false);
+		this.dezoom.setEnabled(false);
+		this.aideItem.setEnabled(false);
 	}
 	
 	public void exitProject () {
 		int exit = JOptionPane.showConfirmDialog(this.fenetre, "Do you really want to quit ?", "Exit", JOptionPane.OK_CANCEL_OPTION);
 		if(exit == 0) {
 			if(this.fenetre.getNomProjet().length() != 0) {
-				saveProject();
+				this.saveProject();
 			}
 			this.fenetre.dispose();
 		}
@@ -239,26 +231,33 @@ public class LeMenu extends JMenuBar {
 
 	public void openProject() {
 		JFileChooser chooser = new JFileChooser();
-        // création du filtre
+		
         FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("XML Files (*.xml)", "xml");
-        // ajout du filtre
+        
         chooser.addChoosableFileFilter(xmlFilter);
-        // set filtre selectionné
+
         chooser.setFileFilter(xmlFilter);
-        //System.out.println("Fichier choisi : " + chooser.getSelectedFile()); // récupération du fichier sélectionné
+        
         if (chooser.showOpenDialog(null) == 0) {
         	String[] str = chooser.getSelectedFile().getName().split(".xml");
         	this.fenetre.importProject(chooser.getSelectedFile().toString(),str[0]);
         	this.fenetre.enableContenu();
         	this.changeEnabled();
+        	this.fenetre.resizeScene(this.fenetre.getLargeur(), this.fenetre.getHauteur());
+        	
+        	ArrayList<LabelArtefact> la = this.fenetre.chargementElementsScene();
+        	for(int i=0; i < la.size(); i++) {
+        		this.fenetre.getDraggysScene().add(la.get(i));
+        		this.fenetre.getScene().add(la.get(i));
+        	}
         }   
 	}
 	
 	public void changeEnabled() {
-  	    fermer.setEnabled(true);
-		nouveau.setEnabled(false);
-		ouvrir.setEnabled(false);
-		enregistrer.setEnabled(true);
+		this.fermer.setEnabled(true);
+		this.nouveau.setEnabled(false);
+		this.ouvrir.setEnabled(false);
+		this.enregistrer.setEnabled(true);
 	}
 
 	public void aboutProject () {
@@ -279,15 +278,20 @@ public class LeMenu extends JMenuBar {
 		if (name != null) {
 		    if(name.length()!=0) {
 		    	this.fenetre.setNomProjet(name);
-				this.fenetre.enableContenu();
 				this.changeEnabled();
 		    }
 		    else {
 		    	JOptionPane.showMessageDialog(null,
 		    			"Nom Incorrect...", "Nom Incorrect", JOptionPane.ERROR_MESSAGE);
-		    	newProject();
+		    	this.newProject();
 			}
+
+		    this.setDimensions();
 		}
+	}
+	
+	public void setDimensions() {
+		SetDimensionDialog aod = new SetDimensionDialog(this.fenetre, "Set Dimensions", true);
 	}
 	
 	public void restartProject() {
@@ -295,4 +299,5 @@ public class LeMenu extends JMenuBar {
 		this.fenetre.dispose();
 		this.fenetre.restartProject();
 	}
+	
 }
