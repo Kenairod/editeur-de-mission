@@ -68,8 +68,8 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 				int index = getSelectedIndex();
 				String artefactPath = listeObjets.get(index).getImage();
 				LabelArtefact draggy = new LabelArtefact(new ImageIcon(artefactPath), listeObjets.get(index));
-				fenetre.getScene().add(draggy);
 				listeDraggys.add(draggy);
+				fenetre.getScene().add(draggy);
 				fenetre.getScene().validate();
 				fenetre.getScene().repaint();
 			}
