@@ -249,6 +249,8 @@ public class LeMenu extends JMenuBar {
         	for(int i=0; i < la.size(); i++) {
         		this.fenetre.getDraggysScene().add(la.get(i));
         		this.fenetre.getScene().add(la.get(i));
+        		this.fenetre.getScene().validate();
+				this.fenetre.getScene().repaint();
         	}
         }   
 	}

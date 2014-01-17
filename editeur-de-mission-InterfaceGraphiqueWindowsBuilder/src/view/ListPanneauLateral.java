@@ -71,6 +71,7 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 				fenetre.getScene().add(draggy);
 				listeDraggys.add(draggy);
 				fenetre.getScene().validate();
+				fenetre.getScene().repaint();
 			}
 		});
 	}
