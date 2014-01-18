@@ -166,7 +166,7 @@ public class EditeurModele implements Observable {
 		         /*Balise scene et ses sous-balises (autant de sous balises "elements" 
 		         que contenu dans this.elementsScene*/
 		         Element scene = new Element("scene");
-		         scene.addContent(new Element("fond").setAttribute(new Attribute("image", this.imageFond)));
+		         scene.addContent(new Element("fond").setAttribute(new Attribute("image", this.relativePath(this.imageFond))));
 		         Element elements = new Element("elements");
 		         for (int i = 0; i < this.elementsScene.size(); i++) {
 		        	 Element elem = this.elementsScene.get(i).clone();
@@ -188,7 +188,7 @@ public class EditeurModele implements Observable {
 		        	 obj.setAttribute("id", ""+this.mapping.get(i).getIdObjet());
 		        	 Element artefact = new Element("artefact");
 		        	 artefact.setAttribute("id", this.mapping.get(i).getIdArtefact());
-		        	 artefact.setAttribute("image", this.mapping.get(i).getImage());
+		        	 artefact.setAttribute("image", this.relativePath(this.mapping.get(i).getImage()));
 		        	 Element agent = new Element("agent");
 		        	 agent.setAttribute("script", this.mapping.get(i).getScript());
 		        	 
@@ -338,6 +338,7 @@ public class EditeurModele implements Observable {
 	}
 	
 	public String relativePath(String absolutePath) {
+		System.out.println(absolutePath);
 		String relative = new String();
 		ArrayList<Character> copie = new ArrayList<Character>();
 		ArrayList<Character> listeRelative = new ArrayList<Character>();
@@ -350,11 +351,11 @@ public class EditeurModele implements Observable {
 		
 		int taille = copie.size()-1;
 		while(taille >= 0 && !stop) {
-			if(copie.get(taille) == '/' && !first) {
+			if(copie.get(taille) == '\\' && !first) {
 				first = true;
 			}
 			
-			else if (copie.get(taille) == '/' && first) {
+			else if (copie.get(taille) == '\\' && first) {
 				stop = true;
 			}
 			listeRelative.add(0, copie.get(taille));
@@ -364,6 +365,15 @@ public class EditeurModele implements Observable {
 		for (int i=1; i < listeRelative.size(); i++) {
 			relative += listeRelative.get(i);
 		}
+		
+		/*for (int i=1; i < listeRelative.size(); i++) {
+			if(listeRelative.get(i) == '\\') {
+				relative += '/';
+			}
+			else {
+				relative += listeRelative.get(i);
+			}
+		}*/
 		
 		return relative;
 	}
@@ -427,7 +437,7 @@ public class EditeurModele implements Observable {
 	public void ajouterArtefactDansSaListe(String idArtefact, String urlRelativeArtefact) {
 		Element artefact = new Element("artefact");
 		Attribute id = new Attribute("id", idArtefact);
-		Attribute image = new Attribute("image", urlRelativeArtefact);
+		Attribute image = new Attribute("image", this.relativePath(urlRelativeArtefact));
 		ArrayList<Attribute> a = new ArrayList<Attribute>();
 		a.add(id);
 		a.add(image);
