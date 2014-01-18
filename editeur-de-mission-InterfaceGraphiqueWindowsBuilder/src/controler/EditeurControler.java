@@ -26,10 +26,6 @@ public class EditeurControler {
 		this.modele.createXML();
 	}
 	
-	public int getNbObjets() {
-		return this.modele.getNbObjets();
-	}
-	
 	public void importProject(String path, String nom) {
 		this.modele = new EditeurModele(path,nom);
 		this.modele.addObservateur(this.vue);
@@ -95,6 +91,10 @@ public class EditeurControler {
 	
 	public ArrayList<LabelArtefact> chargementElementsScene() {
 		return this.modele.chargementElementsScene();
+	}
+	
+	public int getLastIdObjet() {
+		return this.modele.getLastIdObjet();
 	}
 	
 }

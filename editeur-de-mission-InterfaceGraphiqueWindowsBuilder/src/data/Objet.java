@@ -18,7 +18,7 @@ public class Objet {
 	
 	public Objet(Fenetre fenetre, String idArtefact, String image, String script) {
 		this();
-		this.idObjet = fenetre.getNbObjets()+1;
+		this.idObjet = fenetre.getLastIdObjet()+1;
 		this.idArtefact = idArtefact;
 		this.image = image;
 		this.script = script;

@@ -33,10 +33,6 @@ public class EditeurVue implements Observateur {
 		
 	}
 	
-	public int getNbObjets() {
-		return this.controler.getNbObjets();
-	}
-	
 	public EditeurVue(EditeurControler controler) {
 		this.controler = controler;
 		this.fenetre = new Fenetre(this.controler.getObjets(), this.controler.getImageFond(), this);
@@ -96,6 +92,10 @@ public class EditeurVue implements Observateur {
 	
 	public ArrayList<LabelArtefact> chargementElementsScene() {
 		return this.controler.chargementElementsScene();
+	}
+	
+	public int getLastIdObjet() {
+		return this.controler.getLastIdObjet();
 	}
 	
 }

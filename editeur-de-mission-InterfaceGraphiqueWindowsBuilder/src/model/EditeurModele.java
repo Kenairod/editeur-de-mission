@@ -79,6 +79,11 @@ public class EditeurModele implements Observable {
      private List<Objet> mapping;
      
      /**
+      * Les missions
+      */
+     private List<Element> missions;
+     
+     /**
       * Notre collection d'observateurs
       */
 	private ArrayList<Observateur> listObservateur = new ArrayList<Observateur>();
@@ -89,7 +94,7 @@ public class EditeurModele implements Observable {
      public EditeurModele() {
     	 this.nomProjet = new String();
     	 this.titre = new String();
-    	 this.gl20 = false;
+    	 this.gl20 = true;
     	 this.largeur = 800;
     	 this.hauteur = 600;
     	 this.redimensionnable = false;
@@ -97,6 +102,7 @@ public class EditeurModele implements Observable {
     	 this.elementsScene = new ArrayList<Element>();
     	 this.artefacts = new ArrayList<Element>();
     	 this.mapping = new ArrayList<Objet>();
+    	 this.missions = new ArrayList<Element>();
     	 this.updateListeObervateur();
      }
      
@@ -113,7 +119,7 @@ public class EditeurModele implements Observable {
       * @param mapping Les associations artefact/agent
       */
      public EditeurModele(String nomProjet, String titre, boolean gl20, int largeur, int hauteur, boolean redimensionnable, String imageFond,
-			List<Element> elementsScene, List<Element> artefacts, List<Objet> mapping) {
+			List<Element> elementsScene, List<Element> artefacts, List<Objet> mapping, List<Element> missions) {
 		this.nomProjet = nomProjet;
 		this.titre = titre;
 		this.gl20 = gl20;
@@ -124,6 +130,7 @@ public class EditeurModele implements Observable {
 		this.elementsScene = elementsScene;
 		this.artefacts = artefacts;
 		this.mapping = mapping;
+		this.missions = missions;
 		this.updateListeObervateur();
 	}
 
@@ -191,12 +198,15 @@ public class EditeurModele implements Observable {
 		        	 mapping.addContent(obj);
 		         }
 		         
+		         Element missions = new Element("missions");
+		         
 		         // On accroche toute les balises directements fille de la racine (à la balise jeu) à cette dernière
 		         document.getRootElement().addContent(titre);
 		         document.getRootElement().addContent(fenetre);
 		         document.getRootElement().addContent(scene);
 		         document.getRootElement().addContent(artefacts);
 		         document.getRootElement().addContent(mapping);
+		         document.getRootElement().addContent(missions);
 		         
 		         // Objet permettant la sortie en XML
 		         XMLOutputter xmlOutput = new XMLOutputter();
@@ -326,6 +336,37 @@ public class EditeurModele implements Observable {
 		
 		return ret;
 	}
+	
+	public String relativePath(String absolutePath) {
+		String relative = new String();
+		ArrayList<Character> copie = new ArrayList<Character>();
+		ArrayList<Character> listeRelative = new ArrayList<Character>();
+		boolean first = false;
+		boolean stop = false;
+		
+		for (int i=0; i < absolutePath.length(); i++) {
+			copie.add(i, absolutePath.charAt(i));
+		}
+		
+		int taille = copie.size()-1;
+		while(taille >= 0 && !stop) {
+			if(copie.get(taille) == '/' && !first) {
+				first = true;
+			}
+			
+			else if (copie.get(taille) == '/' && first) {
+				stop = true;
+			}
+			listeRelative.add(0, copie.get(taille));
+			taille--;
+		}
+		
+		for (int i=1; i < listeRelative.size(); i++) {
+			relative += listeRelative.get(i);
+		}
+		
+		return relative;
+	}
 
 	public List<Element> getElements() {
 		return this.elementsScene;
@@ -355,14 +396,6 @@ public class EditeurModele implements Observable {
 		return this.redimensionnable;
 	}
 	
-	/**
-	 * 
-	 * @return Le nombre d'objets enregistrés dans le XML
-	 */
-	public int getNbObjets() {
-		return this.mapping.size();
-	}
-	
 	public int getLargeur() {
 		return this.largeur;
 	}
@@ -377,6 +410,13 @@ public class EditeurModele implements Observable {
 	
 	public void setHauteur(int x) {
 		this.hauteur = x;
+	}
+	
+	public int getLastIdObjet() {
+		if(this.mapping.size() != 0) {
+			return this.mapping.get(this.mapping.size()-1).getIdObjet();
+		}
+		else return 0;
 	}
 	
 	/**
@@ -522,7 +562,7 @@ public class EditeurModele implements Observable {
 			}
 		}
 		return ret;
-	}*/
+	}*/	
 	
 	/**
 	 * Rajoute un objet dans la scene

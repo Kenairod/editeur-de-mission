@@ -118,10 +118,6 @@ public class Fenetre extends JFrame {
 		this.scene.repaint();
 	}
 	
-	public int getNbObjets() {
-		return this.vue.getNbObjets();
-	}
-	
 	public void enableContenu() {
 		this.getContentPane().setVisible(true);
 		this.showMenu();
@@ -203,6 +199,10 @@ public class Fenetre extends JFrame {
 	
 	public ArrayList<LabelArtefact> chargementElementsScene() {
 		return this.vue.chargementElementsScene();
+	}
+	
+	public int getLastIdObjet() {
+		return this.vue.getLastIdObjet();
 	}
 	
 }
