@@ -338,7 +338,6 @@ public class EditeurModele implements Observable {
 	}
 	
 	public String relativePath(String absolutePath) {
-		System.out.println(absolutePath);
 		String relative = new String();
 		ArrayList<Character> copie = new ArrayList<Character>();
 		ArrayList<Character> listeRelative = new ArrayList<Character>();
