@@ -104,6 +104,8 @@ public class LeMenu extends JMenuBar {
 	* L'item à propos
 	*/
 	private JMenuItem a_propos = new JMenuItem("About Bianji...");
+	
+	ArrayList<LabelArtefact> listeLabelArtef = new ArrayList<LabelArtefact>();
 
 	
 	public LeMenu (Fenetre fenetre) {
@@ -219,6 +221,10 @@ public class LeMenu extends JMenuBar {
 		this.aideItem.setEnabled(false);
 	}
 	
+	public void setListeLabelArtef(ArrayList<LabelArtefact> la) {
+		
+	}
+	
 	public void exitProject () {
 		int exit = JOptionPane.showConfirmDialog(this.fenetre, "Do you really want to quit ?", "Exit", JOptionPane.OK_CANCEL_OPTION);
 		if(exit == 0) {
@@ -245,10 +251,10 @@ public class LeMenu extends JMenuBar {
         	this.changeEnabled();
         	this.fenetre.resizeScene(this.fenetre.getLargeur(), this.fenetre.getHauteur());
         	
-        	ArrayList<LabelArtefact> la = this.fenetre.chargementElementsScene();
-        	for(int i=0; i < la.size(); i++) {
-        		this.fenetre.getDraggysScene().add(la.get(i));
-        		this.fenetre.getScene().add(la.get(i));
+        	//this.la = this.fenetre.chargementElementsScene();
+        	for(int i=0; i < listeLabelArtef.size(); i++) {
+        		this.fenetre.getDraggysScene().add(this.listeLabelArtef.get(i));
+        		this.fenetre.getScene().add(this.listeLabelArtef.get(i));
         		this.fenetre.getScene().validate();
 				this.fenetre.getScene().repaint();
         	}

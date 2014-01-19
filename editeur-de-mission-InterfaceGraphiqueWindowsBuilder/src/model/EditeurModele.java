@@ -448,17 +448,7 @@ public class EditeurModele implements Observable {
 	 * Supprime l'artefact de la liste et supprime également toutes ses apparitions sur la scène
 	 * @param idArtefact id de l'artefact à supprimer
 	 */
-	/*public void supprimerArtefact(String idArtefact) {
-		String id = this.getMapID(idArtefact);
-		ArrayList<Element> temp = new ArrayList<Element>();
-		Iterator it = this.elementsScene.iterator();
-		while (it.hasNext()) {
-			Element courant = (Element)it.next();
-			if (!id.equals(courant.getAttributeValue("id"))) {
-				temp.add(courant);
-			}
-		}
-		this.elementsScene = temp;
+	public void supprimerArtefact(String idArtefact) {
 		int i = 0;
 		boolean supr = false;
 		while (i < this.artefacts.size() && !supr) {
@@ -468,7 +458,7 @@ public class EditeurModele implements Observable {
 			}
 			i++;
 		}
-	}*/
+	}
 	
 	/**
 	 * Rajoute un objet dans le mapping
@@ -486,9 +476,27 @@ public class EditeurModele implements Observable {
 	 * @param scriptAgent Script de l'agent
 	 */
 	public void ajouterObjet(Objet obj) {
+		if (!this.autresObjetsUtilisentCetArtefact(obj.getIdArtefact())) {
+			this.ajouterArtefactDansSaListe(obj.getIdArtefact(), obj.getImage());
+		}
 		this.ajouterObjetMapping(obj);
-		this.ajouterArtefactDansSaListe(obj.getIdArtefact(), obj.getImage());
 		this.updateListeObervateur();
+	}
+	
+	/**
+	 * Permet de vérifier s'il y a des objets qui utilisent cet artefact
+	 * @param idArtef L'id de l'atefact donc on vérifie s'il est utilisé
+	 * @return true s'il est utilisé, false sinon
+	 */
+	public boolean autresObjetsUtilisentCetArtefact(String idArtef) {
+		boolean ret = false;
+		int i = 0;
+		for (Objet obj : this.mapping) {
+			if (obj.getIdArtefact().equals(idArtef)) {
+				ret = true;
+			}
+		}
+		return ret;
 	}
 	
 	/**
@@ -502,14 +510,22 @@ public class EditeurModele implements Observable {
 		while (i < this.mapping.size() && !supr) {
 			String idObj = ""+this.mapping.get(i).getIdObjet();
 			if (idObj.equals(id)) {
-				//this.supprimerArtefact(this.mapping.get(i).getIdArtefact());
+				String idArtef = this.mapping.get(i).getIdArtefact();
 				this.mapping.remove(i);
+				if (!this.autresObjetsUtilisentCetArtefact(idArtef)) {
+					this.supprimerArtefact(idArtef);
+				}
+				
 				supr = true;
 			}
 			i++;
 		}
 	}
 	
+	/**
+	 * Supprime toutes les apparitions sur la scèhe de l'objet possédant l'id d'objet id
+	 * @param id L'id fe l'objet dont on veut supprimer les apparitions
+	 */
 	public void supprimerApparitionsScene(String id) {
 		ArrayList<Element> temp = new ArrayList<Element>();
 		Iterator it = this.elementsScene.iterator();
@@ -522,6 +538,11 @@ public class EditeurModele implements Observable {
 		this.elementsScene = temp;
 	}
 	
+	/**
+	 * Permet de récupérer un objet grâce à son id dans le mapping
+	 * @param idObjet L'id de l'objet à récupérer
+	 * @return L'Objet donc l''id correpond à idObjet
+	 */
 	public Objet getObjetByIdObjet(String idObjet) {
 		Objet o = new Objet();
 		int i = 0;
@@ -537,7 +558,11 @@ public class EditeurModele implements Observable {
 		return o;
 	}
 	
-	public ArrayList<LabelArtefact> chargementElementsScene() {
+	/**
+	 * Permet de transformer les objets en labeLArtefact pouvant être affichés sur la scène
+	 * @return Un ArrayList<aLbelArtefact> correspondant aux artefact à placer sur la scène
+	 */
+	public ArrayList<LabelArtefact> getElementsScene() {
 		ArrayList<LabelArtefact> elem = new ArrayList<LabelArtefact>();
 		Iterator i = this.elementsScene.iterator();
 		String id = new String();
@@ -555,24 +580,6 @@ public class EditeurModele implements Observable {
 		return elem;
 	}
 	
-	/*public String getMapID(String s) {
-		String ret = new String();
-		Iterator i = this.mapping.iterator();
-
-		while (i.hasNext()) {
-			Objet objCourant = (Objet)i.next();
-			//Element courant = new Element(objCourant.getIdArtefact());
-			/*Iterator j = courant.getChildren().iterator();
-			Element Courant = (Element)j.next();*//*
-			
-			if (objCourant.getIdArtefact().equals(s)){        
-				//courant = (Element)j.next();
-				ret = ""+objCourant.getIdObjet();
-			}
-		}
-		return ret;
-	}*/	
-	
 	/**
 	 * Rajoute un objet dans la scene
 	 * @param objet L'objet à ajouter
@@ -581,6 +588,9 @@ public class EditeurModele implements Observable {
 		this.elementsScene.add(objet);
 	}
 	
+	/**
+	 * Supprime tous les objets placés sur la scène
+	 */
 	public void viderScene() {
 		this.elementsScene.clear();
 	}
@@ -614,11 +624,16 @@ public class EditeurModele implements Observable {
 	}
 
 	@Override
-	// Ajoute un observateur à la liste
+	/**
+	 * Ajoute un observateur à la liste
+	 */
 	public void addObservateur(Observateur obs) {
 		this.listObservateur.add(obs);
 	}
 	
+	/**
+	 * Permet de lister les obsevateurs
+	 */
 	public void mesObservateurs() {
 		System.out.println("Je suis observé par : ");
 		for(Observateur obs : this.listObservateur )
@@ -626,27 +641,37 @@ public class EditeurModele implements Observable {
 	}
 
 
+	/**
+	 * Avertit les observateurs que l'objet observable a changé et invoque la méthode update() de chaque observateur
+	 */
 	@Override
-	/* Avertit les observateurs que l'objet observable a changé 
-	et invoque la méthode update() de chaque observateur*/
 	public void updateListeObervateur() {
 		for(Observateur obs : this.listObservateur )
 	    	obs.updateListe(this.getObjets());
 	}
 
+	/**
+	 * Indique aux observateurs que le fond a changé
+	 */
+	@Override
 	public void updateFondObervateur(){
 		for(Observateur obs : this.listObservateur )
 	    	obs.updateFond(this.getFond());
 	}
 	
+	/**
+	 * Indique aux observateurs que la scène a changée
+	 */
 	@Override
 	public void updateSceneObervateur(){
 		for(Observateur obs : this.listObservateur )
-	    	obs.updateScene();
+	    	obs.updateScene(this.getElementsScene());
 	}
 	
+	/**
+	 * Retire tous les observateurs de la liste des observateurs
+	 */
 	@Override
-	// Retire tous les observateurs de la liste
 	public void delObservateur() {
 		this.listObservateur = new ArrayList<Observateur>();
 	}

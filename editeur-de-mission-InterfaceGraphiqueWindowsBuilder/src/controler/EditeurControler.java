@@ -31,6 +31,7 @@ public class EditeurControler {
 		this.modele.addObservateur(this.vue);
 		this.modele.updateListeObervateur();
 		this.modele.updateFondObervateur();
+		this.modele.updateSceneObervateur();
 	}
 	
 	public List<Objet> getObjets() {
@@ -89,9 +90,9 @@ public class EditeurControler {
 		return this.modele.getRedimensionnable();
 	}
 	
-	public ArrayList<LabelArtefact> chargementElementsScene() {
+	/*public ArrayList<LabelArtefact> chargementElementsScene() {
 		return this.modele.chargementElementsScene();
-	}
+	}*/
 	
 	public int getLastIdObjet() {
 		return this.modele.getLastIdObjet();

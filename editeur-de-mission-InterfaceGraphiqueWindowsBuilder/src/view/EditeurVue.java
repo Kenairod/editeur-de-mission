@@ -29,8 +29,8 @@ public class EditeurVue implements Observateur {
 	}
 	
 	@Override
-	public void updateScene() {
-		
+	public void updateScene(ArrayList<LabelArtefact> elems) {
+		this.fenetre.updateListeLabelArtef(elems);
 	}
 	
 	public EditeurVue(EditeurControler controler) {
@@ -90,9 +90,9 @@ public class EditeurVue implements Observateur {
 		return this.controler.getRedimensionnable();
 	}
 	
-	public ArrayList<LabelArtefact> chargementElementsScene() {
+	/*public ArrayList<LabelArtefact> chargementElementsScene() {
 		return this.controler.chargementElementsScene();
-	}
+	}*/
 	
 	public int getLastIdObjet() {
 		return this.controler.getLastIdObjet();
