@@ -39,7 +39,7 @@ public class Fenetre extends JFrame {
 	private JMenuItem object = new JMenuItem("Insert a new Object");
 	private JMenuItem bg = new JMenuItem("Define a new Background");
 	private JButton supprButton = new JButton("Delete Object");
-	
+	private boolean stateChanged = true;
 	
 	public Fenetre(List<Objet> listeArtefacts, String urlBg, EditeurVue vue) {
 		super();
@@ -113,11 +113,6 @@ public class Fenetre extends JFrame {
 		this.liste.setListe(listeArtefacts);
 	}
 	
-	public void changeFond(String urlBg) {
-		this.scene.setImage(urlBg);
-		this.scene.repaint();
-	}
-	
 	public void enableContenu() {
 		this.getContentPane().setVisible(true);
 		this.showMenu();
@@ -139,6 +134,10 @@ public class Fenetre extends JFrame {
 		return this.vue.getNomProjet();
 	}
 	
+	public LeMenu getMenu() {
+		return this.menu;
+	}
+	
 	public void ajouterObjet(Objet o) {
 		this.vue.ajouterObjet(o);
 	}
@@ -150,6 +149,13 @@ public class Fenetre extends JFrame {
 	public void ajouterBg(String urlBg) {
 		this.vue.setFond(urlBg);
 		this.changeFond(urlBg);
+		this.setStateChanged(true);
+		this.menu.setEnregistrer(true);
+	}
+	
+	public void changeFond(String urlBg) {
+		this.scene.setImage(urlBg);
+		this.scene.repaint();
 	}
 	
 	public JButton getSupprButton(){
@@ -203,6 +209,14 @@ public class Fenetre extends JFrame {
 	
 	public int getLastIdObjet() {
 		return this.vue.getLastIdObjet();
+	}
+	
+	public boolean getStateChanged() {
+		return this.stateChanged;
+	}
+	
+	public void setStateChanged(boolean b) {
+		this.stateChanged = b;
 	}
 	
 }

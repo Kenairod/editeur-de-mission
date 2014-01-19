@@ -221,6 +221,10 @@ public class LeMenu extends JMenuBar {
 		this.aideItem.setEnabled(false);
 	}
 	
+	public void setEnregistrer(boolean b) {
+		this.enregistrer.setEnabled(b);
+	}
+	
 	public void setListeLabelArtef(ArrayList<LabelArtefact> la) {
 		
 	}
@@ -264,7 +268,6 @@ public class LeMenu extends JMenuBar {
 		this.fermer.setEnabled(true);
 		this.nouveau.setEnabled(false);
 		this.ouvrir.setEnabled(false);
-		this.enregistrer.setEnabled(true);
 	}
 
 	public void aboutProject () {
@@ -277,7 +280,11 @@ public class LeMenu extends JMenuBar {
 	}
 
 	public void saveProject() {
-		this.fenetre.saveProject();
+		if(this.fenetre.getStateChanged()) {
+			this.fenetre.saveProject();
+		}
+		this.fenetre.setStateChanged(false);
+		this.enregistrer.setEnabled(false);
 	}
 
 	public void newProject() {

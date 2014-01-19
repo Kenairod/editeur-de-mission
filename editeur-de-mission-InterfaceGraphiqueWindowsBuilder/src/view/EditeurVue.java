@@ -23,6 +23,8 @@ public class EditeurVue implements Observateur {
 	public void updateListe(List<Objet> liste) {
 		this.fenetre.changeListeObjets(liste);
 		this.fenetre.repaint();
+		this.fenetre.setStateChanged(true);
+		this.fenetre.getMenu().setEnregistrer(true);
 	}
 	
 	/**
@@ -40,6 +42,8 @@ public class EditeurVue implements Observateur {
 	@Override
 	public void updateScene(ArrayList<LabelArtefact> elems) {
 		this.fenetre.updateListeLabelArtef(elems);
+		this.fenetre.setStateChanged(true);
+		this.fenetre.getMenu().setEnregistrer(true);
 	}
 	
 	public EditeurVue(EditeurControler controler) {
