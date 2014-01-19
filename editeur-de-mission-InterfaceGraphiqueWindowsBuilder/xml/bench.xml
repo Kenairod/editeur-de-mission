@@ -4,8 +4,8 @@
        
         <fenetre>
                 <useGL20>true</useGL20>
-                <largeur>600</largeur>
-                <hauteur>800</hauteur>
+                <largeur>800</largeur>
+                <hauteur>600</hauteur>
                 <redimensionnable>true</redimensionnable>
         </fenetre>
        
