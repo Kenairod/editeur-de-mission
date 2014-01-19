@@ -268,6 +268,7 @@ public class LeMenu extends JMenuBar {
 		this.fermer.setEnabled(true);
 		this.nouveau.setEnabled(false);
 		this.ouvrir.setEnabled(false);
+		this.enregistrer.setEnabled(true);
 	}
 
 	public void aboutProject () {
