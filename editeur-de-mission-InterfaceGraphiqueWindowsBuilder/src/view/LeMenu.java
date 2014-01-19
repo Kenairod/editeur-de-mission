@@ -236,7 +236,7 @@ public class LeMenu extends JMenuBar {
 	}
 
 	public void openProject() {
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser(".");
 		
         FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("XML Files (*.xml)", "xml");
         

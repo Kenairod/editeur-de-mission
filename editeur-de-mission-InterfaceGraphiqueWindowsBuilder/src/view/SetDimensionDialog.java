@@ -61,11 +61,29 @@ import javax.swing.JTextField;
 	
 		okBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				boolean lettreHauteur = false;
+				boolean lettreLargeur = false;
 				if (hauteur.getText().trim().length() != 0 && largeur.getText().trim().length() != 0) {
-					if (Integer.parseInt(hauteur.getText()) > 0 && 
-							Integer.parseInt(largeur.getText()) > 0) {
-						setDimensions();
-						setVisible(false);
+					int i = 0;
+					while(i < hauteur.getText().trim().length() && !lettreHauteur) {
+						if(!Character.isDigit(hauteur.getText().trim().charAt(i))) {
+							lettreHauteur = true;
+						}
+						i++;
+					}
+					i = 0;
+					while(i < largeur.getText().trim().length() && !lettreLargeur) {
+						if(!Character.isDigit(largeur.getText().trim().charAt(i))) {
+							lettreLargeur = true;
+						}
+						i++;
+					}
+					if(!lettreHauteur && !lettreLargeur) {
+						if (Integer.parseInt(hauteur.getText()) > 0 && 
+								Integer.parseInt(largeur.getText()) > 0) {
+							setDimensions();
+							setVisible(false);
+						}
 					}
 				}  
 			}

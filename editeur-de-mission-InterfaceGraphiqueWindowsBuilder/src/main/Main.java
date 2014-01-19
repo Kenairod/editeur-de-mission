@@ -7,7 +7,7 @@ import controler.EditeurControler;
 public class Main {
 
 	/**
-	 * Launch the application.
+	 * Lance l'éditeur
 	 */
 	public static void main(String[] args) {
 		EditeurModele modele = new EditeurModele();

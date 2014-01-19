@@ -21,8 +21,8 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import data.Objet;
 import view.LabelArtefact;
+import data.Objet;
 
 /**
  * Permet de modéliser les éléments nécessaires à la modélisation d'une scène
@@ -141,7 +141,7 @@ public class EditeurModele implements Observable {
       */
      public void createXML() {	              
 	     try {
-	    	 JFileChooser chooser = new JFileChooser();
+	    	 JFileChooser chooser = new JFileChooser(".");
 	    	 chooser.setDialogTitle("Save as");
 	    	 File fichier = new File(this.getNomProjet() + ".xml");
 	    	 chooser.setSelectedFile(fichier);
@@ -166,7 +166,7 @@ public class EditeurModele implements Observable {
 		         /*Balise scene et ses sous-balises (autant de sous balises "elements" 
 		         que contenu dans this.elementsScene*/
 		         Element scene = new Element("scene");
-		         scene.addContent(new Element("fond").setAttribute(new Attribute("image", this.relativePath(this.imageFond))));
+		         scene.addContent(new Element("fond").setAttribute(new Attribute("image", this.imageFond)));
 		         Element elements = new Element("elements");
 		         for (int i = 0; i < this.elementsScene.size(); i++) {
 		        	 Element elem = this.elementsScene.get(i).clone();
@@ -188,7 +188,7 @@ public class EditeurModele implements Observable {
 		        	 obj.setAttribute("id", ""+this.mapping.get(i).getIdObjet());
 		        	 Element artefact = new Element("artefact");
 		        	 artefact.setAttribute("id", this.mapping.get(i).getIdArtefact());
-		        	 artefact.setAttribute("image", this.relativePath(this.mapping.get(i).getImage()));
+		        	 artefact.setAttribute("image", this.mapping.get(i).getImage());
 		        	 Element agent = new Element("agent");
 		        	 agent.setAttribute("script", this.mapping.get(i).getScript());
 		        	 
@@ -271,12 +271,12 @@ public class EditeurModele implements Observable {
 			
 			List<Element> listeObjets = mapping.getChildren();
 			
-			Iterator i = listeObjets.iterator();
+			Iterator<Element> i = listeObjets.iterator();
 			this.mapping = new ArrayList<Objet>();
 			while (i.hasNext()) {
 				Element courant = (Element)i.next();
 				int idObj = Integer.parseInt(courant.getAttributeValue("id"));
-				Iterator j = courant.getChildren().iterator();
+				Iterator<Element> j = courant.getChildren().iterator();
 				Element Courant = (Element)j.next();
 				String idArtef = Courant.getAttributeValue("id");
 				String imageArtef = Courant.getAttributeValue("image");
@@ -327,7 +327,7 @@ public class EditeurModele implements Observable {
 		while (i.hasNext()) {
 			Element courant = (Element)i.next();
 			ret = ret + "id map : "+courant.getAttributeValue("id")+"\n";
-			Iterator j = courant.getChildren().iterator();
+			Iterator<Element> j = courant.getChildren().iterator();
 			Element Courant = (Element)j.next();
 			ret = ret + " id child : "+Courant.getAttributeValue("id")+"\n";
 			Courant = (Element)j.next();
@@ -335,46 +335,6 @@ public class EditeurModele implements Observable {
 		}
 		
 		return ret;
-	}
-	
-	public String relativePath(String absolutePath) {
-		String relative = new String();
-		ArrayList<Character> copie = new ArrayList<Character>();
-		ArrayList<Character> listeRelative = new ArrayList<Character>();
-		boolean first = false;
-		boolean stop = false;
-		
-		for (int i=0; i < absolutePath.length(); i++) {
-			copie.add(i, absolutePath.charAt(i));
-		}
-		
-		int taille = copie.size()-1;
-		while(taille >= 0 && !stop) {
-			if(copie.get(taille) == '\\' && !first) {
-				first = true;
-			}
-			
-			else if (copie.get(taille) == '\\' && first) {
-				stop = true;
-			}
-			listeRelative.add(0, copie.get(taille));
-			taille--;
-		}
-		
-		for (int i=1; i < listeRelative.size(); i++) {
-			relative += listeRelative.get(i);
-		}
-		
-		/*for (int i=1; i < listeRelative.size(); i++) {
-			if(listeRelative.get(i) == '\\') {
-				relative += '/';
-			}
-			else {
-				relative += listeRelative.get(i);
-			}
-		}*/
-		
-		return relative;
 	}
 
 	public List<Element> getElements() {
@@ -436,7 +396,7 @@ public class EditeurModele implements Observable {
 	public void ajouterArtefactDansSaListe(String idArtefact, String urlRelativeArtefact) {
 		Element artefact = new Element("artefact");
 		Attribute id = new Attribute("id", idArtefact);
-		Attribute image = new Attribute("image", this.relativePath(urlRelativeArtefact));
+		Attribute image = new Attribute("image", urlRelativeArtefact);
 		ArrayList<Attribute> a = new ArrayList<Attribute>();
 		a.add(id);
 		a.add(image);
@@ -490,7 +450,6 @@ public class EditeurModele implements Observable {
 	 */
 	public boolean autresObjetsUtilisentCetArtefact(String idArtef) {
 		boolean ret = false;
-		int i = 0;
 		for (Objet obj : this.mapping) {
 			if (obj.getIdArtefact().equals(idArtef)) {
 				ret = true;
@@ -528,7 +487,7 @@ public class EditeurModele implements Observable {
 	 */
 	public void supprimerApparitionsScene(String id) {
 		ArrayList<Element> temp = new ArrayList<Element>();
-		Iterator it = this.elementsScene.iterator();
+		Iterator<Element> it = this.elementsScene.iterator();
 		while (it.hasNext()) {
 			Element courant = (Element)it.next();
 			if (!id.equals(courant.getAttributeValue("id"))) {
@@ -564,7 +523,7 @@ public class EditeurModele implements Observable {
 	 */
 	public ArrayList<LabelArtefact> getElementsScene() {
 		ArrayList<LabelArtefact> elem = new ArrayList<LabelArtefact>();
-		Iterator i = this.elementsScene.iterator();
+		Iterator<Element> i = this.elementsScene.iterator();
 		String id = new String();
 		
 		while (i.hasNext()) {

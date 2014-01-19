@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -83,16 +83,59 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 			
 			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif", "jpg", "jpeg", "png");
 			
-			JFileChooser chooser = new JFileChooser();
+			JFileChooser chooser = new JFileChooser(".");
 
 	        chooser.addChoosableFileFilter(imagesFilter);
 
 	        chooser.setFileFilter(imagesFilter);
 	
 			if (chooser.showOpenDialog(null) == 0) {
-				this.urlBg.setText(chooser.getSelectedFile().toString());
+				this.urlBg.setText(this.relativePath(chooser.getSelectedFile().toString()));
 			}   
-		} 
+		}
+		
+		public String relativePath(String absolutePath) {
+			String relative = new String();
+			ArrayList<Character> copie = new ArrayList<Character>();
+			ArrayList<Character> listeRelative = new ArrayList<Character>();
+			boolean first = false;
+			boolean stop = false;
+			
+			for (int i=0; i < absolutePath.length(); i++) {
+				copie.add(i, absolutePath.charAt(i));
+			}
+			
+			int taille = copie.size()-1;
+			while(taille >= 0 && !stop) {
+				if(copie.get(taille) == '\\' && !first) {
+					first = true;
+				}
+				
+				else if (copie.get(taille) == '\\' && first) {
+					stop = true;
+				}
+				listeRelative.add(0, copie.get(taille));
+				taille--;
+			}
+			
+			for (int i=1; i < listeRelative.size(); i++) {
+				relative += listeRelative.get(i);
+			}
+			
+			return setBackToSlash(relative);
+		}
+		
+		public String setBackToSlash(String back) {
+			String slash = new String();
+			for (int i=0; i < back.length(); i++) {
+				if(back.charAt(i) == '\\') {
+					slash += '/';
+				}
+				else slash += back.charAt(i);
+			}
+			
+			return slash;
+		}
 	  
 		public void ajoutBg() {
 			this.fenetre.ajouterBg(urlBg.getText());
