@@ -559,7 +559,7 @@ public class EditeurModele implements Observable {
 	}
 	
 	/**
-	 * Permet de transformer les objets en labeLArtefact pouvant être affichés sur la scène
+	 * Permet de transformer les balises XML de la scène en labeLArtefact pouvant être affichés sur la scène
 	 * @return Un ArrayList<aLbelArtefact> correspondant aux artefact à placer sur la scène
 	 */
 	public ArrayList<LabelArtefact> getElementsScene() {

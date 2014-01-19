@@ -197,10 +197,6 @@ public class Fenetre extends JFrame {
 		return this.liste.getDraggysScene();
 	}
 	
-	/*public ArrayList<LabelArtefact> chargementElementsScene() {
-		return this.vue.chargementElementsScene();
-	}*/
-	
 	public void updateListeLabelArtef(ArrayList<LabelArtefact> elems) {
 		this.menu.setListeLabelArtef(elems);
 	}

@@ -251,7 +251,6 @@ public class LeMenu extends JMenuBar {
         	this.changeEnabled();
         	this.fenetre.resizeScene(this.fenetre.getLargeur(), this.fenetre.getHauteur());
         	
-        	//this.la = this.fenetre.chargementElementsScene();
         	for(int i=0; i < listeLabelArtef.size(); i++) {
         		this.fenetre.getDraggysScene().add(this.listeLabelArtef.get(i));
         		this.fenetre.getScene().add(this.listeLabelArtef.get(i));

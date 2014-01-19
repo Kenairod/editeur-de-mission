@@ -16,18 +16,27 @@ public class EditeurVue implements Observateur {
 	private Fenetre fenetre;
 	private EditeurControler controler;
 
+	/**
+	 * Permet de mettre à jour la liste des objet dans le panneau latéral
+	 */
 	@Override
 	public void updateListe(List<Objet> liste) {
 		this.fenetre.changeListeObjets(liste);
 		this.fenetre.repaint();
 	}
 	
+	/**
+	 * Permet de mettre à jour l'image de fond de la scène qui est affichée
+	 */
 	@Override
 	public void updateFond(String url) {
 		this.fenetre.ajouterBg(url);
 		this.fenetre.repaint();
 	}
 	
+	/**
+	 * Permet de mettre à jour la position des différents objets sur la scène
+	 */
 	@Override
 	public void updateScene(ArrayList<LabelArtefact> elems) {
 		this.fenetre.updateListeLabelArtef(elems);
@@ -89,10 +98,6 @@ public class EditeurVue implements Observateur {
 	public boolean getRedimensionnable() {
 		return this.controler.getRedimensionnable();
 	}
-	
-	/*public ArrayList<LabelArtefact> chargementElementsScene() {
-		return this.controler.chargementElementsScene();
-	}*/
 	
 	public int getLastIdObjet() {
 		return this.controler.getLastIdObjet();
