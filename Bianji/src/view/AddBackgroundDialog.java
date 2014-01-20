@@ -15,15 +15,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-	public class AddBackgroundDialog extends JDialog {
-		private Fenetre fenetre;
-		private JButton bgButton;
-		private JTextField urlBg;
+public class AddBackgroundDialog extends JDialog {
+	
+	private Fenetre fenetre;
+	private JButton bgButton;
+	private JTextField urlBg;
 	
 	public AddBackgroundDialog(Fenetre parent, String title, boolean modal){
 		super(parent,title,modal);
 		this.fenetre = parent;
-		this.setSize(430, 150);
+		this.setSize(440, 135);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -35,7 +36,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 	
 		JPanel panBg = new JPanel();
 		panBg.setBackground(Color.white);
-		panBg.setPreferredSize(new Dimension(390, 60));
+		panBg.setPreferredSize(new Dimension(430, 60));
 		this.urlBg = new JTextField();
 		this.urlBg.setPreferredSize(new Dimension(200, 25));
 		panBg.setBorder(BorderFactory.createTitledBorder("Background"));
@@ -138,7 +139,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 		}
 	  
 		public void ajoutBg() {
-			this.fenetre.ajouterBg(urlBg.getText());
+			this.fenetre.ajouterBg(urlBg.getText().trim());
 		}
 
 }

@@ -11,7 +11,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		EditeurModele modele = new EditeurModele();
-		EditeurControler ctrl = new EditeurControler(modele);
+		new EditeurControler(modele);
 	}
 	
 }

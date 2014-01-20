@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 
 public class JPanelImageBg extends JPanel {
@@ -77,18 +78,15 @@ public class JPanelImageBg extends JPanel {
 	                xOffset = me.getX() - child.getX();
 	                yOffset = me.getY() - child.getY();
 	                draggy = (LabelArtefact) child;
+	                if(SwingUtilities.isRightMouseButton(me)) {
+						Container parent = draggy.getParent();
+						parent.remove(draggy);
+						parent.validate();
+						parent.repaint();
+						fenetre.getDraggysScene().remove(draggy);
+					}
 	            }
 	        }
-	        
-	        public void mouseReleased(MouseEvent e) {
-				if(e.isPopupTrigger()) {
-					Container parent = draggy.getParent();
-					parent.remove(draggy);
-					parent.validate();
-					parent.repaint();
-					fenetre.getDraggysScene().remove(draggy);
-				}
-			}
 
 	        public void mouseDragged(MouseEvent me) {
 	            if (draggy != null) {

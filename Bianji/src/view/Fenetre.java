@@ -18,6 +18,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import data.Objet;
 
@@ -27,37 +28,56 @@ import data.Objet;
  *
  */
 public class Fenetre extends JFrame {
+	
 	private EditeurVue vue;
 	private LeMenu menu;
 	private JSplitPane contenu = new JSplitPane();
 	private JPanel lateral = new JPanel();
 	private JScrollPane scrollPane = new JScrollPane();
 	private JTabbedPane onglets = new JTabbedPane();
-	private ListPanneauLateral liste;
+	private ListPanneauLateral listeObjets;
+	private ListSecondPanneauLateral listeMissions;
 	private JPanelImageBg scene;
-	private JPopupMenu jpm = new JPopupMenu();
+	private JPopupMenu jpm;
 	private JMenuItem object = new JMenuItem("Insert a new Object");
 	private JMenuItem bg = new JMenuItem("Define a new Background");
-	private JButton supprButton = new JButton("Delete Object");
+	private JMenuItem mission = new JMenuItem("Insert a new Mission");
+	private JButton supprButtonImages = new JButton("Delete Object");
+	private JButton supprButtonMissions = new JButton("Delete Mission");
 	private boolean stateChanged = true;
 	
-	public Fenetre(List<Objet> listeArtefacts, String urlBg, EditeurVue vue) {
+	public Fenetre(List<String> listeMissions, List<Objet> listeObjets, String urlBg, EditeurVue vue) {
 		super();
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.scene = new JPanelImageBg(this);
 		this.scene.setImage(urlBg);
 		
-		this.supprButton.setEnabled(false);
+		this.supprButtonImages.setEnabled(false);
+		this.supprButtonMissions.setEnabled(false);
 
-		this.liste = new ListPanneauLateral(listeArtefacts,this);
+		JPanel panelObjets = new JPanel();
+		panelObjets.setLayout(new BorderLayout());
+		panelObjets.add(this.supprButtonImages, BorderLayout.SOUTH);
+		
+		JPanel panelMissions = new JPanel();
+		panelMissions.setLayout(new BorderLayout());
+		panelMissions.add(this.supprButtonMissions, BorderLayout.SOUTH);
+		
+		this.listeObjets = new ListPanneauLateral(listeObjets, this);
+		panelObjets.add(this.listeObjets,BorderLayout.CENTER);
+		
+		this.listeMissions = new ListSecondPanneauLateral(listeMissions, this);
+		panelMissions.add(this.listeMissions,BorderLayout.CENTER);
+		
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);
-		this.onglets.addTab("Objects", this.liste);
+		this.onglets.addTab("Objects", panelObjets);
+		this.onglets.addTab("Missions", panelMissions);
 		this.scrollPane = new JScrollPane(this.onglets);
 		
 		this.lateral.setLayout(new BorderLayout());
 		this.lateral.add(this.scrollPane,BorderLayout.CENTER);
-		this.lateral.add(this.supprButton, BorderLayout.SOUTH);
+		
 		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.lateral, this.scene);
 		//Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
 		
@@ -80,11 +100,15 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void openObjectDialog() {
-		AddObjectDialog aod = new AddObjectDialog(this, "Insert New Artefact", true);
+		new AddObjectDialog(this, "Insert New Object", true);
 	}
 	
 	public void openBgDialog() {
-		AddBackgroundDialog obd = new AddBackgroundDialog(this, "Define a New Background", true);
+		new AddBackgroundDialog(this, "Define a New Background", true);
+	}
+	
+	public void openMissionDialog() {
+		new AddMissionDialog(this, "Insert New Mission", true);
 	}
 	
 	public void showMenu() {
@@ -93,24 +117,47 @@ public class Fenetre extends JFrame {
 				openObjectDialog();
 			}
 	    });
+		
 		this.bg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				openBgDialog();
 			}
 	    });
-		this.onglets.getComponent(0).addMouseListener(new MouseAdapter() {
-			public void mouseReleased(MouseEvent event) {
-				if(event.isPopupTrigger()){       
+		
+		this.mission.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				openMissionDialog();
+			}
+	    });
+		
+		this.listeObjets.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent event) {
+				if(SwingUtilities.isRightMouseButton(event)) {
+					jpm = new JPopupMenu();
 					jpm.add(bg);
 					jpm.add(object);
 					jpm.show(contenu, event.getX(), event.getY());
 				}
 			}
 		});
+		
+		this.listeMissions.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent event) {
+				if(SwingUtilities.isRightMouseButton(event)) {
+					jpm = new JPopupMenu();
+					jpm.add(mission);
+					jpm.show(contenu, event.getX(), event.getY());
+				}
+			}
+		});
 	}
 	
-	public void changeListeObjets(List<Objet> listeArtefacts) {
-		this.liste.setListe(listeArtefacts);
+	public void changeMissions(List<String> listeMissions) {
+		this.listeMissions.setListe(listeMissions);
+	}
+	
+	public void changeListeObjets(List<Objet> listeObjets) {
+		this.listeObjets.setListe(listeObjets);
 	}
 	
 	public void enableContenu() {
@@ -119,7 +166,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void saveProject() {
-		this.vue.saveProject(this.liste.getDraggysScene());
+		this.vue.saveProject(this.listeObjets.getDraggysScene());
 	}
 	
 	public void importProject(String path, String nom) {
@@ -148,9 +195,6 @@ public class Fenetre extends JFrame {
 	
 	public void ajouterBg(String urlBg) {
 		this.vue.setFond(urlBg);
-		this.changeFond(urlBg);
-		this.setStateChanged(true);
-		this.menu.setEnregistrer(true);
 	}
 	
 	public void changeFond(String urlBg) {
@@ -158,8 +202,12 @@ public class Fenetre extends JFrame {
 		this.scene.repaint();
 	}
 	
-	public JButton getSupprButton(){
-		return this.supprButton;
+	public JButton getSupprButtonImages(){
+		return this.supprButtonImages;
+	}
+	
+	public JButton getSupprButtonMissions(){
+		return this.supprButtonMissions;
 	}
 	
 	public void supprObjet(String idObjet) {
@@ -196,11 +244,14 @@ public class Fenetre extends JFrame {
 		int hauteur = this.getHeight() - this.scene.getHeight();
 		int largeur = this.getWidth() - this.scene.getWidth();
 		this.setSize(largeur + x, hauteur + y);
+		if(System.getProperty("os.name").equals("Linux")) {
+			this.pack();
+		}
 		this.setLocationRelativeTo(null);
 	}
 	
 	public ArrayList<LabelArtefact> getDraggysScene() {
-		return this.liste.getDraggysScene();
+		return this.listeObjets.getDraggysScene();
 	}
 	
 	public void updateListeLabelArtef(ArrayList<LabelArtefact> elems) {
@@ -217,6 +268,18 @@ public class Fenetre extends JFrame {
 	
 	public void setStateChanged(boolean b) {
 		this.stateChanged = b;
+	}
+	
+	public void ajoutMission(String idMission) {
+		this.vue.ajoutMission(idMission);
+	}
+	
+	public void retireMission(String idMission) {
+		this.vue.retireMission(idMission);
+	}
+	
+	public List<String> getMissions() {
+		return this.vue.getMissions();
 	}
 	
 }

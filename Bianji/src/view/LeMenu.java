@@ -226,7 +226,7 @@ public class LeMenu extends JMenuBar {
 	}
 	
 	public void setListeLabelArtef(ArrayList<LabelArtefact> la) {
-		
+		this.listeLabelArtef = la;		
 	}
 	
 	public void exitProject () {
@@ -306,7 +306,7 @@ public class LeMenu extends JMenuBar {
 	}
 	
 	public void setDimensions() {
-		SetDimensionDialog aod = new SetDimensionDialog(this.fenetre, "Set Dimensions", true);
+		new SetDimensionDialog(this.fenetre, "Set Dimensions", true);
 	}
 	
 	public void restartProject() {

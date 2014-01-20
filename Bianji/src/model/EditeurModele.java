@@ -81,7 +81,7 @@ public class EditeurModele implements Observable {
      /**
       * Les missions
       */
-     private List<Element> missions;
+     private List<String> missions;
      
      /**
       * Notre collection d'observateurs
@@ -102,8 +102,11 @@ public class EditeurModele implements Observable {
     	 this.elementsScene = new ArrayList<Element>();
     	 this.artefacts = new ArrayList<Element>();
     	 this.mapping = new ArrayList<Objet>();
-    	 this.missions = new ArrayList<Element>();
+    	 this.missions = new ArrayList<String>();
     	 this.updateListeObervateur();
+    	 this.updateFondObervateur();
+    	 this.updateSceneObervateur();
+    	 this.updateMissionsObservateur();
      }
      
      /**
@@ -119,7 +122,7 @@ public class EditeurModele implements Observable {
       * @param mapping Les associations artefact/agent
       */
      public EditeurModele(String nomProjet, String titre, boolean gl20, int largeur, int hauteur, boolean redimensionnable, String imageFond,
-			List<Element> elementsScene, List<Element> artefacts, List<Objet> mapping, List<Element> missions) {
+			List<Element> elementsScene, List<Element> artefacts, List<Objet> mapping, List<String> missions) {
 		this.nomProjet = nomProjet;
 		this.titre = titre;
 		this.gl20 = gl20;
@@ -132,6 +135,92 @@ public class EditeurModele implements Observable {
 		this.mapping = mapping;
 		this.missions = missions;
 		this.updateListeObervateur();
+		this.updateFondObervateur();
+		this.updateSceneObervateur();
+		this.updateMissionsObservateur();
+	}
+     
+     /**
+      * Permet d'importer un fichier XML dans afin de construire ce modèle
+      * @param fichier Le chemin vers le fichier source
+      */
+	public EditeurModele(String fichier, String nom) {
+		// La lecture se fait à l'aide d'une contructeur SAX
+		SAXBuilder ConstructSAX = new SAXBuilder();
+		// On récupère le fichier source
+		File file = new File(fichier);
+		        
+		this.nomProjet = nom;
+		
+		try {
+			// On convertit le fichier en objet Document à l'aide du constructeur SAX
+			Document document = ConstructSAX.build(file);
+			// On récupère le noeud racine
+			Element noeudRacine = document.getRootElement();
+			
+			// On récupère le texte contenu dans la balise passée en paramètre
+			this.titre = noeudRacine.getChildText("titre-du-jeu");
+			
+			// On récupère le fils de noeudRacine qui s'appelle fenetre
+			Element fenetre = noeudRacine.getChild("fenetre");
+			// On récupère le texte contenu dans la balise useGL20 contenue dans fenêtre
+			if (fenetre.getChildText("useGL20").equals("true")) {
+				this.gl20 = true;
+			}
+			else this.gl20 = false;
+			if (fenetre.getChildText("redimensionnable").equals("true")) {
+				this.redimensionnable = true;
+			}
+			else this.redimensionnable = false;
+			this.largeur = Integer.parseInt(fenetre.getChildText("largeur"));
+			this.hauteur = Integer.parseInt(fenetre.getChildText("hauteur"));
+			
+			Element scene = noeudRacine.getChild("scene");
+			Element fond = scene.getChild("fond");
+			// On récupère la valeur de l'attribue image de la balise fond contenue dans la balise scene
+			this.imageFond = fond.getAttributeValue("image");
+			
+			Element elements = scene.getChild("elements");
+			this.elementsScene = elements.getChildren();
+			Element artefacts = noeudRacine.getChild("artefacts");
+			this.artefacts = artefacts.getChildren();
+			Element mapping = noeudRacine.getChild("mapping");
+			
+			List<Element> listeObjets = mapping.getChildren();
+			
+			Iterator<Element> i = listeObjets.iterator();
+			this.mapping = new ArrayList<Objet>();
+			while (i.hasNext()) {
+				Element courant = (Element)i.next();
+				int idObj = Integer.parseInt(courant.getAttributeValue("id"));
+				Iterator<Element> j = courant.getChildren().iterator();
+				Element Courant = (Element)j.next();
+				String idArtef = Courant.getAttributeValue("id");
+				String imageArtef = Courant.getAttributeValue("image");
+				Courant = (Element)j.next();
+				String scriptAgent = Courant.getAttributeValue("script");
+				Objet obj = new Objet(idObj, idArtef, imageArtef, scriptAgent);
+				this.mapping.add(obj);
+			}
+			
+			Element missions = noeudRacine.getChild("missions");
+			
+			List<Element> listeMissions = missions.getChildren();
+			
+			Iterator<Element> iteratorMission = listeMissions.iterator();
+			this.missions = new ArrayList<String>();
+			
+			while (iteratorMission.hasNext()) {
+				Element courant = (Element)iteratorMission.next();
+				String missionId = courant.getAttributeValue("id");
+				this.missions.add(missionId);
+			}
+			
+			this.updateListeObervateur();
+		}
+		catch (JDOMException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
      /**
@@ -199,6 +288,11 @@ public class EditeurModele implements Observable {
 		         }
 		         
 		         Element missions = new Element("missions");
+		         for(int i=0; i < this.missions.size(); i++) {
+		        	 Element mission = new Element("mission");
+		        	 mission.setAttribute("id", this.missions.get(i));
+		        	 missions.addContent(mission);
+		         }
 		         
 		         // On accroche toute les balises directements fille de la racine (à la balise jeu) à cette dernière
 		         document.getRootElement().addContent(titre);
@@ -222,76 +316,6 @@ public class EditeurModele implements Observable {
 		        	System.out.println(io.getMessage());  
 		        }
      }
-     
-     /**
-      * Permet d'importer un fichier XML dans afin de construire ce modèle
-      * @param fichier Le chemin vers le fichier source
-      */
-	public EditeurModele(String fichier, String nom) {
-		// La lecture se fait à l'aide d'une contructeur SAX
-		SAXBuilder ConstructSAX = new SAXBuilder();
-		// On récupère le fichier source
-		File file = new File(fichier);
-		        
-		this.nomProjet = nom;
-		
-		try {
-			// On convertit le fichier en objet Document à l'aide du constructeur SAX
-			Document document = ConstructSAX.build(file);
-			// On récupère le noeud racine
-			Element noeudRacine = document.getRootElement();
-			
-			// On récupère le texte contenu dans la balise passée en paramètre
-			this.titre = noeudRacine.getChildText("titre-du-jeu");
-			
-			// On récupère le fils de noeudRacine qui s'appelle fenetre
-			Element fenetre = noeudRacine.getChild("fenetre");
-			// On récupère le texte contenu dans la balise useGL20 contenue dans fenêtre
-			if (fenetre.getChildText("useGL20").equals("true")) {
-				this.gl20 = true;
-			}
-			else this.gl20 = false;
-			if (fenetre.getChildText("redimensionnable").equals("true")) {
-				this.redimensionnable = true;
-			}
-			else this.redimensionnable = false;
-			this.largeur = Integer.parseInt(fenetre.getChildText("largeur"));
-			this.hauteur = Integer.parseInt(fenetre.getChildText("hauteur"));
-			
-			Element scene = noeudRacine.getChild("scene");
-			Element fond = scene.getChild("fond");
-			// On récupère la valeur de l'attribue image de la balise fond contenue dans la balise scene
-			this.imageFond = fond.getAttributeValue("image");
-			
-			Element elements = scene.getChild("elements");
-			this.elementsScene = elements.getChildren();
-			Element artefacts = noeudRacine.getChild("artefacts");
-			this.artefacts = artefacts.getChildren();
-			Element mapping = noeudRacine.getChild("mapping");
-			
-			List<Element> listeObjets = mapping.getChildren();
-			
-			Iterator<Element> i = listeObjets.iterator();
-			this.mapping = new ArrayList<Objet>();
-			while (i.hasNext()) {
-				Element courant = (Element)i.next();
-				int idObj = Integer.parseInt(courant.getAttributeValue("id"));
-				Iterator<Element> j = courant.getChildren().iterator();
-				Element Courant = (Element)j.next();
-				String idArtef = Courant.getAttributeValue("id");
-				String imageArtef = Courant.getAttributeValue("image");
-				Courant = (Element)j.next();
-				String scriptAgent = Courant.getAttributeValue("script");
-				Objet obj = new Objet(idObj, idArtef, imageArtef, scriptAgent);
-				this.mapping.add(obj);
-			}
-			
-			this.updateListeObervateur();
-		}
-		catch (JDOMException | IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public String toString() {   
 		String ret = "Nom du jeu : "+this.titre+"\n";
@@ -345,6 +369,10 @@ public class EditeurModele implements Observable {
 		return this.mapping;
 	}
 	
+	public List<String> getMissions() {
+		return this.missions;
+	}
+	
 	public String getNomProjet() {
 		return this.nomProjet;
 	}
@@ -355,6 +383,7 @@ public class EditeurModele implements Observable {
 	
 	public void setFond(String urlFond) {
 		this.imageFond = urlFond;
+		this.updateFondObervateur();
 	}
 	
 	public String getFond() {
@@ -386,6 +415,16 @@ public class EditeurModele implements Observable {
 			return this.mapping.get(this.mapping.size()-1).getIdObjet();
 		}
 		else return 0;
+	}
+	
+	public void ajoutMission(String idMission) {
+		this.missions.add(idMission);
+		this.updateMissionsObservateur();
+	}
+	
+	public void retireMission(String idMission) {
+		this.missions.remove(idMission);
+		this.updateMissionsObservateur();
 	}
 	
 	/**
@@ -633,6 +672,12 @@ public class EditeurModele implements Observable {
 	@Override
 	public void delObservateur() {
 		this.listObservateur = new ArrayList<Observateur>();
+	}
+
+	@Override
+	public void updateMissionsObservateur() {
+		for(Observateur obs : this.listObservateur )
+	    	obs.updateMissions(this.missions);
 	}
 	
 }

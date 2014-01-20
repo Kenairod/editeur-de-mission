@@ -6,13 +6,15 @@ import javax.swing.JLabel;
 import data.Objet;
 
 public class LabelArtefact extends JLabel {
-	private int x = 0;
-	private int y = 0;
+	
+	private int x;
+	private int y;
 	private Objet objet;
 	
 	public LabelArtefact(ImageIcon icon, Objet o) {
 		super(icon);
 		this.objet = o;
+		this.x = 0; this.y = 0;
 	}
 	
 	public void setPosition(int x, int y) {

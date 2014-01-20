@@ -5,5 +5,6 @@ public interface Observable {
 	public void updateListeObervateur();
 	public void updateFondObervateur();
 	public void updateSceneObervateur();
+	public void updateMissionsObservateur();
 	public void delObservateur();
 }

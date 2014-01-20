@@ -13,10 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-	public class SetDimensionDialog extends JDialog {
-		private Fenetre fenetre;
-		private JTextField hauteur, largeur;
-		private JLabel hauteurLabel, largeurLabel;	
+public class SetDimensionDialog extends JDialog {
+	
+	private Fenetre fenetre;
+	private JTextField hauteur, largeur;
+	private JLabel hauteurLabel, largeurLabel;	
 	
 	public SetDimensionDialog(Fenetre parent, String title, boolean modal){
 		super(parent,title,modal);
@@ -29,17 +30,7 @@ import javax.swing.JTextField;
 		this.setVisible(true);
 	}
 	
-	private void initComponent(){
-		
-		JPanel panHauteur = new JPanel();
-		panHauteur.setBackground(Color.white);
-		panHauteur.setPreferredSize(new Dimension(380, 60));
-		this.hauteur = new JTextField();
-		this.hauteur.setPreferredSize(new Dimension(200, 25));
-		panHauteur.setBorder(BorderFactory.createTitledBorder("Height"));
-		this.hauteurLabel = new JLabel("Enter the Height :");
-		panHauteur.add(this.hauteurLabel);
-		panHauteur.add(this.hauteur);
+	private void initComponent() {
 		
 		JPanel panLargeur = new JPanel();
 		panLargeur.setBackground(Color.white);
@@ -51,10 +42,20 @@ import javax.swing.JTextField;
 		panLargeur.add(this.largeurLabel);
 		panLargeur.add(this.largeur);
 		
+		JPanel panHauteur = new JPanel();
+		panHauteur.setBackground(Color.white);
+		panHauteur.setPreferredSize(new Dimension(380, 60));
+		this.hauteur = new JTextField();
+		this.hauteur.setPreferredSize(new Dimension(200, 25));
+		panHauteur.setBorder(BorderFactory.createTitledBorder("Height"));
+		this.hauteurLabel = new JLabel("Enter the Height :");
+		panHauteur.add(this.hauteurLabel);
+		panHauteur.add(this.hauteur);
+		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
-		content.add(panHauteur);
 		content.add(panLargeur);
+		content.add(panHauteur);
 		
 		JPanel control = new JPanel();
 		JButton okBouton = new JButton("OK");
@@ -97,9 +98,9 @@ import javax.swing.JTextField;
 	
 	
 	public void setDimensions() {
-		this.fenetre.resizeScene(Integer.parseInt(largeur.getText()), Integer.parseInt(hauteur.getText()));
-		this.fenetre.setHauteur(Integer.parseInt(hauteur.getText()));
-		this.fenetre.setLargeur(Integer.parseInt(largeur.getText()));
+		this.fenetre.resizeScene(Integer.parseInt(largeur.getText().trim()), Integer.parseInt(hauteur.getText().trim()));
+		this.fenetre.setHauteur(Integer.parseInt(hauteur.getText().trim()));
+		this.fenetre.setLargeur(Integer.parseInt(largeur.getText().trim()));
 		this.fenetre.enableContenu();
 	}
 

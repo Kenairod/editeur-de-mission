@@ -30,36 +30,16 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 	private Fenetre fenetre;
 	private ArrayList<LabelArtefact> listeDraggys;
 	
-	public void setListe(List<Objet> list) {
-		this.listeImages = new Vector<ImageIcon>();
-		this.listeObjets = new ArrayList<Objet>();
-		for (int i = 0; i < list.size(); i++) {
-			this.listeImages.add(redimensionner(list.get(i).getImage()));
-			this.listeObjets.add(list.get(i));
-		}
-		this.setListData(this.listeImages);
-		
-		int size = listeImages.size();
-    	
-    	if (size != 0) {
-    		this.fenetre.getSupprButton().setEnabled(true);
-        }
-	}
-	
-	public ArrayList<LabelArtefact> getDraggysScene() {
-		return this.listeDraggys;
-	}
-	
-	public ListPanneauLateral(List<Objet> list, Fenetre fen) {
-		this.setListe(list);
+	public ListPanneauLateral(List<Objet> listeObj, Fenetre fen) {
+		this.setListe(listeObj);
 		this.fenetre = fen;
 		this.listeDraggys = new ArrayList<LabelArtefact>();
-		for (int i = 0; i < list.size(); i++) {
-			this.listeImages.add(redimensionner(list.get(i).getImage()));
-			this.listeObjets.add(list.get(i));
+		for (int i = 0; i < listeObj.size(); i++) {
+			this.listeImages.add(redimensionner(listeObj.get(i).getImage()));
+			this.listeObjets.add(listeObj.get(i));
 		}
 		
-		this.fenetre.getSupprButton().addActionListener(new DeleteListener());
+		this.fenetre.getSupprButtonImages().addActionListener(new DeleteListener());
     	
     	this.setDragEnabled(true);
 		
@@ -74,6 +54,26 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 				fenetre.getScene().repaint();
 			}
 		});
+	}
+	
+	public void setListe(List<Objet> listeObj) {
+		this.listeImages = new Vector<ImageIcon>();
+		this.listeObjets = new ArrayList<Objet>();
+		for (int i = 0; i < listeObj.size(); i++) {
+			this.listeImages.add(redimensionner(listeObj.get(i).getImage()));
+			this.listeObjets.add(listeObj.get(i));
+		}
+		this.setListData(this.listeImages);
+		
+		int size = listeImages.size();
+    	
+    	if (size != 0) {
+    		this.fenetre.getSupprButtonImages().setEnabled(true);
+        }
+	}
+	
+	public ArrayList<LabelArtefact> getDraggysScene() {
+		return this.listeDraggys;
 	}
 	
 	public ImageIcon redimensionner(String urlImage) {
@@ -117,13 +117,15 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 	            		            	
 	            	listeImages.remove(index);
 	            	listeObjets.remove(index);
+	            	
+	            	setListData(listeImages);
 	            		                     	
 	        		repaint();
 	
 	            	int size = listeObjets.size();
 	            	
 	            	if (size == 0) {
-	            		fenetre.getSupprButton().setEnabled(false);
+	            		fenetre.getSupprButtonImages().setEnabled(false);
 	                } 
 	            	else {
 						if (index == listeObjets.size()) {

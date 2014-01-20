@@ -14,6 +14,7 @@ import view.LabelArtefact;
  *
  */
 public class EditeurControler {
+	
 	private EditeurModele modele;
 	private EditeurVue vue;
 	
@@ -50,6 +51,7 @@ public class EditeurControler {
 		this.modele.updateListeObervateur();
 		this.modele.updateFondObervateur();
 		this.modele.updateSceneObervateur();
+		this.modele.updateMissionsObservateur();
 	}
 	
 	/**
@@ -58,6 +60,10 @@ public class EditeurControler {
 	 */
 	public List<Objet> getObjets() {
 		return this.modele.getObjets();
+	}
+	
+	public List<String> getMissions() {
+		return this.modele.getMissions();
 	}
 	
 	public String getImageFond() {
@@ -135,6 +141,14 @@ public class EditeurControler {
 	
 	public int getLastIdObjet() {
 		return this.modele.getLastIdObjet();
+	}
+	
+	public void ajoutMission(String idMission) {
+		this.modele.ajoutMission(idMission);
+	}
+	
+	public void retireMission(String idMission) {
+		this.modele.retireMission(idMission);
 	}
 	
 }

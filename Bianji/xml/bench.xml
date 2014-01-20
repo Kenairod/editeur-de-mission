@@ -43,9 +43,8 @@
         </mapping>
        
         <missions>
-                <mission id = "1" Start="T 0">
-                </mission>
-                <mission id="2" Start="T 0"></mission>
+                <mission id = "1"></mission>
+                <mission id="2"></mission>
         </missions>
        
 </jeu>

@@ -18,11 +18,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import data.Objet;
 
-	public class AddObjectDialog extends JDialog {
-		private Fenetre fenetre;
-		private JButton artefactButton;
-		private JTextField urlArtefact, nomArtefact, nomScript;
-		private JLabel artefactLabel, scriptLabel;	
+public class AddObjectDialog extends JDialog {
+	
+	private Fenetre fenetre;
+	private JButton artefactButton;
+	private JTextField urlArtefact, nomArtefact, nomScript;
+	private JLabel artefactLabel, scriptLabel;	
 	
 	public AddObjectDialog(Fenetre parent, String title, boolean modal){
 		super(parent,title,modal);
@@ -37,10 +38,9 @@ import data.Objet;
 	
 	private void initComponent(){
 	
-		//L'artefact
 		JPanel panArtefact = new JPanel();
 		panArtefact.setBackground(Color.white);
-		panArtefact.setPreferredSize(new Dimension(380, 60));
+		panArtefact.setPreferredSize(new Dimension(440, 60));
 		this.urlArtefact = new JTextField();
 		this.urlArtefact.setPreferredSize(new Dimension(200, 25));
 		panArtefact.setBorder(BorderFactory.createTitledBorder("Path to the Artefact"));
@@ -53,10 +53,10 @@ import data.Objet;
 		panArtefact.add(this.artefactButton);
 		panArtefact.add(this.urlArtefact);
 	
-		//Le nom de l'artefact
+		
 		JPanel panNomArtefact = new JPanel();
 		panNomArtefact.setBackground(Color.white);
-		panNomArtefact.setPreferredSize(new Dimension(380, 60));
+		panNomArtefact.setPreferredSize(new Dimension(440, 60));
 		this.nomArtefact = new JTextField();
 		this.nomArtefact.setPreferredSize(new Dimension(200, 25));
 		panNomArtefact.setBorder(BorderFactory.createTitledBorder("Artefact's Name"));
@@ -64,10 +64,10 @@ import data.Objet;
 		panNomArtefact.add(this.artefactLabel);
 		panNomArtefact.add(this.nomArtefact);
 		
-		//Le nom du script
+
 		JPanel panNomAgent = new JPanel();
 		panNomAgent.setBackground(Color.white);
-		panNomAgent.setPreferredSize(new Dimension(380, 60));
+		panNomAgent.setPreferredSize(new Dimension(440, 60));
 		this.nomScript = new JTextField();
 		this.nomScript.setPreferredSize(new Dimension(200, 25));
 		panNomAgent.setBorder(BorderFactory.createTitledBorder("Script's name (Optional)"));
@@ -167,7 +167,8 @@ import data.Objet;
 		}
 	  
 		public void ajoutObjet() {
-			Objet o = new Objet(this.fenetre, nomArtefact.getText(), urlArtefact.getText(), nomScript.getText());
+			Objet o = new Objet(this.fenetre, nomArtefact.getText().trim(), 
+									urlArtefact.getText().trim(), nomScript.getText().trim());
 			this.fenetre.ajouterObjet(o);
 		}
 

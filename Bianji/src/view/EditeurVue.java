@@ -13,8 +13,14 @@ import data.Objet;
  *
  */
 public class EditeurVue implements Observateur {
+	
 	private Fenetre fenetre;
 	private EditeurControler controler;
+	
+	public EditeurVue(EditeurControler controler) {
+		this.controler = controler;
+		this.fenetre = new Fenetre(this.controler.getMissions(), this.controler.getObjets(), this.controler.getImageFond(), this);
+	}
 
 	/**
 	 * Permet de mettre à jour la liste des objet dans le panneau latéral
@@ -22,7 +28,13 @@ public class EditeurVue implements Observateur {
 	@Override
 	public void updateListe(List<Objet> liste) {
 		this.fenetre.changeListeObjets(liste);
-		this.fenetre.repaint();
+		this.fenetre.setStateChanged(true);
+		this.fenetre.getMenu().setEnregistrer(true);
+	}
+	
+	@Override
+	public void updateMissions(List<String> idMission) {
+		this.fenetre.changeMissions(idMission);
 		this.fenetre.setStateChanged(true);
 		this.fenetre.getMenu().setEnregistrer(true);
 	}
@@ -32,8 +44,9 @@ public class EditeurVue implements Observateur {
 	 */
 	@Override
 	public void updateFond(String url) {
-		this.fenetre.ajouterBg(url);
-		this.fenetre.repaint();
+		this.fenetre.changeFond(url);
+		this.fenetre.setStateChanged(true);
+		this.fenetre.getMenu().setEnregistrer(true);
 	}
 	
 	/**
@@ -44,11 +57,6 @@ public class EditeurVue implements Observateur {
 		this.fenetre.updateListeLabelArtef(elems);
 		this.fenetre.setStateChanged(true);
 		this.fenetre.getMenu().setEnregistrer(true);
-	}
-	
-	public EditeurVue(EditeurControler controler) {
-		this.controler = controler;
-		this.fenetre = new Fenetre(this.controler.getObjets(), this.controler.getImageFond(), this);
 	}
 	
 	public void saveProject(ArrayList<LabelArtefact> listeDraggys) {
@@ -105,6 +113,18 @@ public class EditeurVue implements Observateur {
 	
 	public int getLastIdObjet() {
 		return this.controler.getLastIdObjet();
+	}
+	
+	public void ajoutMission(String idMission) {
+		this.controler.ajoutMission(idMission);
+	}
+	
+	public void retireMission(String idMission) {
+		this.controler.retireMission(idMission);
+	}
+	
+	public List<String> getMissions() {
+		return this.controler.getMissions();
 	}
 	
 }
