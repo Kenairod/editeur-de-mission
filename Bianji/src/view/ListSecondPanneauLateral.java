@@ -16,7 +16,7 @@ public class ListSecondPanneauLateral extends JList<String> {
 		this.setListe(listeMi);
 		this.fenetre = fen;
 		for (int i = 0; i < listeMi.size(); i++) {
-			this.listeMissions.add(listeMi.get(i));
+			this.listeMissions.add("Mission " + listeMi.get(i));
 		}
 		
 		this.fenetre.getSupprButtonMissions().addActionListener(new DeleteListener());
@@ -25,7 +25,7 @@ public class ListSecondPanneauLateral extends JList<String> {
 	public void setListe(List<String> listeMi) {
 		this.listeMissions = new Vector<String>();
 		for (int i = 0; i < listeMi.size(); i++) {
-			this.listeMissions.add(listeMi.get(i));
+			this.listeMissions.add("Mission " + listeMi.get(i));
 		}
 		this.setListData(this.listeMissions);
 		
@@ -43,9 +43,9 @@ public class ListSecondPanneauLateral extends JList<String> {
         		if(!isSelectionEmpty()) {
             	
 	            	int index = getSelectedIndex();
-	            	String idMission = listeMissions.get(index);
-	
-	            	fenetre.retireMission(idMission);         
+	            	String[] idMission = listeMissions.get(index).split("Mission ");
+
+	            	fenetre.retireMission(idMission[1]);         
 	            	
 	        		repaint();
 	

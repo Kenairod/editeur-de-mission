@@ -93,7 +93,7 @@ public class AddObjectDialog extends JDialog {
 			}
 		}); 
 	   
-		JButton cancelBouton = new JButton("Annuler");
+		JButton cancelBouton = new JButton("Cancel");
 		cancelBouton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
