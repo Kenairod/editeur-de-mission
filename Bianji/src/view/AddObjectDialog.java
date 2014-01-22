@@ -163,7 +163,7 @@ public class AddObjectDialog extends JDialog {
 			
 			int taille = copie.size()-1;
 			while (taille >= 0 && !stop) {
-				if (System.getProperty("os.name").equals("Linux")) {
+				if (copie.contains("/")) {
 					if (copie.get(taille) == '/' && !first) {
 						first = true;
 					}
@@ -189,7 +189,7 @@ public class AddObjectDialog extends JDialog {
 				relative += listeRelative.get(i);
 			}
 			
-			if (System.getProperty("os.name").equals("Linux")) {
+			if (relative.contains("/")) {
 				return relative;
 			}
 			else {
