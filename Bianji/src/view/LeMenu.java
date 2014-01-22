@@ -3,6 +3,7 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -240,7 +241,7 @@ public class LeMenu extends JMenuBar {
 	}
 
 	public void openProject() {
-		JFileChooser chooser = new JFileChooser(".");
+		JFileChooser chooser = new JFileChooser(new File("."));
 		
         FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("XML Files (*.xml)", "xml");
         
@@ -274,7 +275,7 @@ public class LeMenu extends JMenuBar {
 	public void aboutProject () {
 		JFrame about = new JFrame("About");
 		JLabel aboutLabel = new JLabel("Bianji est un logiciel libre développé par Aurélien CANO, Steven KIEFFER, Dorian KURZAJ et Benjamin TEISSEYRE dans le cadre du projet à l'IUT de Montpellier.", JLabel.CENTER);
-		about.setSize(1000, 100);
+		about.setSize(1100, 100);
 		about.add(aboutLabel);
 		about.setLocationRelativeTo(null);
 		about.setVisible(true);

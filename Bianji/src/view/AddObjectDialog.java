@@ -139,7 +139,7 @@ public class AddObjectDialog extends JDialog {
 			
 			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif ", "jpg", "jpeg", "png");
 			
-			JFileChooser chooser = new JFileChooser(".");
+			JFileChooser chooser = new JFileChooser(new File("."));
 
 	        chooser.addChoosableFileFilter(imagesFilter);
 
@@ -163,7 +163,7 @@ public class AddObjectDialog extends JDialog {
 			
 			int taille = copie.size()-1;
 			while (taille >= 0 && !stop) {
-				if (copie.contains("/")) {
+				if (copie.contains('/')) {
 					if (copie.get(taille) == '/' && !first) {
 						first = true;
 					}
