@@ -379,6 +379,11 @@ public class EditeurModele implements Observable {
 	
 	public void setNomProjet(String nom) {
 		this.nomProjet = nom;
+		this.setTitreJeu(nom);
+	}
+	
+	public void setTitreJeu(String nom) {
+		this.titre = nom;
 	}
 	
 	public void setFond(String urlFond) {
@@ -411,7 +416,7 @@ public class EditeurModele implements Observable {
 	}
 	
 	public int getLastIdObjet() {
-		if(this.mapping.size() != 0) {
+		if (this.mapping.size() != 0) {
 			return this.mapping.get(this.mapping.size()-1).getIdObjet();
 		}
 		else return 0;
@@ -483,8 +488,8 @@ public class EditeurModele implements Observable {
 	}
 	
 	/**
-	 * Permet de vérifier s'il y a des objets qui utilisent cet artefact
-	 * @param idArtef L'id de l'atefact donc on vérifie s'il est utilisé
+	 * Permet de vérif ier s'il y a des objets qui utilisent cet artefact
+	 * @param idArtef L'id de l'atefact donc on vérif ie s'il est utilisé
 	 * @return true s'il est utilisé, false sinon
 	 */
 	public boolean autresObjetsUtilisentCetArtefact(String idArtef) {
@@ -545,9 +550,9 @@ public class EditeurModele implements Observable {
 		Objet o = new Objet();
 		int i = 0;
 		boolean trouve = false;
-		while(i < this.mapping.size() && !trouve) {
+		while (i < this.mapping.size() && !trouve) {
 			String idObjetMapping = "" + this.mapping.get(i).getIdObjet();
-			if(idObjetMapping.equals(idObjet)) {
+			if (idObjetMapping.equals(idObjet)) {
 				o = this.mapping.get(i);
 				trouve = true;
 			}

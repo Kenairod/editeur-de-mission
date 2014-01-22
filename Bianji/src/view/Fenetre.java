@@ -44,7 +44,6 @@ public class Fenetre extends JFrame {
 	private JMenuItem mission = new JMenuItem("Insert a new Mission");
 	private JButton supprButtonImages = new JButton("Delete Object");
 	private JButton supprButtonMissions = new JButton("Delete Mission");
-	private boolean stateChanged = true;
 	
 	public Fenetre(List<String> listeMissions, List<Objet> listeObjets, String urlBg, EditeurVue vue) {
 		super();
@@ -132,7 +131,7 @@ public class Fenetre extends JFrame {
 		
 		this.listeObjets.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				if(SwingUtilities.isRightMouseButton(event)) {
+				if (SwingUtilities.isRightMouseButton(event)) {
 					jpm = new JPopupMenu();
 					jpm.add(bg);
 					jpm.add(object);
@@ -143,7 +142,7 @@ public class Fenetre extends JFrame {
 		
 		this.listeMissions.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent event) {
-				if(SwingUtilities.isRightMouseButton(event)) {
+				if (SwingUtilities.isRightMouseButton(event)) {
 					jpm = new JPopupMenu();
 					jpm.add(mission);
 					jpm.show(contenu, event.getX(), event.getY());
@@ -158,6 +157,10 @@ public class Fenetre extends JFrame {
 	
 	public void changeListeObjets(List<Objet> listeObjets) {
 		this.listeObjets.setListe(listeObjets);
+	}
+	
+	public List<Objet> getObjets() {
+		return this.vue.getObjets();
 	}
 	
 	public void enableContenu() {
@@ -244,7 +247,7 @@ public class Fenetre extends JFrame {
 		int hauteur = this.getHeight() - this.scene.getHeight();
 		int largeur = this.getWidth() - this.scene.getWidth();
 		this.setSize(largeur + x, hauteur + y);
-		if(System.getProperty("os.name").equals("Linux")) {
+		if (System.getProperty("os.name").equals("Linux")) {
 			this.pack();
 		}
 		this.setLocationRelativeTo(null);
@@ -260,14 +263,6 @@ public class Fenetre extends JFrame {
 	
 	public int getLastIdObjet() {
 		return this.vue.getLastIdObjet();
-	}
-	
-	public boolean getStateChanged() {
-		return this.stateChanged;
-	}
-	
-	public void setStateChanged(boolean b) {
-		this.stateChanged = b;
 	}
 	
 	public void ajoutMission(String idMission) {

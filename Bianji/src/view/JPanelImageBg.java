@@ -38,7 +38,7 @@ public class JPanelImageBg extends JPanel {
 		
 		public void setImage (String fileName) {
 			File f = new File(fileName);
-			if(f.exists()) {
+			if (f.exists()) {
 				this.bufferedImage = this.toBufferedImage(Toolkit.getDefaultToolkit().getImage(fileName));
 				this.texture = new TexturePaint(bufferedImage,new Rectangle(0, 0, bufferedImage.getWidth(), bufferedImage.getHeight()));
 			}
@@ -78,13 +78,14 @@ public class JPanelImageBg extends JPanel {
 	                xOffset = me.getX() - child.getX();
 	                yOffset = me.getY() - child.getY();
 	                draggy = (LabelArtefact) child;
-	                if(SwingUtilities.isRightMouseButton(me)) {
+	                if (SwingUtilities.isRightMouseButton(me)) {
 						Container parent = draggy.getParent();
 						parent.remove(draggy);
 						parent.validate();
 						parent.repaint();
 						fenetre.getDraggysScene().remove(draggy);
 					}
+	        		fenetre.getMenu().setEnregistrer(true);
 	            }
 	        }
 
@@ -92,6 +93,8 @@ public class JPanelImageBg extends JPanel {
 	            if (draggy != null) {
 	            	
 	            	draggy.setPosition(me.getX() - xOffset, me.getY() - yOffset);
+	            	
+	        		fenetre.getMenu().setEnregistrer(true);
 	            	
 	            	if (me.getX() - xOffset <= 0)
 	            		draggy.setPosition(0, me.getY() - yOffset);

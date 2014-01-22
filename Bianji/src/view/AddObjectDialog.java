@@ -5,13 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -87,8 +90,32 @@ public class AddObjectDialog extends JDialog {
 		okBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (nomArtefact.getText().trim().length() != 0 && urlArtefact.getText().trim().length() != 0) {	
-					ajoutObjet();
-					setVisible(false);
+					Objet o = new Objet(fenetre, nomArtefact.getText().trim(), 
+							urlArtefact.getText().trim(), nomScript.getText().trim());
+					List<Objet> listeObjets = fenetre.getObjets();
+					boolean alreadyCreated = false;
+					int i = 0;
+					while (i < listeObjets.size() && !alreadyCreated) {
+						if (o.equals(listeObjets.get(i))){
+							alreadyCreated = true;
+						}
+						i++;
+					}
+					if (!alreadyCreated) {
+						File f = new File(urlArtefact.getText().trim());
+						if (f.exists()) {
+							ajoutObjet(o);
+							setVisible(false);
+						}
+						else {
+					    	JOptionPane.showMessageDialog(null,
+					    			"Wrong Path...", "Failure", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else {
+				    	JOptionPane.showMessageDialog(null,
+				    			"Object Already Created...", "Failure", JOptionPane.ERROR_MESSAGE);
+					}
 				}  
 			}
 		}); 
@@ -110,7 +137,7 @@ public class AddObjectDialog extends JDialog {
 	  
 		public void JFileChooserArtefact() {
 			
-			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif", "jpg", "jpeg", "png");
+			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif ", "jpg", "jpeg", "png");
 			
 			JFileChooser chooser = new JFileChooser(".");
 
@@ -135,8 +162,8 @@ public class AddObjectDialog extends JDialog {
 			}
 			
 			int taille = copie.size()-1;
-			while(taille >= 0 && !stop) {
-				if(copie.get(taille) == '\\' && !first) {
+			while (taille >= 0 && !stop) {
+				if (copie.get(taille) == '\\' && !first) {
 					first = true;
 				}
 				
@@ -157,7 +184,7 @@ public class AddObjectDialog extends JDialog {
 		public String setBackToSlash(String back) {
 			String slash = new String();
 			for (int i=0; i < back.length(); i++) {
-				if(back.charAt(i) == '\\') {
+				if (back.charAt(i) == '\\') {
 					slash += '/';
 				}
 				else slash += back.charAt(i);
@@ -166,9 +193,7 @@ public class AddObjectDialog extends JDialog {
 			return slash;
 		}
 	  
-		public void ajoutObjet() {
-			Objet o = new Objet(this.fenetre, nomArtefact.getText().trim(), 
-									urlArtefact.getText().trim(), nomScript.getText().trim());
+		public void ajoutObjet(Objet o) {
 			this.fenetre.ajouterObjet(o);
 		}
 

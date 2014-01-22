@@ -90,7 +90,8 @@ public class EditeurControler {
 	 * Permet de relancer l'éditeur
 	 */
 	public void restartProject() {
-		EditeurControler ctrl = new EditeurControler(new EditeurModele());
+		EditeurModele modele = new EditeurModele();
+		new EditeurControler(modele);
 	}
 	
 	/**

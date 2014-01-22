@@ -40,7 +40,7 @@ public class ListSecondPanneauLateral extends JList<String> {
 		
         public void actionPerformed(ActionEvent e) {
         	
-        		if(!isSelectionEmpty()) {
+        		if (!isSelectionEmpty()) {
             	
 	            	int index = getSelectedIndex();
 	            	String[] idMission = listeMissions.get(index).split("Mission ");

@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -56,26 +57,34 @@ public class AddMissionDialog extends JDialog {
 				boolean lettreMission = false;
 				if (missionId.getText().trim().length() != 0) {
 					int i = 0;
-					while(i < missionId.getText().trim().length() && !lettreMission) {
-						if(!Character.isDigit(missionId.getText().trim().charAt(i))) {
+					while (i < missionId.getText().trim().length() && !lettreMission) {
+						if (!Character.isDigit(missionId.getText().trim().charAt(i))) {
 							lettreMission = true;
 						}
 						i++;
 					}
-					if(!lettreMission) {
+					if (!lettreMission) {
 						List<String> missions = fenetre.getMissions();
 						boolean alreadyUse = false;
 						i = 0;
-						while(i < missions.size() && !alreadyUse) {
-							if(missionId.getText().trim().equals(missions.get(i))) {
+						while (i < missions.size() && !alreadyUse) {
+							if (missionId.getText().trim().equals(missions.get(i))) {
 								alreadyUse = true;
 							}
 							i++;
 						}
-						if(!alreadyUse) {
+						if (!alreadyUse) {
 							ajoutMission();
 							setVisible(false);
 						}
+						else {
+					    	JOptionPane.showMessageDialog(null,
+					    			"Mission Already Created...", "Failure", JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					else {
+				    	JOptionPane.showMessageDialog(null,
+				    			"Not a Number...", "Failure", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}

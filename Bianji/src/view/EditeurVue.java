@@ -28,14 +28,12 @@ public class EditeurVue implements Observateur {
 	@Override
 	public void updateListe(List<Objet> liste) {
 		this.fenetre.changeListeObjets(liste);
-		this.fenetre.setStateChanged(true);
 		this.fenetre.getMenu().setEnregistrer(true);
 	}
 	
 	@Override
 	public void updateMissions(List<String> idMission) {
 		this.fenetre.changeMissions(idMission);
-		this.fenetre.setStateChanged(true);
 		this.fenetre.getMenu().setEnregistrer(true);
 	}
 	
@@ -45,7 +43,6 @@ public class EditeurVue implements Observateur {
 	@Override
 	public void updateFond(String url) {
 		this.fenetre.changeFond(url);
-		this.fenetre.setStateChanged(true);
 		this.fenetre.getMenu().setEnregistrer(true);
 	}
 	
@@ -55,7 +52,6 @@ public class EditeurVue implements Observateur {
 	@Override
 	public void updateScene(ArrayList<LabelArtefact> elems) {
 		this.fenetre.updateListeLabelArtef(elems);
-		this.fenetre.setStateChanged(true);
 		this.fenetre.getMenu().setEnregistrer(true);
 	}
 	
@@ -125,6 +121,10 @@ public class EditeurVue implements Observateur {
 	
 	public List<String> getMissions() {
 		return this.controler.getMissions();
+	}
+	
+	public List<Objet> getObjets() {
+		return this.controler.getObjets();
 	}
 	
 }

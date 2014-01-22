@@ -5,12 +5,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -59,8 +61,15 @@ public class AddBackgroundDialog extends JDialog {
 		okBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (urlBg.getText().trim().length() != 0) {
-					ajoutBg();
-					setVisible(false);
+					File f = new File(urlBg.getText().trim());
+					if (f.exists()) {
+						ajoutBg();
+						setVisible(false);
+					}
+					else {
+				    	JOptionPane.showMessageDialog(null,
+				    			"Wrong Path...", "Failure", JOptionPane.ERROR_MESSAGE);
+					}
 				}  
 			}
 		}); 
@@ -82,7 +91,7 @@ public class AddBackgroundDialog extends JDialog {
 	  
 		public void JFileChooserBg() {
 			
-			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif", "jpg", "jpeg", "png");
+			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif ", "jpg", "jpeg", "png");
 			
 			JFileChooser chooser = new JFileChooser(".");
 
@@ -107,8 +116,8 @@ public class AddBackgroundDialog extends JDialog {
 			}
 			
 			int taille = copie.size()-1;
-			while(taille >= 0 && !stop) {
-				if(copie.get(taille) == '\\' && !first) {
+			while (taille >= 0 && !stop) {
+				if (copie.get(taille) == '\\' && !first) {
 					first = true;
 				}
 				
@@ -129,7 +138,7 @@ public class AddBackgroundDialog extends JDialog {
 		public String setBackToSlash(String back) {
 			String slash = new String();
 			for (int i=0; i < back.length(); i++) {
-				if(back.charAt(i) == '\\') {
+				if (back.charAt(i) == '\\') {
 					slash += '/';
 				}
 				else slash += back.charAt(i);

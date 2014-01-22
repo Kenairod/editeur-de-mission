@@ -56,6 +56,15 @@ public class Objet {
 		this.image = image;
 		this.script = script;
 	}
+	
+	public boolean equals(Objet o) {
+		boolean same = false;
+		if(this.idArtefact.equals(o.idArtefact) && 
+				this.image.equals(o.image) && this.script.equals(o.script)) {
+			same = true;
+		}
+		return same;
+	}
 
 	public int getIdObjet() {
 		return this.idObjet;

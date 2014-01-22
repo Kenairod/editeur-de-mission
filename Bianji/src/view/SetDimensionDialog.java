@@ -10,6 +10,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -66,25 +67,29 @@ public class SetDimensionDialog extends JDialog {
 				boolean lettreLargeur = false;
 				if (hauteur.getText().trim().length() != 0 && largeur.getText().trim().length() != 0) {
 					int i = 0;
-					while(i < hauteur.getText().trim().length() && !lettreHauteur) {
-						if(!Character.isDigit(hauteur.getText().trim().charAt(i))) {
+					while (i < hauteur.getText().trim().length() && !lettreHauteur) {
+						if (!Character.isDigit(hauteur.getText().trim().charAt(i))) {
 							lettreHauteur = true;
 						}
 						i++;
 					}
 					i = 0;
-					while(i < largeur.getText().trim().length() && !lettreLargeur) {
-						if(!Character.isDigit(largeur.getText().trim().charAt(i))) {
+					while (i < largeur.getText().trim().length() && !lettreLargeur) {
+						if (!Character.isDigit(largeur.getText().trim().charAt(i))) {
 							lettreLargeur = true;
 						}
 						i++;
 					}
-					if(!lettreHauteur && !lettreLargeur) {
+					if (!lettreHauteur && !lettreLargeur) {
 						if (Integer.parseInt(hauteur.getText()) > 0 && 
 								Integer.parseInt(largeur.getText()) > 0) {
 							setDimensions();
 							setVisible(false);
 						}
+					}
+					else {
+				    	JOptionPane.showMessageDialog(null,
+				    			"Not a Number...", "Failure", JOptionPane.ERROR_MESSAGE);
 					}
 				}  
 			}

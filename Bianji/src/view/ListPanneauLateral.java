@@ -92,7 +92,7 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 		
         public void actionPerformed(ActionEvent e) {
         	
-        		if(!isSelectionEmpty()) {
+        		if (!isSelectionEmpty()) {
             	
 	            	int index = getSelectedIndex();
 	            	String idObjet = "" + listeObjets.get(index).getIdObjet();
@@ -102,7 +102,7 @@ public class ListPanneauLateral extends JList<ImageIcon> {
 	            	ArrayList<LabelArtefact> copie = new ArrayList<LabelArtefact>();
 	            	for (int i=0; i < listeDraggys.size(); i++) {
 	            		String s = "" + listeDraggys.get(i).getObjet().getIdObjet();
-	            		if(s.equals(idObjet)) {
+	            		if (s.equals(idObjet)) {
 		            		Container parent = listeDraggys.get(i).getParent();
 							parent.remove(listeDraggys.get(i));
 							parent.validate();

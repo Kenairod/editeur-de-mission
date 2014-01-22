@@ -231,8 +231,8 @@ public class LeMenu extends JMenuBar {
 	
 	public void exitProject () {
 		int exit = JOptionPane.showConfirmDialog(this.fenetre, "Do you really want to quit ?", "Exit", JOptionPane.OK_CANCEL_OPTION);
-		if(exit == 0) {
-			if(this.fenetre.getNomProjet().length() != 0) {
+		if (exit == 0) {
+			if (this.fenetre.getNomProjet().length() != 0) {
 				this.saveProject();
 			}
 			this.fenetre.dispose();
@@ -281,27 +281,23 @@ public class LeMenu extends JMenuBar {
 	}
 
 	public void saveProject() {
-		if(this.fenetre.getStateChanged()) {
-			this.fenetre.saveProject();
-		}
-		this.fenetre.setStateChanged(false);
+		this.fenetre.saveProject();
 		this.enregistrer.setEnabled(false);
 	}
 
 	public void newProject() {
 		String name = JOptionPane.showInputDialog(null, "Project Name ?", "Project Name", JOptionPane.QUESTION_MESSAGE);
 		if (name != null) {
-		    if(name.length()!=0) {
+			if (name.length()!=0) {
 		    	this.fenetre.setNomProjet(name);
-				this.changeEnabled();
+		    	this.changeEnabled();
+		    	this.setDimensions();
 		    }
 		    else {
 		    	JOptionPane.showMessageDialog(null,
-		    			"Nom Incorrect...", "Nom Incorrect", JOptionPane.ERROR_MESSAGE);
+		    			"Enter a Name...", "Failure", JOptionPane.ERROR_MESSAGE);
 		    	this.newProject();
 			}
-
-		    this.setDimensions();
 		}
 	}
 	
