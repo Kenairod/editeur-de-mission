@@ -281,7 +281,10 @@ public class LeMenu extends JMenuBar {
 	}
 
 	public void saveProject() {
-		this.fenetre.saveProject();
+		if(this.fenetre.getStateChanged()) {
+			this.fenetre.saveProject();
+		}
+		this.fenetre.setStateChanged(false);
 		this.enregistrer.setEnabled(false);
 	}
 

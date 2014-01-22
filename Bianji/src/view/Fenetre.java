@@ -44,6 +44,7 @@ public class Fenetre extends JFrame {
 	private JMenuItem mission = new JMenuItem("Insert a new Mission");
 	private JButton supprButtonImages = new JButton("Delete Object");
 	private JButton supprButtonMissions = new JButton("Delete Mission");
+	private boolean stateChanged = true;
 	
 	public Fenetre(List<String> listeMissions, List<Objet> listeObjets, String urlBg, EditeurVue vue) {
 		super();
@@ -276,4 +277,12 @@ public class Fenetre extends JFrame {
 		return this.vue.getMissions();
 	}
 	
+	public boolean getStateChanged() {
+		return this.stateChanged;
+	}
+
+	public void setStateChanged(boolean b) {
+		this.stateChanged = b;
+	}
+
 }
