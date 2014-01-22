@@ -205,11 +205,11 @@ public class Fenetre extends JFrame {
 		this.scene.repaint();
 	}
 	
-	public JButton getSupprButtonImages(){
+	public JButton getSupprButtonImages() {
 		return this.supprButtonImages;
 	}
 	
-	public JButton getSupprButtonMissions(){
+	public JButton getSupprButtonMissions() {
 		return this.supprButtonMissions;
 	}
 	

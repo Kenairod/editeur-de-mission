@@ -28,7 +28,7 @@ public class AddObjectDialog extends JDialog {
 	private JTextField urlArtefact, nomArtefact, nomScript;
 	private JLabel artefactLabel, scriptLabel;	
 	
-	public AddObjectDialog(Fenetre parent, String title, boolean modal){
+	public AddObjectDialog(Fenetre parent, String title, boolean modal) {
 		super(parent,title,modal);
 		this.fenetre = parent;
 		this.setSize(500, 270);
@@ -39,7 +39,7 @@ public class AddObjectDialog extends JDialog {
 		this.setVisible(true);
 	}
 	
-	private void initComponent(){
+	private void initComponent() {
 	
 		JPanel panArtefact = new JPanel();
 		panArtefact.setBackground(Color.white);
@@ -96,7 +96,7 @@ public class AddObjectDialog extends JDialog {
 					boolean alreadyCreated = false;
 					int i = 0;
 					while (i < listeObjets.size() && !alreadyCreated) {
-						if (o.equals(listeObjets.get(i))){
+						if (o.equals(listeObjets.get(i))) {
 							alreadyCreated = true;
 						}
 						i++;
@@ -121,7 +121,7 @@ public class AddObjectDialog extends JDialog {
 		}); 
 	   
 		JButton cancelBouton = new JButton("Cancel");
-		cancelBouton.addActionListener(new ActionListener(){
+		cancelBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
 			}      

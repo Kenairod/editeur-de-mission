@@ -23,7 +23,7 @@ public class AddBackgroundDialog extends JDialog {
 	private JButton bgButton;
 	private JTextField urlBg;
 	
-	public AddBackgroundDialog(Fenetre parent, String title, boolean modal){
+	public AddBackgroundDialog(Fenetre parent, String title, boolean modal) {
 		super(parent,title,modal);
 		this.fenetre = parent;
 		this.setSize(440, 135);
@@ -34,7 +34,7 @@ public class AddBackgroundDialog extends JDialog {
 		this.setVisible(true);
 	}
 	
-	private void initComponent(){
+	private void initComponent() {
 	
 		JPanel panBg = new JPanel();
 		panBg.setBackground(Color.white);
@@ -75,7 +75,7 @@ public class AddBackgroundDialog extends JDialog {
 		}); 
 	   
 		JButton cancelBouton = new JButton("Cancel");
-		cancelBouton.addActionListener(new ActionListener(){
+		cancelBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
 			}      

@@ -20,7 +20,7 @@ public class SetDimensionDialog extends JDialog {
 	private JTextField hauteur, largeur;
 	private JLabel hauteurLabel, largeurLabel;	
 	
-	public SetDimensionDialog(Fenetre parent, String title, boolean modal){
+	public SetDimensionDialog(Fenetre parent, String title, boolean modal) {
 		super(parent,title,modal);
 		this.fenetre = parent;
 		this.setSize(450, 220);

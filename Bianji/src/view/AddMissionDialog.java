@@ -21,7 +21,7 @@ public class AddMissionDialog extends JDialog {
 	private JTextField missionId;
 	private JLabel missionIdLabel;
 	
-	public AddMissionDialog(Fenetre parent, String title, boolean modal){
+	public AddMissionDialog(Fenetre parent, String title, boolean modal) {
 		super(parent,title,modal);
 		this.fenetre = parent;
 		this.setSize(440, 135);
@@ -32,7 +32,7 @@ public class AddMissionDialog extends JDialog {
 		this.setVisible(true);
 	}
 	
-	private void initComponent(){
+	private void initComponent() {
 	
 		JPanel panMissionId = new JPanel();
 		panMissionId.setBackground(Color.white);
@@ -91,7 +91,7 @@ public class AddMissionDialog extends JDialog {
 		}); 
 	   
 		JButton cancelBouton = new JButton("Cancel");
-		cancelBouton.addActionListener(new ActionListener(){
+		cancelBouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setVisible(false);
 			}      

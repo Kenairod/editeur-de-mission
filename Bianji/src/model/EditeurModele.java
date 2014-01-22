@@ -657,7 +657,7 @@ public class EditeurModele implements Observable {
 	 * Indique aux observateurs que le fond a changé
 	 */
 	@Override
-	public void updateFondObervateur(){
+	public void updateFondObervateur() {
 		for(Observateur obs : this.listObservateur )
 	    	obs.updateFond(this.getFond());
 	}
@@ -666,7 +666,7 @@ public class EditeurModele implements Observable {
 	 * Indique aux observateurs que la scène a changée
 	 */
 	@Override
-	public void updateSceneObervateur(){
+	public void updateSceneObervateur() {
 		for(Observateur obs : this.listObservateur )
 	    	obs.updateScene(this.getElementsScene());
 	}
