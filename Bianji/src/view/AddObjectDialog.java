@@ -163,12 +163,23 @@ public class AddObjectDialog extends JDialog {
 			
 			int taille = copie.size()-1;
 			while (taille >= 0 && !stop) {
-				if (copie.get(taille) == '\\' && !first) {
-					first = true;
+				if (System.getProperty("os.name").equals("Linux")) {
+					if (copie.get(taille) == '/' && !first) {
+						first = true;
+					}
+					
+					else if (copie.get(taille) == '/' && first) {
+						stop = true;
+					}
 				}
-				
-				else if (copie.get(taille) == '\\' && first) {
-					stop = true;
+				else {
+					if (copie.get(taille) == '\\' && !first) {
+						first = true;
+					}
+					
+					else if (copie.get(taille) == '\\' && first) {
+						stop = true;
+					}
 				}
 				listeRelative.add(0, copie.get(taille));
 				taille--;
@@ -178,7 +189,12 @@ public class AddObjectDialog extends JDialog {
 				relative += listeRelative.get(i);
 			}
 			
-			return setBackToSlash(relative);
+			if (System.getProperty("os.name").equals("Linux")) {
+				return relative;
+			}
+			else {
+				return setBackToSlash(relative);
+			}
 		}
 		
 		public String setBackToSlash(String back) {

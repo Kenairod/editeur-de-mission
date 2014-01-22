@@ -246,10 +246,9 @@ public class Fenetre extends JFrame {
 	public void resizeScene(int x, int y) {
 		int hauteur = this.getHeight() - this.scene.getHeight();
 		int largeur = this.getWidth() - this.scene.getWidth();
+		this.setResizable(true);
 		this.setSize(largeur + x, hauteur + y);
-		if (System.getProperty("os.name").equals("Linux")) {
-			this.pack();
-		}
+		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 	}
 	
