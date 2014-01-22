@@ -93,7 +93,7 @@ public class AddBackgroundDialog extends JDialog {
 			
 			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif ", "jpg", "jpeg", "png");
 			
-			JFileChooser chooser = new JFileChooser(new File("."));
+			JFileChooser chooser = new JFileChooser(".");
 
 	        chooser.addChoosableFileFilter(imagesFilter);
 

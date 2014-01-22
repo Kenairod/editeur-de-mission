@@ -3,7 +3,6 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -241,7 +240,7 @@ public class LeMenu extends JMenuBar {
 	}
 
 	public void openProject() {
-		JFileChooser chooser = new JFileChooser(new File("."));
+		JFileChooser chooser = new JFileChooser(".");
 		
         FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("XML Files (*.xml)", "xml");
         
