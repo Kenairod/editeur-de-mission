@@ -230,7 +230,7 @@ public class EditeurModele implements Observable {
       */
      public void createXML() {	              
 	     try {
-	    	 JFileChooser chooser = new JFileChooser(".");
+	    	 JFileChooser chooser = new JFileChooser(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 	    	 chooser.setDialogTitle("Save as");
 	    	 File fichier = new File(this.getNomProjet() + ".xml");
 	    	 chooser.setSelectedFile(fichier);

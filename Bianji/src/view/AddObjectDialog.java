@@ -139,7 +139,7 @@ public class AddObjectDialog extends JDialog {
 			
 			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Images", "bmp", "gif ", "jpg", "jpeg", "png");
 			
-			JFileChooser chooser = new JFileChooser(".");
+			JFileChooser chooser = new JFileChooser(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 
 	        chooser.addChoosableFileFilter(imagesFilter);
 
