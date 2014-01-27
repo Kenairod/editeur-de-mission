@@ -86,7 +86,7 @@ public class Fenetre extends JFrame {
 		
 		this.setTitle("Bianji - Éditeur de jeu vidéo");
 
-		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new AreYouSure());
 		
 		this.setBounds(0, 0, this.vue.getLargeur(), this.vue.getHauteur());

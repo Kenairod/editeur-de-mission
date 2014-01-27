@@ -235,7 +235,7 @@ public class LeMenu extends JMenuBar {
 			if (this.fenetre.getNomProjet().length() != 0) {
 				this.saveProject();
 			}
-			this.fenetre.dispose();
+			System.exit(0);
 		}
 	}
 
@@ -274,7 +274,12 @@ public class LeMenu extends JMenuBar {
 	public void aboutProject () {
 		JFrame about = new JFrame("About");
 		JLabel aboutLabel = new JLabel("Bianji est un logiciel libre développé par Aurélien CANO, Steven KIEFFER, Dorian KURZAJ et Benjamin TEISSEYRE dans le cadre du projet à l'IUT de Montpellier.", JLabel.CENTER);
-		about.setSize(1100, 100);
+		if (System.getProperty("os.name").contains("Windows")) {
+			about.setSize(1000, 100);
+		}
+		else {
+			about.setSize(1200, 100);
+		}
 		about.add(aboutLabel);
 		about.setLocationRelativeTo(null);
 		about.setVisible(true);
