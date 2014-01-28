@@ -87,8 +87,7 @@ public class Fenetre extends JFrame {
 		this.contenu.setEnabled(false);
 		
 		this.setTitle("Bianji - Éditeur de jeu vidéo");
-		ImageIcon icon = new ImageIcon("icon.png");
-		this.setIconImage(icon.getImage());
+		this.setIconImage(new ImageIcon(getClass().getResource("/icon/icon.png")).getImage());
 
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new AreYouSure());

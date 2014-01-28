@@ -273,7 +273,7 @@ public class LeMenu extends JMenuBar {
 
 	public void aboutProject () {
 		JFrame about = new JFrame("About");
-		JLabel aboutLabel = new JLabel("Bianji est un logiciel libre développé par Aurélien CANO, Steven KIEFFER, Dorian KURZAJ et Benjamin TEISSEYRE dans le cadre du projet à l'IUT de Montpellier.", JLabel.CENTER);
+		JLabel aboutLabel = new JLabel("Bianji est un logiciel développé par Aurélien CANO, Steven KIEFFER, Dorian KURZAJ et Benjamin TEISSEYRE dans le cadre du projet à l'IUT de Montpellier.", JLabel.CENTER);
 		if (System.getProperty("os.name").contains("Windows")) {
 			about.setSize(1000, 100);
 		}
