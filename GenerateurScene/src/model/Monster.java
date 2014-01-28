@@ -2,7 +2,6 @@ package model;
 
 import fr.lirmm.game.Game;
 import fr.lirmm.game.artefact.Artefact;
-import fr.lirmm.game.artefact.ArtefactManager;
 import fr.lirmm.game.artefact.Attr;
 import fr.lirmm.game.artefact.content.ContentType;
 import global.GameConstant;
@@ -11,7 +10,6 @@ public class Monster extends GameActor
 {
 
 	private static int counter;
-
 
 	public Monster(Artefact art) {
 		super(art);

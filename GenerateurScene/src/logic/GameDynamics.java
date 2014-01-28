@@ -1,11 +1,8 @@
 package logic;
 
-import model.BenchGameModel;
 import model.Bullet;
 import model.Monster;
-import controller.BenchGameController;
 import controller.GameController;
-import fr.lirmm.game.Game;
 import fr.lirmm.game.agent.Script;
 import fr.lirmm.game.artefact.Attr;
 
@@ -33,7 +30,8 @@ public class GameDynamics extends Script {
 					if (checkCollision(bullets[i],monsters[j] ))
 						{
 						monsters[j].deactivate();
-						Game.scenes.getCurrentScene().removeArtefact(monsters[j].getMyArtefact());
+						GameController.getInstance().destroyMonster(j);
+						
 						};
 				}
 				}

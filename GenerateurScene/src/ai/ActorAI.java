@@ -1,6 +1,5 @@
 package ai;
 
-import model.Bullet;
 import fr.lirmm.game.agent.Agent;
 
 public class ActorAI<A> extends Agent {

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Scanner;
-
 import main.StartGame;
 import fr.lirmm.game.Game;
 import fr.lirmm.game.artefact.Artefact;

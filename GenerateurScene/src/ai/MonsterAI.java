@@ -20,6 +20,22 @@ public class MonsterAI extends ActorAI<Monster> {
 		}
 		plan = new RepeatAction(seq, -1);
 	}
+	
+	public MonsterAI() 
+	{
+		super(null);
+	}
+	
+	public void setAI(Monster m, int[] duration, float[] pathx, float[] pathy) 
+	{
+		super.createAI(m);
+		SequentialAction seq= new SequentialAction();
+		for (int i = 0; i < duration.length; i++) {
+			MoveToAction a = new MoveToAction(this.actor.getMyArtefact(), duration[i],pathx[i],pathy[i]);
+			seq.addAction(a);
+		}
+		plan = new RepeatAction(seq, -1);
+	}
 
 	@Override
 	public void onUpdate(int delta) {

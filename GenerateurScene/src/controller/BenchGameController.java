@@ -23,5 +23,6 @@ public interface BenchGameController
 	
 	/* */
 	public BenchGameModel getGameModel();
+
 	}
 	

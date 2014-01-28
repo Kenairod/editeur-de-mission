@@ -14,7 +14,8 @@ public class StartGame {
 			// création d'une fenetre pour recuperer le XML
 			getXML.fenetreGet xml = new getXML.fenetreGet();
 			MAINXML = xml.inXML; // MAINXML recupere le string du fichier xml afin de le réutiliser
-			XML = new getXML.GetXML(MAINXML);
+			XML = new getXML.GetXML(MAINXML);			
+
 			
 			LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 			System.out.println(XML);

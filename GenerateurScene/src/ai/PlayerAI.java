@@ -3,8 +3,6 @@ package ai;
 import model.Rambo;
 import controller.GameController;
 import fr.lirmm.game.Game;
-import fr.lirmm.game.agent.Agent;
-import fr.lirmm.game.artefact.Artefact;
 import fr.lirmm.game.artefact.Attr;
 import fr.lirmm.game.input.device.Keyboard.Key;
 import fr.lirmm.game.input.device.Mouse.Button;
@@ -20,6 +18,17 @@ public class PlayerAI extends ActorAI<Rambo> implements KeyboardListener, MouseL
 	public PlayerAI(Rambo a)
 	{
 		super(a);
+		this.velocity = 2.f;
+	}	
+	
+	public PlayerAI()
+	{
+		super(null);
+	}	
+	
+	public void setAI(Rambo a)
+	{
+		super.createAI(a);
 		this.velocity = 2.f;
 	}	
 

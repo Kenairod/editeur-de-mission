@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeu>
+  <titre-du-jeu />
+  <fenetre>
+    <useGL20>false</useGL20>
+    <largeur>200</largeur>
+    <hauteur>800</hauteur>
+    <redimensionnable>false</redimensionnable>
+  </fenetre>
+  <scene>
+    <fond image="H:\GenerateurScene\src\assets\bg.png" />
+    <elements>
+      <objet id="1" x="0" y="0" />
+      <objet id="2" x="12" y="101" />
+      <objet id="2" x="5" y="218" />
+    </elements>
+  </scene>
+  <artefacts>
+    <artefact id="rambo" image="H:\GenerateurScene\src\assets\player.png" />
+    <artefact id="monster" image="H:\GenerateurScene\src\assets\monster.png" />
+  </artefacts>
+  <mapping>
+    <objet id="1">
+      <artefact id="rambo" image="H:\GenerateurScene\src\assets\player.png" />
+      <agent script="PlayerAI" />
+    </objet>
+    <objet id="2">
+      <artefact id="monster" image="H:\GenerateurScene\src\assets\monster.png" />
+      <agent script="MonsterAI" />
+    </objet>
+  </mapping>
+</jeu>
