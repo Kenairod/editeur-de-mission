@@ -85,6 +85,7 @@ public class JPanelImageBg extends JPanel {
 						parent.repaint();
 						fenetre.getDraggysScene().remove(draggy);
 					}
+	                fenetre.setStateChanged(true);
 	        		fenetre.getMenu().setEnregistrer(true);
 	            }
 	        }
@@ -94,6 +95,7 @@ public class JPanelImageBg extends JPanel {
 	            	
 	            	draggy.setPosition(me.getX() - xOffset, me.getY() - yOffset);
 	            	
+	            	fenetre.setStateChanged(true);
 	        		fenetre.getMenu().setEnregistrer(true);
 	            	
 	            	if (me.getX() - xOffset <= 0)

@@ -1,50 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jeu>
-        <titre-du-jeu>RamboVsTheWorld</titre-du-jeu>
-       
-        <fenetre>
-                <useGL20>true</useGL20>
-                <largeur>800</largeur>
-                <hauteur>600</hauteur>
-                <redimensionnable>false</redimensionnable>
-        </fenetre>
-       
-        <scene>
-                <fond image="assets/bg.png"/>
-                <elements>
-                        <objet id="3" x="50" y ="50" />
-                        <objet id="2" x="0" y ="0" />
-                        <objet id="2" x="100" y ="100" />
-                        <objet id="2" x="200" y ="200" />
-                        <objet id="2" x="250" y ="450" />
-                </elements>
-        </scene>
-       
-        <artefacts>
-            <artefact id="rambo" image="assets/player.png"/>
-            <artefact id="monster" image="assets/monster.png"/>
-            <artefact id="explosion" image="assets/explode.png"/>
-            <artefact id="bullet" image="assets/bullet.png"/>
-        </artefacts>
-       
-        <mapping>
-                <objet id="1">
-                        <artefact id="bullet" image="assets/bullet.png"/>
-                        <agent script="BulletAI"/>
-                </objet>
-                <objet id="2">
-                        <artefact id="monster" image="assets/monster.png"/>
-                        <agent script="MonsterAI"/>
-                </objet>
-                <objet id="3">
-                        <artefact id="rambo" image="assets/player.png"/>
-                        <agent script="PlayerAI"/>
-                </objet>
-        </mapping>
-       
-        <missions>
-                <mission id="1"></mission>
-                <mission id="2"></mission>
-        </missions>
-       
+  <titre-du-jeu>RamboVsTheWorld</titre-du-jeu>
+  <fenetre>
+    <useGL20>true</useGL20>
+    <largeur>800</largeur>
+    <hauteur>600</hauteur>
+    <redimensionnable>false</redimensionnable>
+  </fenetre>
+  <scene>
+    <fond image="assets/bg.png" />
+    <elements>
+      <objet id="3" x="50" y="50" />
+      <objet id="2" x="0" y="0" />
+      <objet id="2" x="100" y="100" />
+      <objet id="2" x="200" y="200" />
+      <objet id="2" x="250" y="450" />
+    </elements>
+  </scene>
+  <artefacts>
+    <artefact id="rambo" image="assets/player.png" />
+    <artefact id="monster" image="assets/monster.png" />
+    <artefact id="explosion" image="assets/explode.png" />
+    <artefact id="bullet" image="assets/bullet.png" />
+  </artefacts>
+  <mapping>
+    <objet id="1">
+      <artefact id="bullet" image="assets/bullet.png" />
+      <agent script="BulletAI" />
+    </objet>
+    <objet id="2">
+      <artefact id="monster" image="assets/monster.png" />
+      <agent script="MonsterAI" />
+    </objet>
+    <objet id="3">
+      <artefact id="rambo" image="assets/player.png" />
+      <agent script="PlayerAI" />
+    </objet>
+  </mapping>
+  <missions>
+    <mission id="1" />
+    <mission id="2" />
+  </missions>
 </jeu>
