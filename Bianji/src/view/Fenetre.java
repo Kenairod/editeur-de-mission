@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -48,6 +49,9 @@ public class Fenetre extends JFrame {
 	
 	public Fenetre(List<String> listeMissions, List<Objet> listeObjets, String urlBg, EditeurVue vue) {
 		super();
+		ImageIcon icon = new ImageIcon("icon.png");
+		this.setIconImage(icon.getImage());
+		
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.scene = new JPanelImageBg(this);
