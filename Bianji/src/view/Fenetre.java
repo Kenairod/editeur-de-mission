@@ -49,9 +49,6 @@ public class Fenetre extends JFrame {
 	
 	public Fenetre(List<String> listeMissions, List<Objet> listeObjets, String urlBg, EditeurVue vue) {
 		super();
-		ImageIcon icon = new ImageIcon("icon.png");
-		this.setIconImage(icon.getImage());
-		
 		this.vue = vue;
 		this.menu = new LeMenu(this);
 		this.scene = new JPanelImageBg(this);
@@ -89,6 +86,8 @@ public class Fenetre extends JFrame {
 		this.contenu.setEnabled(false);
 		
 		this.setTitle("Bianji - Éditeur de jeu vidéo");
+		ImageIcon icon = new ImageIcon("icon.png");
+		this.setIconImage(icon.getImage());
 
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new AreYouSure());
@@ -169,6 +168,7 @@ public class Fenetre extends JFrame {
 	}
 	
 	public void enableContenu() {
+		this.setTitle("Bianji - Éditeur de jeu vidéo - " + this.getNomProjet());
 		this.getContentPane().setVisible(true);
 		this.showMenu();
 	}
