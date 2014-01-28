@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -66,10 +67,10 @@ public class Fenetre extends JFrame {
 		panelMissions.add(this.supprButtonMissions, BorderLayout.SOUTH);
 		
 		this.listeObjets = new ListPanneauLateral(listeObjets, this);
-		panelObjets.add(this.listeObjets,BorderLayout.CENTER);
+		panelObjets.add(this.listeObjets, BorderLayout.CENTER);
 		
 		this.listeMissions = new ListSecondPanneauLateral(listeMissions, this);
-		panelMissions.add(this.listeMissions,BorderLayout.CENTER);
+		panelMissions.add(this.listeMissions, BorderLayout.CENTER);
 		
 		this.onglets = new JTabbedPane(JTabbedPane.TOP);
 		this.onglets.addTab("Objects", panelObjets);
@@ -77,7 +78,7 @@ public class Fenetre extends JFrame {
 		this.scrollPane = new JScrollPane(this.onglets);
 		
 		this.lateral.setLayout(new BorderLayout());
-		this.lateral.add(this.scrollPane,BorderLayout.CENTER);
+		this.lateral.add(this.scrollPane, BorderLayout.CENTER);
 		
 		this.contenu = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, this.lateral, this.scene);
 		//Représente le contenu principale de la fenêtre en dehors du menu (contient le panneau latéral et la scène)
@@ -251,9 +252,8 @@ public class Fenetre extends JFrame {
 	public void resizeScene(int x, int y) {
 		int hauteur = this.getHeight() - this.scene.getHeight();
 		int largeur = this.getWidth() - this.scene.getWidth();
-		this.setResizable(true);
-		this.setSize(largeur + x, hauteur + y);
-		this.setResizable(false);
+		this.setPreferredSize(new Dimension(largeur + x, hauteur + y));
+		this.pack();
 		this.setLocationRelativeTo(null);
 	}
 	
