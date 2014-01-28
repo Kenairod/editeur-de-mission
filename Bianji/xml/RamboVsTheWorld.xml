@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jeu>
-        <titre-du-jeu>Jeu</titre-du-jeu>
+        <titre-du-jeu>RamboVsTheWorld</titre-du-jeu>
        
         <fenetre>
                 <useGL20>true</useGL20>
                 <largeur>800</largeur>
                 <hauteur>600</hauteur>
-                <redimensionnable>true</redimensionnable>
+                <redimensionnable>false</redimensionnable>
         </fenetre>
        
         <scene>
@@ -24,7 +24,7 @@
             <artefact id="rambo" image="assets/player.png"/>
             <artefact id="monster" image="assets/monster.png"/>
             <artefact id="explosion" image="assets/explode.png"/>
-                <artefact id="bullet" image="assets/bullet.png"/>
+            <artefact id="bullet" image="assets/bullet.png"/>
         </artefacts>
        
         <mapping>
@@ -43,7 +43,7 @@
         </mapping>
        
         <missions>
-                <mission id = "1"></mission>
+                <mission id="1"></mission>
                 <mission id="2"></mission>
         </missions>
        

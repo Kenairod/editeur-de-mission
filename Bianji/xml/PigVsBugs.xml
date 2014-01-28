@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeu>
+  <titre-du-jeu>PigVsBugs</titre-du-jeu>
+  <fenetre>
+    <useGL20>true</useGL20>
+    <largeur>800</largeur>
+    <hauteur>600</hauteur>
+    <redimensionnable>false</redimensionnable>
+  </fenetre>
+  <scene>
+    <fond image="assets/bg2.png" />
+    <elements>
+      <objet id="4" x="107" y="112" />
+      <objet id="3" x="287" y="90" />
+      <objet id="3" x="572" y="193" />
+      <objet id="3" x="487" y="17" />
+      <objet id="3" x="297" y="355" />
+    </elements>
+  </scene>
+  <artefacts>
+    <artefact id="bullet" image="assets/bullet.png" />
+    <artefact id="explosion" image="assets/explode.png" />
+    <artefact id="monster" image="assets/monster2.png" />
+    <artefact id="rambo" image="assets/playerr2.png" />
+  </artefacts>
+  <mapping>
+    <objet id="1">
+      <artefact id="bullet" image="assets/bullet.png" />
+      <agent script="BulletAI" />
+    </objet>
+    <objet id="2">
+      <artefact id="explosion" image="assets/explode.png" />
+      <agent script="" />
+    </objet>
+    <objet id="3">
+      <artefact id="monster" image="assets/monster2.png" />
+      <agent script="MonsterAI" />
+    </objet>
+    <objet id="4">
+      <artefact id="rambo" image="assets/playerr2.png" />
+      <agent script="PlayerAI" />
+    </objet>
+  </mapping>
+  <missions>
+    <mission id="2" />
+    <mission id="3" />
+    <mission id="4" />
+  </missions>
+</jeu>
