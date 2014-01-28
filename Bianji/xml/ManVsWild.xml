@@ -23,7 +23,7 @@
     <artefact id="bullet" image="assets/bullet.png" />
     <artefact id="explosion" image="assets/explode.png" />
     <artefact id="monster" image="assets/monster1.png" />
-    <artefact id="rambo" image="assets/playerr1.png" />
+    <artefact id="rambo" image="assets/player1.png" />
   </artefacts>
   <mapping>
     <objet id="1">
@@ -39,7 +39,7 @@
       <agent script="MonsterAI" />
     </objet>
     <objet id="4">
-      <artefact id="rambo" image="assets/playerr1.png" />
+      <artefact id="rambo" image="assets/player1.png" />
       <agent script="PlayerAI" />
     </objet>
   </mapping>
