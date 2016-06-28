@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeu>
+  <titre-du-jeu />
+  <fenetre>
+    <useGL20>true</useGL20>
+    <largeur>500</largeur>
+    <hauteur>500</hauteur>
+    <redimensionnable>false</redimensionnable>
+  </fenetre>
+  <scene>
+    <fond image="assets/bg.png" />
+    <elements>
+      <objet id="3" x="98" y="89" />
+      <objet id="1" x="186" y="243" />
+    </elements>
+  </scene>
+  <artefacts>
+    <artefact id="monster" image="assets/monster.png" />
+    <artefact id="bullet" image="assets/bullet.png" />
+    <artefact id="rambo" image="assets/player.png" />
+    <artefact id="explosion" image="assets/explode.png" />
+  </artefacts>
+  <mapping>
+    <objet id="1">
+      <artefact id="monster" image="assets/monster.png" />
+      <agent script="MonsterAI" />
+    </objet>
+    <objet id="2">
+      <artefact id="bullet" image="assets/bullet.png" />
+      <agent script="BulletAI" />
+    </objet>
+    <objet id="3">
+      <artefact id="rambo" image="assets/player.png" />
+      <agent script="PlayerAI" />
+    </objet>
+    <objet id="4">
+      <artefact id="explosion" image="assets/explode.png" />
+      <agent script="" />
+    </objet>
+  </mapping>
+  <missions />
+</jeu>

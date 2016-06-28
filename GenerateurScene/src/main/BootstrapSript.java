@@ -2,7 +2,8 @@ package main;
 
 import logic.GameDynamics;
 import scene.Scene1Builder;
-import scene.TitleSceneBuilder;
+import ai.Mission;
+import factory.MissionFactory;
 import fr.lirmm.game.Game;
 import fr.lirmm.game.action.scenes.SceneChangeAction;
 import fr.lirmm.game.agent.Agent;
@@ -11,6 +12,7 @@ import fr.lirmm.game.scene.Scene;
 import global.GameConstant;
 
 public class BootstrapSript extends Script {
+
 
 	
 	public void onUpdate(int delta) {
@@ -29,6 +31,7 @@ public class BootstrapSript extends Script {
 			System.out.println("Textures has been loaded !");
 			Game.actions.submit(new SceneChangeAction(GameConstant.SCENE_JEU));			
 			Game.agents.removeAgent(this.agent);
+			
 		}
 	}
 	@Override
@@ -46,6 +49,7 @@ public class BootstrapSript extends Script {
 		sceneDirector.addScript(new Scene1Builder());
 		sceneDirector.addScript(new GameDynamics());
 		scene.addAgent(sceneDirector);
+		MissionFactory.CreateMission();
 		Game.scenes.addScene(scene);		
 		
 	}

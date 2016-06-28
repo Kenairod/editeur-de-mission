@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeu>
+        <titre-du-jeu>Jeu</titre-du-jeu>
+       
+        <fenetre>
+                <useGL20>false</useGL20>
+                <largeur>13</largeur>
+                <hauteur>13</hauteur>
+                <redimensionnable>true</redimensionnable>
+        </fenetre>
+       
+        <scene>
+                <fond image="assets/bg.png"/>
+                <elements>
+                        <objet id="3" x="50" y ="50" />
+                        <objet id="2" x="0" y ="0" />
+                        <objet id="2" x="100" y ="100" />
+                        <objet id="2" x="200" y ="200" />
+                        <objet id="2" x="250" y ="450" />
+                </elements>
+        </scene>
+       
+        <artefacts>
+            <artefact id="LightForm" image="images/light.png"/>
+            <artefact id="DarkForm" image="images/dark.png"/>
+            <artefact id="Sol" image="images/herbe_seche.png"/>
+            <artefact id="Obstacle" image="images/roche.png"/>
+			<artefact id="Ombre" image="images/ombre.png"/>
+        	<artefact id="Projectile" image="images/projectile.png"/>
+        	<artefact id="Sword" image="images/sword.png"/>
+        </artefacts>
+       
+        <mapping>
+                <objet id="1">
+                        <artefact id="LightForm" image="images/light.png"/>
+                        <agent script="ControlerPerso"/>
+                </objet>
+                <objet id="2">
+                        <artefact id="DarkForm" image="images/dark.png"/>
+                        <agent script="ControlerPerso"/>
+                </objet>
+                <objet id="3">
+                        <artefact id="Sol" image="images/herbe_seche.png"/>
+                        <agent script=""/>
+                </objet>
+				<objet id="4">
+                        <artefact id="Projectile" image="images/projectile.png"/>
+                        <agent script="ControlerProjectile"/>
+                </objet>
+				<objet id="5">
+                        <artefact id="Obstacle" image="images/roche.png"/>
+                        <agent script=""/>
+                </objet>
+				<objet id="6">
+                        <artefact id="Ombre" image="images/ombre.png"/>
+                        <agent script=""/>
+                </objet>
+				<objet id="7">
+                        <artefact id="Sword" image="images/sword.png"/>
+                        <agent script="ControlerEpee"/>
+                </objet>
+        </mapping>
+		
+		<missions>
+        </missions>
+       
+        
+       
+</jeu>

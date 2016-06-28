@@ -1,5 +1,6 @@
 package model;
 
+import main.StartGame;
 import fr.lirmm.game.Game;
 import fr.lirmm.game.artefact.Artefact;
 import fr.lirmm.game.artefact.Attr;
@@ -20,9 +21,10 @@ public class Rambo extends GameActor
 
 
 	private static Artefact buildArtefact() {
+		
 		Artefact artefact = Game.artefacts.create("rambo", ContentType.SPRITE, GameConstant.TEXTURE_RAMBO);
-		artefact.setFloat(Attr.X, 0.f);
-		artefact.setFloat(Attr.Y, 0.f);
+		artefact.setFloat(Attr.X, StartGame.XML.getPlayerx());
+		artefact.setFloat(Attr.Y, StartGame.XML.getPlayery());
 		artefact.setFloat(Attr.WIDTH, (float)64);
 		artefact.setFloat(Attr.HEIGHT,(float)64);
 		return artefact;

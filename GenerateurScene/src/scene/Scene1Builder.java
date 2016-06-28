@@ -1,7 +1,6 @@
 package scene;
 
 import java.util.List;
-import java.util.Random;
 import java.util.StringTokenizer;
 
 import main.StartGame;
@@ -28,20 +27,9 @@ public class Scene1Builder extends Script{
 				Game.scenes.getCurrentScene().removeArtefact(artefact);
 			}
 		}
-		
-		Random random = new Random();
-		String toLoad = "";
-		int x = 0;
-		int y = 0;
-		getXML.GetXML XML = new getXML.GetXML(StartGame.MAINXML); // lis le fichier XML
-		int nbMonsters = XML.getNbMonsters(); // recupere repet de l'artefact monstre
-		for (int i = 0; i<nbMonsters ; i++){ // boucle pour generer le string de création
-			toLoad = toLoad + "monster ";
-			x = random.nextInt(400);
-			y = random.nextInt(300);
-			toLoad = toLoad + x + " " + y +" ;";
-		}
-		loaddLevel(toLoad); // charge le nombr de monstres demandés
+
+	
+		loaddLevel(StartGame.XML.gettoLoad("monster")); // charge le nombre de monstres demandés
 		GameController.getInstance().createRambo();
 	}
 

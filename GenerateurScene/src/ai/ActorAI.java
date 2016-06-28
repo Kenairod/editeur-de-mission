@@ -10,4 +10,8 @@ public class ActorAI<A> extends Agent {
 	{
 		this.actor = a;
 	}
+	
+	public void createAI(A a){
+		this.actor = a;
+	}
 }

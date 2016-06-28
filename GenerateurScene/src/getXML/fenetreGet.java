@@ -1,6 +1,7 @@
 package getXML;
 
-import javax.swing.*;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class fenetreGet {
 
@@ -8,21 +9,36 @@ public class fenetreGet {
 	
 	public fenetreGet(){
 		
-		// creation de la fenetre
-		JTextField xyzField = new JTextField();
-		String input =  JOptionPane.showInputDialog(xyzField ,"Enter here a correct XML file:");
-		int tailleInput = input.length(); // taille de string tapé
+		JFileChooser chooser = new JFileChooser(".");
 		
-		// verification de l'extension
-		if (input.charAt(tailleInput-4) == '.' && input.charAt(tailleInput-3) == 'x' && input.charAt(tailleInput-2) == 'm' && input.charAt(tailleInput-1) == 'l')
-			inXML = input;
-		else {
-			while (input.charAt(tailleInput-4) != '.' || input.charAt(tailleInput-3) != 'x' || input.charAt(tailleInput-2) != 'm' || input.charAt(tailleInput-1) != 'l') {
-				input =  JOptionPane.showInputDialog(xyzField ,"Wrong file extension. Enter here a correct XML file:"); 
-				tailleInput = input.length();
+		FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter("XML Files (*.xml)", "xml");
+		chooser.addChoosableFileFilter(xmlFilter);
+		chooser.setFileFilter(xmlFilter);
+		chooser.showOpenDialog(null);
+		chooser.getSelectedFile();
+		System.out.println(chooser.getSelectedFile().toString());
+		inXML = chooser.getSelectedFile().toString();
+		int i = inXML.length()-1 ;
+		String temp = "";
+		
+		if (System.getProperty("os.name").equals("Linux")){
+			while (inXML.charAt(i) != '/')
+				i--;
+			while (i != inXML.length()-1){
+				temp = temp + inXML.charAt(i+1);
+				i++;
 			}
-			inXML = input;
+		}
+		else{	
+			while (inXML.charAt(i) != '\\')
+				i--;
+			while (i != inXML.length()-1){
+				temp = temp + inXML.charAt(i+1);
+				i++;
 			}
+		}
+		System.out.println(temp);
+		inXML = temp;
 	}
 	
 	
