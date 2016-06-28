@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jeu>
+  <titre-du-jeu>ManVsWild</titre-du-jeu>
+  <fenetre>
+    <useGL20>true</useGL20>
+    <largeur>800</largeur>
+    <hauteur>600</hauteur>
+    <redimensionnable>false</redimensionnable>
+  </fenetre>
+  <scene>
+    <fond image="assets/bg1.png" />
+    <elements>
+      <objet id="4" x="204" y="174" />
+      <objet id="3" x="48" y="262" />
+      <objet id="3" x="320" y="39" />
+      <objet id="3" x="559" y="23" />
+      <objet id="3" x="411" y="439" />
+      <objet id="3" x="151" y="448" />
+      <objet id="3" x="469" y="200" />
+    </elements>
+  </scene>
+  <artefacts>
+    <artefact id="bullet" image="assets/bullet.png" />
+    <artefact id="explosion" image="assets/explode.png" />
+    <artefact id="monster" image="assets/monster1.png" />
+    <artefact id="rambo" image="assets/player1.png" />
+  </artefacts>
+  <mapping>
+    <objet id="1">
+      <artefact id="bullet" image="assets/bullet.png" />
+      <agent script="BulletAI" />
+    </objet>
+    <objet id="2">
+      <artefact id="explosion" image="assets/explode.png" />
+      <agent script="" />
+    </objet>
+    <objet id="3">
+      <artefact id="monster" image="assets/monster1.png" />
+      <agent script="MonsterAI" />
+    </objet>
+    <objet id="4">
+      <artefact id="rambo" image="assets/player1.png" />
+      <agent script="PlayerAI" />
+    </objet>
+  </mapping>
+  <missions>
+    <mission id="3" />
+    <mission id="4" />
+  </missions>
+</jeu>
